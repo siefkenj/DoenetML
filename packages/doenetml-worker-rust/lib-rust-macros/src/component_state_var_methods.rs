@@ -188,7 +188,7 @@ pub fn component_state_variables_derive(input: TokenStream) -> TokenStream {
                         get_state_variable_index_functions.push(quote! {
                             /// Get a state variable index
                             /// of the specified state variable
-                            fn #get_index_function_identity() -> StateVarIdx {
+                            pub fn #get_index_function_identity() -> StateVarIdx {
                                 #sv_idx
                             }
                         });
@@ -201,7 +201,7 @@ pub fn component_state_variables_derive(input: TokenStream) -> TokenStream {
                         get_value_dependency_instructions_functions.push(quote! {
                             /// Get a `DependencyInstruction` that requests the value
                             /// of the specified state variable
-                            fn #get_instruction_function_identity() -> DependencyInstruction {
+                            pub fn #get_instruction_function_identity() -> DependencyInstruction {
                                 DependencyInstruction::StateVar {
                                     component_idx: None,
                                     state_var_idx: #sv_idx,
