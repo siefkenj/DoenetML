@@ -14,6 +14,8 @@ use crate::{
     },
 };
 
+use super::TextInputAttributeDiscriminants;
+
 /// The state variables that underlie the `<textInput>` component.
 #[derive(Debug, ComponentState)]
 pub struct TextInputState {
@@ -84,10 +86,22 @@ impl TextInputState {
             value: ValueStateVarInterface::new().into(),
             immediate_value: ImmediateValueStateVarInterface::new().into(),
             sync_immediate_value: SyncImmediateValueStateVarInterface::new().into(),
-            bind_value_to: GeneralStringStateVarInterface::new_from_attribute("bindValueTo").into(),
-            prefill: GeneralStringStateVarInterface::new_from_attribute("prefill").into(),
-            hidden: GeneralBooleanStateVarInterface::new_from_attribute("hidden").into(),
-            disabled: GeneralBooleanStateVarInterface::new_from_attribute("disabled").into(),
+            bind_value_to: GeneralStringStateVarInterface::new_from_attribute(
+                TextInputAttributeDiscriminants::BindValueTo.into(),
+            )
+            .into(),
+            prefill: GeneralStringStateVarInterface::new_from_attribute(
+                TextInputAttributeDiscriminants::Prefill.into(),
+            )
+            .into(),
+            hidden: GeneralBooleanStateVarInterface::new_from_attribute(
+                TextInputAttributeDiscriminants::Hide.into(),
+            )
+            .into(),
+            disabled: GeneralBooleanStateVarInterface::new_from_attribute(
+                TextInputAttributeDiscriminants::Disabled.into(),
+            )
+            .into(),
         }
     }
 }

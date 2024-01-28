@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 use strum::VariantNames;
-use strum_macros::EnumVariantNames;
+use strum_macros::{EnumDiscriminants, EnumVariantNames, IntoStaticStr};
 
-use crate::components::prelude::*;
+use crate::{attribute::{attribute_type, AttributeValue}, components::prelude::*};
 
 use super::TextInputState;
 
@@ -24,6 +24,20 @@ pub enum TextInputAction {
     UpdateValue,
 }
 
+#[derive(Debug, Deserialize, EnumVariantNames, EnumDiscriminants)]
+#[serde(rename_all = "camelCase")]
+#[strum_discriminants(derive(Serialize, IntoStaticStr))]
+#[strum_discriminants(serde(rename_all = "camelCase"))]
+pub enum TextInputAttribute {
+    BindValueTo,
+    /// Whether the `<textInput>` should be hidden.
+    Hide(AttributeValue<attribute_type::Boolean>),
+    /// Whether the `<textInput>` should be editable.
+    Disabled(AttributeValue<attribute_type::Boolean>),
+    /// The content that should prefill the `<textInput>`, giving it a default value before a user has interacted with the input.
+    Prefill(AttributeValue<attribute_type::String>),
+}
+
 /// Definition of the `<textInput>` DoenetML component
 #[derive(Debug, Default, ComponentNode, ComponentState)]
 pub struct TextInput {
@@ -43,7 +57,7 @@ impl RenderedChildren for TextInput {
 
 impl ComponentAttributes for TextInput {
     fn get_attribute_names(&self) -> Vec<AttributeName> {
-        vec!["bindValueTo", "hide", "disabled", "prefill"]
+        TextInputAttribute::VARIANTS.into()
     }
 }
 

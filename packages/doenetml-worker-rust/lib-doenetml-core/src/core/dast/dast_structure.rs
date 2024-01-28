@@ -23,7 +23,7 @@ pub struct DastRoot {
 }
 
 /// Allowed children of an element node or the root node
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
 #[cfg_attr(feature = "web", derive(Tsify))]
 pub enum DastElementContent {
@@ -35,7 +35,7 @@ pub enum DastElementContent {
 }
 
 /// Allowed children of an attribute node
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
 #[cfg_attr(feature = "web", derive(Tsify))]
 pub enum DastTextMacroContent {
@@ -45,7 +45,7 @@ pub enum DastTextMacroContent {
 }
 
 /// An element node
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "element")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -65,7 +65,7 @@ pub struct DastElement {
 
 /// Additional data associated with an element. The majority of the data
 /// that DoenetMLCore produces will end up in `ElementData`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
 #[cfg_attr(feature = "web", derive(Tsify))]
 pub struct ElementData {
     pub id: usize,
@@ -81,7 +81,7 @@ pub struct ElementData {
 }
 
 /// A text node
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "text")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -95,14 +95,14 @@ pub struct DastText {
     pub position: Option<Position>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[cfg_attr(feature = "web", derive(Tsify))]
 pub struct TextData {}
 
 /// An attribute. Unlike in XML, attributes can have non-string children.
 /// It is up to the serializer to convert the non-string children into a
 /// correct attribute value.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "attribute")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -141,7 +141,7 @@ impl DastAttribute {
 }
 
 /// A macro (i.e., a macro that starts with `$`)
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "macro")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -154,7 +154,7 @@ pub struct DastMacro {
 }
 
 /// A function macro (i.e., a macro that starts with `$$`)
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "function")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -167,7 +167,7 @@ pub struct DastFunctionMacro {
 }
 
 /// A part of a macro path
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "pathPart")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -180,7 +180,7 @@ pub struct PathPart {
 }
 
 /// An index into a macro path
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "index")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -194,7 +194,7 @@ pub struct DastIndex {
 /// An error node that can be inserted into the Dast tree.
 /// Because `DastError`s can be inserted into the tree, they
 /// can appear close to whatever caused the error.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename = "error")]
 #[cfg_attr(feature = "web", derive(Tsify))]
@@ -206,7 +206,7 @@ pub struct DastError {
 }
 
 /// Range in a source string
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[cfg_attr(feature = "web", derive(Tsify))]
 pub struct Position {
     pub start: Point,
@@ -214,7 +214,7 @@ pub struct Position {
 }
 
 /// Location in a source string
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[cfg_attr(feature = "web", derive(Tsify))]
 pub struct Point {
     pub line: usize,

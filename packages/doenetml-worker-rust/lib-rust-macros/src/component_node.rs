@@ -211,7 +211,7 @@ pub fn rendered_state_derive(input: TokenStream) -> TokenStream {
                 /// A enum listing the renderer data for each component.
                 ///
                 /// Used for sending state to the renderer
-                #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+                #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, PartialEq)]
                 #[serde(untagged)]
                 pub enum RenderedState {
                     #(#rendered_state_arms)*

@@ -317,7 +317,7 @@ pub fn component_state_derive(input: TokenStream) -> TokenStream {
                         ///
                         /// Each field is an Option so that partial data can be sent
                         /// when the values of just some variables were updated.
-                        #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+                        #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default, PartialEq)]
                         #[serde(rename_all = "camelCase")]
                         pub struct #rendered_state_variables_identity {
                             #(#rendered_state_variables_struct_statements)*
