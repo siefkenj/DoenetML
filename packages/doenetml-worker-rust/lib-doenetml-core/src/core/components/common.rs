@@ -8,8 +8,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::dast::{DastAttribute, Position as DastPosition};
 use crate::state::{
-    ComponentStateVariables, StateVarIdx, StateVarReadOnlyView, StateVarReadOnlyViewEnum,
-    StateVarValueEnum,
+    ComponentState, StateVarIdx, StateVarReadOnlyView, StateVarReadOnlyViewEnum, StateVarValue,
 };
 use crate::{ComponentIdx, ComponentPointerTextOrMacro, ExtendSource};
 
@@ -17,6 +16,7 @@ use doenetml_derive::RenderedState;
 
 use super::_error::*;
 use super::_external::*;
+use super::actions::UpdateFromAction;
 use super::doenet::boolean::*;
 use super::doenet::document::*;
 use super::doenet::p::*;
@@ -31,7 +31,13 @@ use super::doenet::text_input::*;
 ///
 /// Each component type added to `ComponentEnum` must implement that component node traits.
 #[derive(Debug, EnumString, RenderedState)]
-#[enum_dispatch(ComponentNode, ComponentStateVariables, RenderedComponentNode)]
+#[enum_dispatch(
+    ComponentNode,
+    ComponentState,
+    RenderedChildren,
+    ComponentAttributes,
+    ComponentActions
+)]
 #[strum(ascii_case_insensitive)]
 pub enum ComponentEnum {
     Text(Text),
@@ -105,10 +111,10 @@ pub struct ComponentCommonData {
 }
 
 /// The Component trait specifies methods that will, in general, be implemented by deriving them.
-/// It depends on the ComponentStateVariables trait, which will be derived
+/// It depends on the ComponentState trait, which will be derived
 /// for each component type based on its state variable structure.
 #[enum_dispatch]
-pub trait ComponentNode: ComponentStateVariables {
+pub trait ComponentNode: ComponentState {
     /// Get the index of the component, which is its index in the `components` vector of `DoenetMLCore`.
     fn get_idx(&self) -> ComponentIdx;
     /// Get the index of the parent node
@@ -194,23 +200,36 @@ pub trait ComponentNode: ComponentStateVariables {
     fn set_is_in_render_tree(&mut self, is_in_render_tree: bool);
 }
 
-/// The RenderedComponentNode trait can be derived for a component, giving it the default implementations.
-/// To add actions or what information is sent when rendering, a component type can implement
+/// The RenderedChildren trait can be derived for a component, giving it the default implementation
+/// of the rendered children being the same as the children.
+/// To specify other rendered children, a component type can implement
 /// the trait to override the defaults.
 #[enum_dispatch]
-pub trait RenderedComponentNode: ComponentNode {
+pub trait RenderedChildren: ComponentNode {
     /// Return the children that will be used in the flat dast sent to the renderer.
     fn get_rendered_children(&self) -> &Vec<ComponentPointerTextOrMacro> {
         self.get_children()
     }
+}
 
+/// The ComponentAttributes trait can be derived for a component,
+/// giving it the default implementation of no attributes.
+/// To add attributes, a component type can implement the trait to override the defaults.
+#[enum_dispatch]
+pub trait ComponentAttributes: ComponentNode {
     /// Return a list of the attribute names that the component will accept
     fn get_attribute_names(&self) -> Vec<AttributeName> {
         // TODO: add default attribute names, like hide and disabled?
         // If so, should provide a mechanism for including default state variables depending on them.
         vec![]
     }
+}
 
+/// The ComponentActions trait can be derived for a component,
+/// giving it the default implementation of no actions.
+/// To add actions, a component type can implement the trait to override the defaults.
+#[enum_dispatch]
+pub trait ComponentActions: ComponentNode {
     /// Return a list of the action names that the renderer can call on this component.
     /// The list much match
     fn get_action_names(&self) -> Vec<String> {
@@ -227,8 +246,8 @@ pub trait RenderedComponentNode: ComponentNode {
     fn on_action(
         &self,
         action: ActionsEnum,
-        resolve_and_retrieve_state_var: &mut dyn FnMut(StateVarIdx) -> StateVarValueEnum,
-    ) -> Result<Vec<(StateVarIdx, StateVarValueEnum)>, String> {
+        resolve_and_retrieve_state_var: &mut dyn FnMut(StateVarIdx) -> StateVarValue,
+    ) -> Result<Vec<UpdateFromAction>, String> {
         Err(format!(
             "Unknown action '{:?}' called on {}",
             action,

@@ -4,21 +4,8 @@ use proc_macro2::{Ident, Span};
 use quote::quote;
 use syn::{self, FieldsNamed};
 
-/// Implement the ComponentNode trait for enums and structs
-/// assuming they have the correct format.
-///
-/// For structs, assume these fields:
-/// - pub idx: ComponentIdx,
-/// - pub parent: Option<ComponentIdx>,
-/// - pub children: Vec<ComponentPointerTextOrMacro>,
-/// - pub extending: Option<ExtendSource>,
-/// - pub descendant_names: HashMap<String, Vec<ComponentIdx>>,
-/// - pub position: Option<DastPosition>,
-/// - pub component_profile_state_variables: Vec<ComponentProfileStateVariable>,
-/// - pub state_variables: (TODO: in the process of determining)
-///
-/// For enums, assume each variant implements ComponentNode.
-/// Implement ComponentNode methods by calling the corresponding method on the matched variant.
+/// Implement the ComponentNode trait structs
+/// assuming they have have a common field that is `ComponentCommonData`
 pub fn component_node_derive(input: TokenStream) -> TokenStream {
     let ast: syn::DeriveInput = syn::parse(input).unwrap();
     let name = &ast.ident;
@@ -134,7 +121,7 @@ pub fn component_node_derive(input: TokenStream) -> TokenStream {
     output.into()
 }
 
-pub fn rendered_component_node_derive(input: TokenStream) -> TokenStream {
+pub fn rendered_children_derive(input: TokenStream) -> TokenStream {
     let ast: syn::DeriveInput = syn::parse(input).unwrap();
     let name = &ast.ident;
     let data = &ast.data;
@@ -143,7 +130,49 @@ pub fn rendered_component_node_derive(input: TokenStream) -> TokenStream {
         syn::Data::Struct(s) => match &s.fields {
             syn::Fields::Named(FieldsNamed { .. }) => {
                 quote! {
-                    impl RenderedComponentNode for #name {
+                    impl RenderedChildren for #name {
+                        // using default implementations for all traits so no code necessary here
+                    }
+                }
+            }
+            _ => panic!("only named fields supported"),
+        },
+        _ => panic!("only structs supported"),
+    };
+    output.into()
+}
+
+pub fn component_attributes_derive(input: TokenStream) -> TokenStream {
+    let ast: syn::DeriveInput = syn::parse(input).unwrap();
+    let name = &ast.ident;
+    let data = &ast.data;
+
+    let output = match data {
+        syn::Data::Struct(s) => match &s.fields {
+            syn::Fields::Named(FieldsNamed { .. }) => {
+                quote! {
+                    impl ComponentAttributes for #name {
+                        // using default implementations for all traits so no code necessary here
+                    }
+                }
+            }
+            _ => panic!("only named fields supported"),
+        },
+        _ => panic!("only structs supported"),
+    };
+    output.into()
+}
+
+pub fn component_actions_derive(input: TokenStream) -> TokenStream {
+    let ast: syn::DeriveInput = syn::parse(input).unwrap();
+    let name = &ast.ident;
+    let data = &ast.data;
+
+    let output = match data {
+        syn::Data::Struct(s) => match &s.fields {
+            syn::Fields::Named(FieldsNamed { .. }) => {
+                quote! {
+                    impl ComponentActions for #name {
                         // using default implementations for all traits so no code necessary here
                     }
                 }
@@ -167,7 +196,7 @@ pub fn rendered_state_derive(input: TokenStream) -> TokenStream {
 
             for variant in variants {
                 let variant_ident = &variant.ident;
-                let state_variables_name = format!("{}StateVariables", variant_ident);
+                let state_variables_name = format!("{}State", variant_ident);
                 let rendered_state_variables_name = format!("Rendered{}", state_variables_name);
                 let state_variables_identity = Ident::new(&state_variables_name, Span::call_site());
                 let rendered_state_variables_identity =

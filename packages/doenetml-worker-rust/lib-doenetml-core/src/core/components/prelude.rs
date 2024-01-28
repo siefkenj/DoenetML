@@ -3,32 +3,34 @@
 
 // These imports are required for the derive macros to work correctly
 pub use doenetml_derive::{
-    ComponentNode, ComponentStateVariables, RenderedComponentNode, StateVariableDependencies,
-    StateVariableDependencyInstructions,
+    add_dependency_data, ComponentActions, ComponentAttributes, ComponentNode, ComponentState,
+    RenderedChildren, StateVariableDependencies, StateVariableDependencyInstructions,
 };
 pub use std::collections::HashMap;
 
 pub use crate::dast::Position as DastPosition;
 pub use crate::dependency::{DependenciesCreatedForInstruction, TryIntoStateVar};
-pub use crate::state::{ComponentStateVariables, QueryUpdateRequests};
+pub use crate::state::{ComponentState, QueryUpdateRequests};
 
 pub use crate::utils::KeyValueIgnoreCase;
 pub use crate::{ComponentIdx, ComponentPointerTextOrMacro, ExtendSource};
 
 pub use crate::components::{
-    ComponentCommonData, ComponentNode, ComponentProfileStateVariable, RenderedComponentNode,
+    ComponentActions, ComponentAttributes, ComponentCommonData, ComponentNode,
+    ComponentProfileStateVariable, RenderedChildren,
 };
 
 // These imports are commonly used in components
 
 pub use crate::attribute::AttributeName;
-pub use crate::components::{ComponentEnum, ComponentProfile, RenderedState};
+pub use crate::components::actions::{Action, ActionBody, UpdateFromAction};
+pub use crate::components::{ActionsEnum, ComponentEnum, ComponentProfile, RenderedState};
 pub use crate::dast::{
     DastAttribute, ElementData, FlatDastElement, FlatDastElementContent, FlatDastElementUpdate,
 };
 pub use crate::dependency::{Dependency, DependencyInstruction, DependencyValueUpdateRequest};
 pub use crate::state::{
-    RequestDependencyUpdateError, StateVar, StateVarEnumRef, StateVarEnumRefMut, StateVarIdx,
-    StateVarInterface, StateVarMutableView, StateVarReadOnlyView, StateVarReadOnlyViewEnum,
-    StateVarValueEnum,
+    RequestDependencyUpdateError, StateVar, StateVarCalcResult, StateVarEnumRef,
+    StateVarEnumRefMut, StateVarIdx, StateVarInterface, StateVarMutableView, StateVarReadOnlyView,
+    StateVarReadOnlyViewEnum, StateVarValue,
 };
