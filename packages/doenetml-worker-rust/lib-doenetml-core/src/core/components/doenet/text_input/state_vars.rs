@@ -9,8 +9,7 @@ pub use value::*;
 use crate::{
     components::prelude::*,
     state_var_interfaces::{
-        boolean_state_var_interfaces::BooleanStateVarInterface,
-        text_state_var_interfaces::GeneralStringStateVarInterface,
+        boolean_state_var_interfaces::BooleanStateVar, text_state_var_interfaces::StringStateVar,
     },
 };
 
@@ -81,13 +80,13 @@ pub struct TextInputState {
 impl TextInputState {
     fn new() -> Self {
         TextInputState {
-            value: ValueStateVarInterface::new().into(),
-            immediate_value: ImmediateValueStateVarInterface::new().into(),
-            sync_immediate_value: SyncImmediateValueStateVarInterface::new().into(),
-            bind_value_to: GeneralStringStateVarInterface::new_from_attribute("bindValueTo").into(),
-            prefill: GeneralStringStateVarInterface::new_from_attribute("prefill").into(),
-            hidden: BooleanStateVarInterface::new_from_attribute("hidden").into(),
-            disabled: BooleanStateVarInterface::new_from_attribute("disabled").into(),
+            value: ValueStateVar::new().into(),
+            immediate_value: ImmediateValueStateVar::new().into(),
+            sync_immediate_value: SyncImmediateValueStateVar::new().into(),
+            bind_value_to: StringStateVar::new_from_attribute("bindValueTo").into(),
+            prefill: StringStateVar::new_from_attribute("prefill").into(),
+            hidden: BooleanStateVar::new_from_attribute("hidden").into(),
+            disabled: BooleanStateVar::new_from_attribute("disabled").into(),
         }
     }
 }

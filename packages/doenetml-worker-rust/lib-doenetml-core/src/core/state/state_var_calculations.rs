@@ -3,8 +3,7 @@ use std::{cell::RefCell, collections::HashMap, rc::Rc};
 use crate::{
     components::{ComponentEnum, ComponentNode, RenderedChildren},
     dependency::{
-        create_dependencies_from_instruction_initialize_essential, GraphQuery,
-        DependencySource,
+        create_dependencies_from_instruction_initialize_essential, DependencySource, GraphQuery,
     },
     state::essential_state::{EssentialDataOrigin, EssentialStateDescription, EssentialStateVar},
     state::{Freshness, StateVarValue},
@@ -308,8 +307,7 @@ pub fn resolve_state_var(
                 continue;
             }
 
-            graph_queries =
-                state_var.return_graph_queries(extending, state_var_idx);
+            graph_queries = state_var.return_graph_queries(extending, state_var_idx);
         }
 
         let mut dependencies_for_state_var = Vec::with_capacity(graph_queries.len());

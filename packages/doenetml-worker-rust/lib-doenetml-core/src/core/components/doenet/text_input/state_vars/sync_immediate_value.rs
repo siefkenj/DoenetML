@@ -9,7 +9,7 @@ struct RequiredData {
 
 /// The interface for the sync_immediate_value state variable of a text input
 #[derive(Debug, Default)]
-pub struct SyncImmediateValueStateVarInterface {
+pub struct SyncImmediateValueStateVar {
     /// The graph queries that indicate how the dependencies of this state variable will be created.
     graph_queries: RequiredDataGraphQueries,
 
@@ -17,21 +17,21 @@ pub struct SyncImmediateValueStateVarInterface {
     query_results: RequiredData,
 }
 
-impl SyncImmediateValueStateVarInterface {
+impl SyncImmediateValueStateVar {
     pub fn new() -> Self {
-        SyncImmediateValueStateVarInterface {
+        SyncImmediateValueStateVar {
             ..Default::default()
         }
     }
 }
 
-impl From<SyncImmediateValueStateVarInterface> for StateVar<bool> {
-    fn from(interface: SyncImmediateValueStateVarInterface) -> Self {
+impl From<SyncImmediateValueStateVar> for StateVar<bool> {
+    fn from(interface: SyncImmediateValueStateVar) -> Self {
         StateVar::new(Box::new(interface), true)
     }
 }
 
-impl StateVarInterface<bool> for SyncImmediateValueStateVarInterface {
+impl StateVarUpdaters<bool> for SyncImmediateValueStateVar {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
@@ -59,9 +59,7 @@ impl StateVarInterface<bool> for SyncImmediateValueStateVarInterface {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        self.query_results
-            .essential
-            .queue_update(*requested_value);
+        self.query_results.essential.queue_update(*requested_value);
 
         Ok(self.query_results.return_queued_updates())
     }
