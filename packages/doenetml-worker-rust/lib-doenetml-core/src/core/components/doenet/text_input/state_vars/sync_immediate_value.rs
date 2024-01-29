@@ -31,7 +31,7 @@ impl From<SyncImmediateValueStateVar> for StateVar<bool> {
     }
 }
 
-impl StateVarInterface<bool> for SyncImmediateValueStateVar {
+impl StateVarUpdaters<bool> for SyncImmediateValueStateVar {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,

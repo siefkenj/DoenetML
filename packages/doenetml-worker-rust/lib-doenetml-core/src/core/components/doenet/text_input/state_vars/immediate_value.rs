@@ -36,7 +36,7 @@ impl From<ImmediateValueStateVar> for StateVar<String> {
     }
 }
 
-impl StateVarInterface<String> for ImmediateValueStateVar {
+impl StateVarUpdaters<String> for ImmediateValueStateVar {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,

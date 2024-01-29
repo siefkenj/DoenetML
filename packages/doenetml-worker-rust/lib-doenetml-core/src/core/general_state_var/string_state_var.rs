@@ -89,7 +89,7 @@ impl From<StringStateVar> for StateVar<String> {
     }
 }
 
-impl StateVarInterface<String> for StringStateVar {
+impl StateVarUpdaters<String> for StringStateVar {
     fn return_graph_queries(
         &mut self,
         extending: Option<ExtendSource>,
