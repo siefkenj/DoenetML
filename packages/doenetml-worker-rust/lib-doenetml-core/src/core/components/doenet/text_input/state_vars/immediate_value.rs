@@ -14,7 +14,7 @@ struct RequiredData {
 
 /// The interface for the immediate_value state variable of a text input
 #[derive(Debug, Default)]
-pub struct ImmediateValueStateVar {
+pub struct ImmediateValueStateVarInterface {
     /// The graph queries that indicate how the dependencies of this state variable will be created.
     graph_queries: RequiredDataGraphQueries,
 
@@ -22,21 +22,21 @@ pub struct ImmediateValueStateVar {
     query_results: RequiredData,
 }
 
-impl ImmediateValueStateVar {
+impl ImmediateValueStateVarInterface {
     pub fn new() -> Self {
-        ImmediateValueStateVar {
+        ImmediateValueStateVarInterface {
             ..Default::default()
         }
     }
 }
 
-impl From<ImmediateValueStateVar> for StateVar<String> {
-    fn from(interface: ImmediateValueStateVar) -> Self {
+impl From<ImmediateValueStateVarInterface> for StateVar<String> {
+    fn from(interface: ImmediateValueStateVarInterface) -> Self {
         StateVar::new(Box::new(interface), Default::default())
     }
 }
 
-impl StateVarUpdaters<String> for ImmediateValueStateVar {
+impl StateVarInterface<String> for ImmediateValueStateVarInterface {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
@@ -44,7 +44,9 @@ impl StateVarUpdaters<String> for ImmediateValueStateVar {
     ) -> Vec<GraphQuery> {
         self.graph_queries = RequiredDataGraphQueries {
             essential: Some(GraphQuery::Essential),
-            sync_immediate_value: Some(TextInputState::get_sync_immediate_value_graph_queries()),
+            sync_immediate_value: Some(
+                TextInputState::get_sync_immediate_value_graph_queries(),
+            ),
             bind_value_to: Some(TextInputState::get_bind_value_to_graph_queries()),
             prefill: Some(TextInputState::get_prefill_graph_queries()),
         };
@@ -76,7 +78,8 @@ impl StateVarUpdaters<String> for ImmediateValueStateVar {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        let bind_value_to_came_from_default = self.query_results.bind_value_to.came_from_default();
+        let bind_value_to_came_from_default =
+            self.query_results.bind_value_to.came_from_default();
 
         self.query_results
             .essential

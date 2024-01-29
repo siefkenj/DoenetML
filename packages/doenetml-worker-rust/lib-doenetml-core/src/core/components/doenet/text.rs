@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::components::prelude::*;
-use crate::state_var_interfaces::text_state_var_interfaces::StringStateVar;
+use crate::state_var_interfaces::text_state_var_interfaces::GeneralStringStateVarInterface;
 
 /// Definition of the `<text>` DoenetML component
 #[derive(Debug, Default, ComponentNode, ComponentState, ComponentActions, ComponentAttributes)]
@@ -52,8 +52,8 @@ pub struct TextState {
 impl TextState {
     fn new() -> Self {
         TextState {
-            value: StringStateVar::new_from_children().into(),
-            text: StringStateVar::new(TextState::get_value_graph_queries()).into(),
+            value: GeneralStringStateVarInterface::new_from_children().into(),
+            text: GeneralStringStateVarInterface::new(TextState::get_value_graph_queries()).into(),
         }
     }
 }

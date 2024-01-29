@@ -70,7 +70,7 @@ pub struct StateVar<T: Default + Clone> {
     /// Trait object that exposes the interface to used to specify
     /// how the state variable is calculated from its dependencies
     /// or how to modify its dependencies to give it a new requested value
-    interface: Box<dyn StateVarUpdaters<T>>,
+    interface: Box<dyn StateVarInterface<T>>,
 
     /// Value if don't have dependencies that determine the value
     default_value: T,
@@ -92,9 +92,9 @@ pub enum RequestDependencyUpdateError {
     CouldNotUpdate,
 }
 
-/// Methods used when updating a state variable's dependencies, including querying for its
-/// dependencies and calculating the value from its dependencies.
-pub trait StateVarUpdaters<T: Default + Clone>: std::fmt::Debug {
+/// StateVarInterface defines the relationship between the state variable
+/// and its dependencies
+pub trait StateVarInterface<T: Default + Clone>: std::fmt::Debug {
     /// Return the instructions that can be used to calculate the dependencies
     /// for this state variable based on the structure of the document,
     /// e.g., the children, attributes, or other state variables
@@ -629,7 +629,7 @@ impl<T: Default + Clone> Clone for StateVarReadOnlyView<T> {
 
 impl<T: Default + Clone> StateVar<T> {
     /// Create a new state variable with the supplied interface
-    pub fn new(interface: Box<dyn StateVarUpdaters<T>>, default_value: T) -> Self {
+    pub fn new(interface: Box<dyn StateVarInterface<T>>, default_value: T) -> Self {
         let value = StateVarMutableView::new();
         StateVar {
             immutable_view_of_value: value.create_new_read_only_view(),

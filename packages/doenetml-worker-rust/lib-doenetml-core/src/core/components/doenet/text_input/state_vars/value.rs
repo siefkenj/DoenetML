@@ -15,7 +15,7 @@ struct RequiredData {
 
 /// The interface for the value state variable of a text input
 #[derive(Debug, Default)]
-pub struct ValueStateVar {
+pub struct ValueStateVarInterface {
     /// The graph queries that indicate how the dependencies of this state variable will be created.
     graph_queries: RequiredDataGraphQueries,
 
@@ -23,21 +23,21 @@ pub struct ValueStateVar {
     query_results: RequiredData,
 }
 
-impl ValueStateVar {
+impl ValueStateVarInterface {
     pub fn new() -> Self {
-        ValueStateVar {
+        ValueStateVarInterface {
             ..Default::default()
         }
     }
 }
 
-impl From<ValueStateVar> for StateVar<String> {
-    fn from(interface: ValueStateVar) -> Self {
+impl From<ValueStateVarInterface> for StateVar<String> {
+    fn from(interface: ValueStateVarInterface) -> Self {
         StateVar::new(Box::new(interface), Default::default())
     }
 }
 
-impl StateVarUpdaters<String> for ValueStateVar {
+impl StateVarInterface<String> for ValueStateVarInterface {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
@@ -46,7 +46,9 @@ impl StateVarUpdaters<String> for ValueStateVar {
         self.graph_queries = RequiredDataGraphQueries {
             essential: Some(GraphQuery::Essential),
             immediate_value: Some(TextInputState::get_immediate_value_graph_queries()),
-            sync_immediate_value: Some(TextInputState::get_sync_immediate_value_graph_queries()),
+            sync_immediate_value: Some(
+                TextInputState::get_sync_immediate_value_graph_queries(),
+            ),
             bind_value_to: Some(TextInputState::get_bind_value_to_graph_queries()),
             prefill: Some(TextInputState::get_prefill_graph_queries()),
         };
