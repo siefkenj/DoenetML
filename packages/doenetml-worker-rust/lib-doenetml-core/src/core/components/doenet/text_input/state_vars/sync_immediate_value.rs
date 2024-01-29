@@ -14,7 +14,7 @@ pub struct SyncImmediateValueStateVarInterface {
     graph_queries: RequiredDataGraphQueries,
 
     /// The values of the dependencies created from the graph queries
-    dependency_values: RequiredData,
+    query_results: RequiredData,
 }
 
 impl SyncImmediateValueStateVarInterface {
@@ -45,11 +45,11 @@ impl StateVarInterface<bool> for SyncImmediateValueStateVarInterface {
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
-        self.dependency_values = dependencies.try_into().unwrap();
+        self.query_results = dependencies.try_into().unwrap();
     }
 
     fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<bool> {
-        StateVarCalcResult::Calculated(*self.dependency_values.essential.get())
+        StateVarCalcResult::Calculated(*self.query_results.essential.get())
     }
 
     fn request_dependency_updates(
@@ -59,10 +59,10 @@ impl StateVarInterface<bool> for SyncImmediateValueStateVarInterface {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        self.dependency_values
+        self.query_results
             .essential
             .queue_update(*requested_value);
 
-        Ok(self.dependency_values.return_queued_updates())
+        Ok(self.query_results.return_queued_updates())
     }
 }

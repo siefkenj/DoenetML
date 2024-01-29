@@ -21,9 +21,7 @@ use doenetml_derive::{
 
 use crate::{
     components::doenet::{boolean::Boolean, text::Text},
-    dependency::{
-        DependenciesCreatedForInstruction, GraphQuery, DependencyValueUpdateRequest,
-    },
+    dependency::{DependenciesCreatedForInstruction, DependencyValueUpdateRequest, GraphQuery},
     ExtendSource,
 };
 
@@ -83,7 +81,7 @@ pub struct StateVar<T: Default + Clone> {
     /// It isn't actually used to calculate the state variable value,
     /// because, for efficiency, we will store values for calculations
     /// in a typed form (without enums) directly on the state variable structure.
-    all_dependency_values: Vec<StateVarReadOnlyViewEnum>,
+    all_query_results: Vec<StateVarReadOnlyViewEnum>,
 }
 
 #[derive(Debug, Error)]
@@ -541,7 +539,7 @@ impl<T: Default + Clone> StateVarReadOnlyView<T> {
     /// attempt to set its value to the `requested_value` argument.
     ///
     /// To send all queued updates to core, call `return_queued_updates()`
-    /// on the `dependency_values` structure that contains this state variable
+    /// on the `query_results` structure that contains this state variable
     /// and pass the result as the return of the `request_dependency_updates()` function.
     ///
     /// A call to `queue_update` will never fail. However, the queued update may
@@ -638,7 +636,7 @@ impl<T: Default + Clone> StateVar<T> {
             value,
             interface,
             default_value,
-            all_dependency_values: vec![],
+            all_query_results: vec![],
         }
     }
 
@@ -739,10 +737,10 @@ impl<T: Default + Clone> StateVar<T> {
     }
 
     /// Call `save_dependencies` on interface
-    /// and save dependencies to `all_dependency_values` field
+    /// and save dependencies to `all_query_results` field
     pub fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
         self.interface.save_dependencies(dependencies);
-        self.all_dependency_values = dependencies
+        self.all_query_results = dependencies
             .iter()
             .flat_map(|vec| vec.iter().map(|elt| elt.value.create_new_read_only_view()))
             .collect();
@@ -776,23 +774,23 @@ impl<T: Default + Clone> StateVar<T> {
         self.default_value.clone()
     }
 
-    /// Record that the fact each of the dependencies in `all_dependency_values` were viewed.
+    /// Record that the fact each of the dependencies in `all_query_results` were viewed.
     /// Used to determine if any dependency changed since it was last viewed.
     pub fn record_all_dependencies_viewed(&mut self) {
-        self.all_dependency_values
+        self.all_query_results
             .iter_mut()
             .for_each(|state_var| state_var.record_viewed())
     }
 
     /// Check if a dependency has changed since we last called `record_all_dependencies_viewed`.
     pub fn check_if_any_dependency_changed_since_last_viewed(&self) -> bool {
-        if self.all_dependency_values.is_empty() {
+        if self.all_query_results.is_empty() {
             // if there are no dependencies, then report true if state variable is Unresolved or Resolved,
             // as in that case, we still need to calculate the state variable
             let this_freshness = self.get_freshness();
             this_freshness == Freshness::Resolved || this_freshness == Freshness::Unresolved
         } else {
-            self.all_dependency_values
+            self.all_query_results
                 .iter()
                 .any(|state_var| state_var.check_if_changed_since_last_viewed())
         }

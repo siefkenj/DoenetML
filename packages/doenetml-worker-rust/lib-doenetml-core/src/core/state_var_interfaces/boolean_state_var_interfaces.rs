@@ -16,16 +16,16 @@ use super::util::{create_graph_query_if_match_extend_source, string_to_boolean};
 /// If the state variable has a single boolean dependency that is an essential state variable,
 /// then propagate the `came_from_default` attribute of the essential state variable.
 #[derive(Debug, Default)]
-pub struct GeneralBooleanStateVarInterface {
+pub struct BooleanStateVarInterface {
     /// The base graph query that indicates how the dependencies of this state variable will be created.
     base_graph_query: GraphQuery,
 
     /// The base graph query, potentially augmented by a graph query
     /// for shadowing another variable
-    graph_queries: GeneralBooleanStateVarGraphQueries,
+    graph_queries: BooleanStateVarGraphQueries,
 
     /// The values of the dependencies created from the graph queries
-    dependency_values: GeneralBooleanStateVarDependencies,
+    query_results: RequiredData,
 
     /// If true, there is just a single dependency that is an essential state variable.
     /// In this case, we'll propagate the `came_from_default` attribute of the essential state variable.
@@ -40,7 +40,7 @@ pub struct GeneralBooleanStateVarInterface {
 /// The values of the dependencies created from the graph queries
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies)]
-struct GeneralBooleanStateVarDependencies {
+struct RequiredData {
     /// A vector of the boolean or string values of the dependencies
     #[consume_remaining_instructions]
     booleans_or_strings: Vec<BooleanOrString>,
@@ -50,7 +50,7 @@ struct GeneralBooleanStateVarDependencies {
 /// They consist of the base graph query specified, potentially augmented by a graph query
 /// for shadowing another variable
 #[derive(Debug, Default, StateVariableGraphQueries)]
-struct GeneralBooleanStateVarGraphQueries {
+struct BooleanStateVarGraphQueries {
     /// If present, `extending` contains an instruction requesting the value of another boolean variable.
     /// It was created from the extend source for this component.
     extending: Option<GraphQuery>,
@@ -91,10 +91,10 @@ impl TryFrom<&StateVarReadOnlyViewEnum> for BooleanOrString {
     }
 }
 
-impl GeneralBooleanStateVarInterface {
+impl BooleanStateVarInterface {
     /// Creates a state var that queries its value from the given graph query.
     pub fn new(base_graph_query: GraphQuery) -> Self {
-        GeneralBooleanStateVarInterface {
+        BooleanStateVarInterface {
             base_graph_query,
             ..Default::default()
         }
@@ -102,7 +102,7 @@ impl GeneralBooleanStateVarInterface {
 
     /// Creates a state var that queries its value from children matching the `Text` or `Boolean` profile.
     pub fn new_from_children() -> Self {
-        GeneralBooleanStateVarInterface {
+        BooleanStateVarInterface {
             base_graph_query: GraphQuery::Child {
                 match_profiles: vec![ComponentProfile::Text, ComponentProfile::Boolean],
                 exclude_if_prefer_profiles: vec![],
@@ -113,7 +113,7 @@ impl GeneralBooleanStateVarInterface {
 
     /// Creates a state var that queries its value from attributes matching the `Text` or `Boolean` profile.
     pub fn new_from_attribute(attr_name: AttributeName) -> Self {
-        GeneralBooleanStateVarInterface {
+        BooleanStateVarInterface {
             base_graph_query: GraphQuery::AttributeChild {
                 attribute_name: attr_name,
                 match_profiles: vec![ComponentProfile::Text, ComponentProfile::Boolean],
@@ -123,19 +123,19 @@ impl GeneralBooleanStateVarInterface {
     }
 }
 
-impl From<GeneralBooleanStateVarInterface> for StateVar<bool> {
-    fn from(interface: GeneralBooleanStateVarInterface) -> Self {
+impl From<BooleanStateVarInterface> for StateVar<bool> {
+    fn from(interface: BooleanStateVarInterface) -> Self {
         StateVar::new(Box::new(interface), Default::default())
     }
 }
 
-impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
+impl StateVarInterface<bool> for BooleanStateVarInterface {
     fn return_graph_queries(
         &mut self,
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
     ) -> Vec<GraphQuery> {
-        self.graph_queries = GeneralBooleanStateVarGraphQueries {
+        self.graph_queries = BooleanStateVarGraphQueries {
             extending: create_graph_query_if_match_extend_source(extending, state_var_idx),
             base: Some(self.base_graph_query.clone()),
         };
@@ -144,9 +144,9 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
-        self.dependency_values = dependencies.try_into().unwrap();
+        self.query_results = dependencies.try_into().unwrap();
 
-        if self.dependency_values.booleans_or_strings.len() == 1 {
+        if self.query_results.booleans_or_strings.len() == 1 {
             match dependencies[0][0].source {
                 DependencySource::Essential { .. } => {
                     self.from_single_essential = true;
@@ -154,7 +154,7 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
                 _ => {}
             }
         } else if self
-            .dependency_values
+            .query_results
             .booleans_or_strings
             .iter()
             .any(|dep_value| matches!(dep_value, BooleanOrString::Boolean(_)))
@@ -167,8 +167,8 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
     fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<bool> {
         if self.have_invalid_combination {
             StateVarCalcResult::Calculated(false)
-        } else if self.dependency_values.booleans_or_strings.len() == 1 {
-            match &self.dependency_values.booleans_or_strings[0] {
+        } else if self.query_results.booleans_or_strings.len() == 1 {
+            match &self.query_results.booleans_or_strings[0] {
                 BooleanOrString::Boolean(boolean_value) => {
                     if self.from_single_essential {
                         if boolean_value.came_from_default() {
@@ -190,7 +190,7 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
             // concatenate the string values into a single string
             // TODO: can we do this without cloning?
             let value: String = self
-                .dependency_values
+                .query_results
                 .booleans_or_strings
                 .iter()
                 .map(|v| match v {
@@ -207,8 +207,8 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
         state_var: &StateVarReadOnlyView<bool>,
         _is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
-        if self.dependency_values.booleans_or_strings.len() == 1 {
-            match &mut self.dependency_values.booleans_or_strings[0] {
+        if self.query_results.booleans_or_strings.len() == 1 {
+            match &mut self.query_results.booleans_or_strings[0] {
                 BooleanOrString::Boolean(boolean_value) => {
                     boolean_value.queue_update(*state_var.get_requested_value());
                 }
@@ -218,7 +218,7 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
                     string_value.queue_update(requested_value.to_string());
                 }
             }
-            Ok(self.dependency_values.return_queued_updates())
+            Ok(self.query_results.return_queued_updates())
         } else {
             Err(RequestDependencyUpdateError::CouldNotUpdate)
         }

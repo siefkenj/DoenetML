@@ -9,7 +9,7 @@ pub use value::*;
 use crate::{
     components::prelude::*,
     state_var_interfaces::{
-        boolean_state_var_interfaces::GeneralBooleanStateVarInterface,
+        boolean_state_var_interfaces::BooleanStateVarInterface,
         text_state_var_interfaces::GeneralStringStateVarInterface,
     },
 };
@@ -86,8 +86,8 @@ impl TextInputState {
             sync_immediate_value: SyncImmediateValueStateVarInterface::new().into(),
             bind_value_to: GeneralStringStateVarInterface::new_from_attribute("bindValueTo").into(),
             prefill: GeneralStringStateVarInterface::new_from_attribute("prefill").into(),
-            hidden: GeneralBooleanStateVarInterface::new_from_attribute("hidden").into(),
-            disabled: GeneralBooleanStateVarInterface::new_from_attribute("disabled").into(),
+            hidden: BooleanStateVarInterface::new_from_attribute("hidden").into(),
+            disabled: BooleanStateVarInterface::new_from_attribute("disabled").into(),
         }
     }
 }

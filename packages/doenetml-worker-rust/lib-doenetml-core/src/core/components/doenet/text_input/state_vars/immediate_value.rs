@@ -19,7 +19,7 @@ pub struct ImmediateValueStateVarInterface {
     graph_queries: RequiredDataGraphQueries,
 
     /// The values of the dependencies created from the graph queries
-    dependency_values: RequiredData,
+    query_results: RequiredData,
 }
 
 impl ImmediateValueStateVarInterface {
@@ -55,18 +55,18 @@ impl StateVarInterface<String> for ImmediateValueStateVarInterface {
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
-        self.dependency_values = dependencies.try_into().unwrap();
+        self.query_results = dependencies.try_into().unwrap();
     }
 
     fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<String> {
-        let immediate_value = if !self.dependency_values.bind_value_to.came_from_default()
-            && *self.dependency_values.sync_immediate_value.get()
+        let immediate_value = if !self.query_results.bind_value_to.came_from_default()
+            && *self.query_results.sync_immediate_value.get()
         {
-            self.dependency_values.bind_value_to.get().clone()
-        } else if self.dependency_values.essential.came_from_default() {
-            self.dependency_values.prefill.get().clone()
+            self.query_results.bind_value_to.get().clone()
+        } else if self.query_results.essential.came_from_default() {
+            self.query_results.prefill.get().clone()
         } else {
-            self.dependency_values.essential.get().clone()
+            self.query_results.essential.get().clone()
         };
         StateVarCalcResult::Calculated(immediate_value)
     }
@@ -79,18 +79,18 @@ impl StateVarInterface<String> for ImmediateValueStateVarInterface {
         let requested_value = state_var.get_requested_value();
 
         let bind_value_to_came_from_default =
-            self.dependency_values.bind_value_to.came_from_default();
+            self.query_results.bind_value_to.came_from_default();
 
-        self.dependency_values
+        self.query_results
             .essential
             .queue_update(requested_value.clone());
 
         if !is_direct_change_from_renderer && !bind_value_to_came_from_default {
-            self.dependency_values
+            self.query_results
                 .bind_value_to
                 .queue_update(requested_value.clone());
         }
 
-        Ok(self.dependency_values.return_queued_updates())
+        Ok(self.query_results.return_queued_updates())
     }
 }

@@ -19,7 +19,7 @@ pub struct GeneralStringStateVarInterface {
     graph_queries: GeneralStringStateVarGraphQueries,
 
     /// The values of the dependencies created from the graph queries
-    dependency_values: GeneralStringStateVarDependencies,
+    query_results: GeneralStringStateVarDependencies,
 
     /// If true, there is just a single dependency that is an essential state variable.
     /// In this case, we'll propagate the `came_from_default` attribute of the essential state variable.
@@ -104,9 +104,9 @@ impl StateVarInterface<String> for GeneralStringStateVarInterface {
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
-        self.dependency_values = dependencies.try_into().unwrap();
+        self.query_results = dependencies.try_into().unwrap();
 
-        if self.dependency_values.strings.len() == 1 {
+        if self.query_results.strings.len() == 1 {
             match dependencies[0][0].source {
                 DependencySource::Essential { .. } => {
                     self.from_single_essential = true;
@@ -118,21 +118,21 @@ impl StateVarInterface<String> for GeneralStringStateVarInterface {
 
     fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<String> {
         if self.from_single_essential {
-            if self.dependency_values.strings[0].came_from_default() {
+            if self.query_results.strings[0].came_from_default() {
                 // if we are basing it on a single essential variable that came from default,
                 // then we propagate came_from_default as well as the value.
                 return StateVarCalcResult::FromDefault(
-                    self.dependency_values.strings[0].get().clone(),
+                    self.query_results.strings[0].get().clone(),
                 );
             } else {
                 return StateVarCalcResult::Calculated(
-                    self.dependency_values.strings[0].get().clone(),
+                    self.query_results.strings[0].get().clone(),
                 );
             }
         } else {
             // TODO: can we implement this without cloning the inner value?
             let value: String = self
-                .dependency_values
+                .query_results
                 .strings
                 .iter()
                 .map(|v| v.get().clone())
@@ -147,15 +147,15 @@ impl StateVarInterface<String> for GeneralStringStateVarInterface {
         state_var: &StateVarReadOnlyView<String>,
         _is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
-        if self.dependency_values.strings.len() != 1 {
+        if self.query_results.strings.len() != 1 {
             // TODO: implement for no dependencies where saves to essential value?
             Err(RequestDependencyUpdateError::CouldNotUpdate)
         } else {
             let requested_value = state_var.get_requested_value();
 
-            self.dependency_values.strings[0].queue_update(requested_value.clone());
+            self.query_results.strings[0].queue_update(requested_value.clone());
 
-            Ok(self.dependency_values.return_queued_updates())
+            Ok(self.query_results.return_queued_updates())
         }
     }
 }

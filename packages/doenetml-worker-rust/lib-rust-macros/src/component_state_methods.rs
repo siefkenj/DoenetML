@@ -448,7 +448,7 @@ pub fn state_variable_dependencies_derive(input: TokenStream) -> TokenStream {
 
                     impl #structure_identity {
                         /// Return the updates queued during by calls to `queue_update()`
-                        /// on the dependencies of this `dependency_values` structure.
+                        /// on the dependencies of this `query_results` structure.
                         ///
                         /// Returns all queued updates since the last call to `return_queued_updates()`.
                         ///

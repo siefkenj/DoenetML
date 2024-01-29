@@ -20,7 +20,7 @@ pub struct ValueStateVarInterface {
     graph_queries: RequiredDataGraphQueries,
 
     /// The values of the dependencies created from the graph queries
-    dependency_values: RequiredData,
+    query_results: RequiredData,
 }
 
 impl ValueStateVarInterface {
@@ -57,20 +57,20 @@ impl StateVarInterface<String> for ValueStateVarInterface {
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
-        self.dependency_values = dependencies.try_into().unwrap();
+        self.query_results = dependencies.try_into().unwrap();
     }
 
     fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<String> {
-        let value = if *self.dependency_values.sync_immediate_value.get() {
-            self.dependency_values.immediate_value.get().clone()
-        } else if self.dependency_values.bind_value_to.came_from_default() {
-            if self.dependency_values.essential.came_from_default() {
-                self.dependency_values.prefill.get().clone()
+        let value = if *self.query_results.sync_immediate_value.get() {
+            self.query_results.immediate_value.get().clone()
+        } else if self.query_results.bind_value_to.came_from_default() {
+            if self.query_results.essential.came_from_default() {
+                self.query_results.prefill.get().clone()
             } else {
-                self.dependency_values.essential.get().clone()
+                self.query_results.essential.get().clone()
             }
         } else {
-            self.dependency_values.bind_value_to.get().clone()
+            self.query_results.bind_value_to.get().clone()
         };
 
         StateVarCalcResult::Calculated(value)
@@ -83,25 +83,25 @@ impl StateVarInterface<String> for ValueStateVarInterface {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        let dependency_values = &mut self.dependency_values;
+        let query_results = &mut self.query_results;
 
-        let bind_value_to_came_from_default = dependency_values.bind_value_to.came_from_default();
+        let bind_value_to_came_from_default = query_results.bind_value_to.came_from_default();
 
         if bind_value_to_came_from_default {
-            dependency_values
+            query_results
                 .essential
                 .queue_update(requested_value.clone());
-            dependency_values
+            query_results
                 .immediate_value
                 .queue_update(requested_value.clone());
-            dependency_values.sync_immediate_value.queue_update(true);
+            query_results.sync_immediate_value.queue_update(true);
         } else {
-            dependency_values
+            query_results
                 .bind_value_to
                 .queue_update(requested_value.clone());
-            dependency_values.sync_immediate_value.queue_update(true);
+            query_results.sync_immediate_value.queue_update(true);
         }
 
-        Ok(dependency_values.return_queued_updates())
+        Ok(query_results.return_queued_updates())
     }
 }
