@@ -256,7 +256,7 @@ pub trait ComponentActions: ComponentNode {
     }
 }
 
-/// A `ComponentProfile` is used in the `GraphQuery` specifying children.
+/// A `ComponentProfile` is used in the `DataQuery` specifying children.
 /// A component profile will match children that have a `ComponentProfileStateVariable` of the corresponding type,
 /// and the resulting dependency will give the value of that state variable.
 #[derive(Debug, Clone, PartialEq)]

@@ -5,8 +5,8 @@ use component_node::{
     rendered_children_derive, rendered_state_derive,
 };
 use component_state_methods::{
-    add_dependency_data_impl, component_state_derive, state_variable_dependencies_derive,
-    state_variable_graph_queries_derive,
+    add_dependency_data_impl, component_state_derive, state_variable_data_queries_derive,
+    state_variable_dependencies_derive,
 };
 use proc_macro::TokenStream;
 use state_var_methods::{
@@ -135,9 +135,9 @@ pub fn state_variable_dependencies_derive_wrapper(input: TokenStream) -> TokenSt
     state_variable_dependencies_derive(input)
 }
 
-#[proc_macro_derive(StateVariableGraphQueries)]
-pub fn state_variable_graph_queries_derive_wrapper(input: TokenStream) -> TokenStream {
-    state_variable_graph_queries_derive(input)
+#[proc_macro_derive(StateVariableDataQueries)]
+pub fn state_variable_data_queries_derive_wrapper(input: TokenStream) -> TokenStream {
+    state_variable_data_queries_derive(input)
 }
 
 #[proc_macro_attribute]

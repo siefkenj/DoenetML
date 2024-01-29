@@ -53,7 +53,7 @@ impl TextState {
     fn new() -> Self {
         TextState {
             value: StringStateVar::new_from_children().into(),
-            text: StringStateVar::new(TextState::get_value_graph_queries()).into(),
+            text: StringStateVar::new(TextState::get_value_data_queries()).into(),
         }
     }
 }

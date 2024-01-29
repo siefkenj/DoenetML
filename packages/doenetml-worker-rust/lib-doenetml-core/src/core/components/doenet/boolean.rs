@@ -57,7 +57,7 @@ impl BooleanState {
     fn new() -> Self {
         BooleanState {
             value: BooleanStateVar::new_from_children().into(),
-            boolean: BooleanStateVar::new(BooleanState::get_value_graph_queries()).into(),
+            boolean: BooleanStateVar::new(BooleanState::get_value_data_queries()).into(),
         }
     }
 }

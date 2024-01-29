@@ -97,9 +97,9 @@ pub struct DependencyGraph {
     /// defined by the order in *components*.
     /// - The second index is the *StateVarIdx*,
     /// defined by the order in which state variables are defined for the component.
-    /// - The third index is the index of the *GraphQuery* for the state variable.
+    /// - The third index is the index of the *DataQuery* for the state variable.
     /// - The inner DependenciesCreatedForInstruction is the vector of dependencies
-    ///   that matched that GraphQuery.
+    ///   that matched that DataQuery.
     pub dependencies: Vec<Vec<Vec<DependenciesCreatedForInstruction>>>,
 
     /// The inverse of the dependency graph *dependencies* (along with *dependent_on_essential*).

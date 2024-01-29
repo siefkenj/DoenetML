@@ -2,7 +2,7 @@ use enum_dispatch::enum_dispatch;
 
 use crate::{components::prelude::*, dependency::DependencySource, ExtendSource};
 
-use super::util::{create_graph_query_if_match_extend_source, string_to_boolean};
+use super::util::{create_data_query_if_match_extend_source, string_to_boolean};
 
 /// A boolean state variable interface for calculating the value of a boolean variable from dependencies.
 ///
@@ -18,11 +18,11 @@ use super::util::{create_graph_query_if_match_extend_source, string_to_boolean};
 #[derive(Debug, Default)]
 pub struct BooleanStateVar {
     /// The base graph query that indicates how the dependencies of this state variable will be created.
-    base_graph_query: GraphQuery,
+    base_data_query: DataQuery,
 
     /// The base graph query, potentially augmented by a graph query
     /// for shadowing another variable
-    graph_queries: BooleanStateVarGraphQueries,
+    data_queries: BooleanStateVarDataQueries,
 
     /// The values of the dependencies created from the graph queries
     query_results: RequiredData,
@@ -49,17 +49,17 @@ struct RequiredData {
 /// The graph queries that indicate how the dependencies of this state variable will be created.
 /// They consist of the base graph query specified, potentially augmented by a graph query
 /// for shadowing another variable
-#[derive(Debug, Default, StateVariableGraphQueries)]
-struct BooleanStateVarGraphQueries {
+#[derive(Debug, Default, StateVariableDataQueries)]
+struct BooleanStateVarDataQueries {
     /// If present, `extending` contains an instruction requesting the value of another boolean variable.
     /// It was created from the extend source for this component.
-    extending: Option<GraphQuery>,
+    extending: Option<DataQuery>,
 
     /// The base graph query specified for this variable.
     ///
     /// (It is always present. It is an option only to satisfy the API for
-    /// the `StateVariableGraphQueries` derive macro.)
-    base: Option<GraphQuery>,
+    /// the `StateVariableDataQueries` derive macro.)
+    base: Option<DataQuery>,
 }
 
 /// Since the state variable is based on booleans or strings,
@@ -93,9 +93,9 @@ impl TryFrom<&StateVarReadOnlyViewEnum> for BooleanOrString {
 
 impl BooleanStateVar {
     /// Creates a state var that queries its value from the given graph query.
-    pub fn new(base_graph_query: GraphQuery) -> Self {
+    pub fn new(base_data_query: DataQuery) -> Self {
         BooleanStateVar {
-            base_graph_query,
+            base_data_query,
             ..Default::default()
         }
     }
@@ -103,7 +103,7 @@ impl BooleanStateVar {
     /// Creates a state var that queries its value from children matching the `Text` or `Boolean` profile.
     pub fn new_from_children() -> Self {
         BooleanStateVar {
-            base_graph_query: GraphQuery::Child {
+            base_data_query: DataQuery::Child {
                 match_profiles: vec![ComponentProfile::Text, ComponentProfile::Boolean],
                 exclude_if_prefer_profiles: vec![],
             },
@@ -114,7 +114,7 @@ impl BooleanStateVar {
     /// Creates a state var that queries its value from attributes matching the `Text` or `Boolean` profile.
     pub fn new_from_attribute(attr_name: AttributeName) -> Self {
         BooleanStateVar {
-            base_graph_query: GraphQuery::AttributeChild {
+            base_data_query: DataQuery::AttributeChild {
                 attribute_name: attr_name,
                 match_profiles: vec![ComponentProfile::Text, ComponentProfile::Boolean],
             },
@@ -130,17 +130,17 @@ impl From<BooleanStateVar> for StateVar<bool> {
 }
 
 impl StateVarUpdaters<bool> for BooleanStateVar {
-    fn return_graph_queries(
+    fn return_data_queries(
         &mut self,
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
-    ) -> Vec<GraphQuery> {
-        self.graph_queries = BooleanStateVarGraphQueries {
-            extending: create_graph_query_if_match_extend_source(extending, state_var_idx),
-            base: Some(self.base_graph_query.clone()),
+    ) -> Vec<DataQuery> {
+        self.data_queries = BooleanStateVarDataQueries {
+            extending: create_data_query_if_match_extend_source(extending, state_var_idx),
+            base: Some(self.base_data_query.clone()),
         };
 
-        (&self.graph_queries).into()
+        (&self.data_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {

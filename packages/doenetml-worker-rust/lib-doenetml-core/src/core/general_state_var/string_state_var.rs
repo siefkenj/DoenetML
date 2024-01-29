@@ -1,6 +1,6 @@
 use crate::{components::prelude::*, dependency::DependencySource, ExtendSource};
 
-use super::util::create_graph_query_if_match_extend_source;
+use super::util::create_data_query_if_match_extend_source;
 
 /// A string state variable interface that concatenates all string dependencies.
 ///
@@ -12,11 +12,11 @@ use super::util::create_graph_query_if_match_extend_source;
 #[derive(Debug, Default)]
 pub struct StringStateVar {
     /// The base graph query that indicates how the dependencies of this state variable will be created.
-    base_graph_query: GraphQuery,
+    base_data_query: DataQuery,
 
     /// The base graph query, potentially augmented by a graph query
     /// for shadowing another variable
-    graph_queries: GeneralStringStateVarGraphQueries,
+    data_queries: GeneralStringStateVarDataQueries,
 
     /// The values of the dependencies created from the graph queries
     query_results: GeneralStringStateVarDependencies,
@@ -38,24 +38,24 @@ struct GeneralStringStateVarDependencies {
 /// The graph queries that indicate how the dependencies of this state variable will be created.
 /// They consist of the base graph query specified, potentially augmented by a graph query
 /// for shadowing another variable
-#[derive(Debug, Default, StateVariableGraphQueries)]
-struct GeneralStringStateVarGraphQueries {
+#[derive(Debug, Default, StateVariableDataQueries)]
+struct GeneralStringStateVarDataQueries {
     /// If present, `extending` contains an instruction requesting the value of another text variable.
     /// It was created from the extend source for this component.
-    extending: Option<GraphQuery>,
+    extending: Option<DataQuery>,
 
     /// The base graph query specified for this variable.
     ///
     /// (It is always present. It is an option only to satisfy the API for
-    /// the `StateVariableGraphQueries` derive macro.)
-    other: Option<GraphQuery>,
+    /// the `StateVariableDataQueries` derive macro.)
+    other: Option<DataQuery>,
 }
 
 impl StringStateVar {
     /// Creates a state var that queries its value from the given graph query.
-    pub fn new(base_graph_query: GraphQuery) -> Self {
+    pub fn new(base_data_query: DataQuery) -> Self {
         StringStateVar {
-            base_graph_query,
+            base_data_query,
             ..Default::default()
         }
     }
@@ -63,7 +63,7 @@ impl StringStateVar {
     /// Creates a state var that queries its value from children matching the `Text` profile.
     pub fn new_from_children() -> Self {
         StringStateVar {
-            base_graph_query: GraphQuery::Child {
+            base_data_query: DataQuery::Child {
                 match_profiles: vec![ComponentProfile::Text],
                 exclude_if_prefer_profiles: vec![],
             },
@@ -74,7 +74,7 @@ impl StringStateVar {
     /// Creates a state var that queries its value from attributes matching the `Text` profile.
     pub fn new_from_attribute(attr_name: AttributeName) -> Self {
         StringStateVar {
-            base_graph_query: GraphQuery::AttributeChild {
+            base_data_query: DataQuery::AttributeChild {
                 attribute_name: attr_name,
                 match_profiles: vec![ComponentProfile::Text],
             },
@@ -90,17 +90,17 @@ impl From<StringStateVar> for StateVar<String> {
 }
 
 impl StateVarUpdaters<String> for StringStateVar {
-    fn return_graph_queries(
+    fn return_data_queries(
         &mut self,
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
-    ) -> Vec<GraphQuery> {
-        self.graph_queries = GeneralStringStateVarGraphQueries {
-            extending: create_graph_query_if_match_extend_source(extending, state_var_idx),
-            other: Some(self.base_graph_query.clone()),
+    ) -> Vec<DataQuery> {
+        self.data_queries = GeneralStringStateVarDataQueries {
+            extending: create_data_query_if_match_extend_source(extending, state_var_idx),
+            other: Some(self.base_data_query.clone()),
         };
 
-        (&self.graph_queries).into()
+        (&self.data_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {

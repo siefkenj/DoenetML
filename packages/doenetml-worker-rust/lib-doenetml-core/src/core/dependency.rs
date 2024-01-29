@@ -16,9 +16,9 @@ use crate::{
     ComponentIdx, ComponentPointerTextOrMacro, ExtendSource,
 };
 
-/// A GraphQuery is used to make a Dependency based on the input document structure
+/// A DataQuery is used to make a Dependency based on the input document structure
 #[derive(Debug, Clone, Default)]
-pub enum GraphQuery {
+pub enum DataQuery {
     Child {
         /// The dependency will match child components that has at least one of these profiles
         /// unless the child component has one of the profiles in *exclude_if_prefer_profiles*
@@ -90,7 +90,7 @@ pub struct Dependency {
     pub value: StateVarReadOnlyViewEnum,
 }
 
-/// The vector of dependencies that were created for a `GraphQuery`
+/// The vector of dependencies that were created for a `DataQuery`
 #[derive(Debug)]
 pub struct DependenciesCreatedForInstruction(pub Vec<Dependency>);
 
@@ -121,13 +121,13 @@ pub fn create_dependencies_from_instruction_initialize_essential(
     components: &Vec<Rc<RefCell<ComponentEnum>>>,
     component_idx: ComponentIdx,
     state_var_idx: StateVarIdx,
-    instruction: &GraphQuery,
+    instruction: &DataQuery,
     essential_data: &mut Vec<HashMap<EssentialDataOrigin, EssentialStateVar>>,
 ) -> DependenciesCreatedForInstruction {
     // log!("Creating dependency {}:{} from instruction {:?}", component_name, state_var_idx, instruction);
 
     match instruction {
-        GraphQuery::Essential => {
+        DataQuery::Essential => {
             // We recurse to extend source components so that this essential data
             // is shared with the extend source any any other components that extend from it.
             let source_idx = get_extend_source_origin(components, component_idx);
@@ -169,7 +169,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
             }])
         }
 
-        GraphQuery::StateVar {
+        DataQuery::StateVar {
             component_idx: comp_idx,
             state_var_idx: sv_idx,
         } => {
@@ -191,7 +191,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
             }])
         }
 
-        GraphQuery::Parent { state_var_name } => {
+        DataQuery::Parent { state_var_name } => {
             // Create a dependency that references the value of state_var_name
             // from the parent of this component
 
@@ -218,7 +218,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
             }])
         }
 
-        GraphQuery::Child {
+        DataQuery::Child {
             match_profiles,
             exclude_if_prefer_profiles,
         } => {
@@ -406,7 +406,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
             DependenciesCreatedForInstruction(dependencies)
         }
 
-        GraphQuery::AttributeChild {
+        DataQuery::AttributeChild {
             attribute_name,
             match_profiles,
         } => {

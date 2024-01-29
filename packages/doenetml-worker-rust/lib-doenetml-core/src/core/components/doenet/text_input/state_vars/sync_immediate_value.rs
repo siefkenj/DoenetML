@@ -2,7 +2,7 @@ use crate::components::prelude::*;
 
 /// The dependencies of the sync_immediate_value state variable of the text input component
 #[add_dependency_data]
-#[derive(Debug, Default, StateVariableDependencies, StateVariableGraphQueries)]
+#[derive(Debug, Default, StateVariableDependencies, StateVariableDataQueries)]
 struct RequiredData {
     essential: StateVarReadOnlyView<bool>,
 }
@@ -11,7 +11,7 @@ struct RequiredData {
 #[derive(Debug, Default)]
 pub struct SyncImmediateValueStateVar {
     /// The graph queries that indicate how the dependencies of this state variable will be created.
-    graph_queries: RequiredDataGraphQueries,
+    data_queries: RequiredDataDataQueries,
 
     /// The values of the dependencies created from the graph queries
     query_results: RequiredData,
@@ -32,16 +32,16 @@ impl From<SyncImmediateValueStateVar> for StateVar<bool> {
 }
 
 impl StateVarUpdaters<bool> for SyncImmediateValueStateVar {
-    fn return_graph_queries(
+    fn return_data_queries(
         &mut self,
         _extending: Option<ExtendSource>,
         _state_var_idx: StateVarIdx,
-    ) -> Vec<GraphQuery> {
-        self.graph_queries = RequiredDataGraphQueries {
-            essential: Some(GraphQuery::Essential),
+    ) -> Vec<DataQuery> {
+        self.data_queries = RequiredDataDataQueries {
+            essential: Some(DataQuery::Essential),
         };
 
-        (&self.graph_queries).into()
+        (&self.data_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {

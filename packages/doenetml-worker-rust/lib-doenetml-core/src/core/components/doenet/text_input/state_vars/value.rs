@@ -4,7 +4,7 @@ use super::TextInputState;
 
 /// The dependencies of the value state variable of the text input component
 #[add_dependency_data]
-#[derive(Debug, Default, StateVariableDependencies, StateVariableGraphQueries)]
+#[derive(Debug, Default, StateVariableDependencies, StateVariableDataQueries)]
 struct RequiredData {
     essential: StateVarReadOnlyView<String>,
     immediate_value: StateVarReadOnlyView<String>,
@@ -17,7 +17,7 @@ struct RequiredData {
 #[derive(Debug, Default)]
 pub struct ValueStateVar {
     /// The graph queries that indicate how the dependencies of this state variable will be created.
-    graph_queries: RequiredDataGraphQueries,
+    data_queries: RequiredDataDataQueries,
 
     /// The values of the dependencies created from the graph queries
     query_results: RequiredData,
@@ -38,20 +38,20 @@ impl From<ValueStateVar> for StateVar<String> {
 }
 
 impl StateVarUpdaters<String> for ValueStateVar {
-    fn return_graph_queries(
+    fn return_data_queries(
         &mut self,
         _extending: Option<ExtendSource>,
         _state_var_idx: StateVarIdx,
-    ) -> Vec<GraphQuery> {
-        self.graph_queries = RequiredDataGraphQueries {
-            essential: Some(GraphQuery::Essential),
-            immediate_value: Some(TextInputState::get_immediate_value_graph_queries()),
-            sync_immediate_value: Some(TextInputState::get_sync_immediate_value_graph_queries()),
-            bind_value_to: Some(TextInputState::get_bind_value_to_graph_queries()),
-            prefill: Some(TextInputState::get_prefill_graph_queries()),
+    ) -> Vec<DataQuery> {
+        self.data_queries = RequiredDataDataQueries {
+            essential: Some(DataQuery::Essential),
+            immediate_value: Some(TextInputState::get_immediate_value_data_queries()),
+            sync_immediate_value: Some(TextInputState::get_sync_immediate_value_data_queries()),
+            bind_value_to: Some(TextInputState::get_bind_value_to_data_queries()),
+            prefill: Some(TextInputState::get_prefill_data_queries()),
         };
 
-        (&self.graph_queries).into()
+        (&self.data_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
