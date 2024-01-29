@@ -56,7 +56,7 @@ impl TextState {
         TextState {
             value: GeneralStringStateVarInterface::new_from_children().into(),
             text: SingleDependencyStringStateVarInterface::new(
-                TextState::get_value_dependency_instructions(),
+                TextState::get_value_graph_queries(),
             )
             .into(),
         }

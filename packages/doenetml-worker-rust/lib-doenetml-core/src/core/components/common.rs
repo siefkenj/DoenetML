@@ -256,7 +256,7 @@ pub trait ComponentActions: ComponentNode {
     }
 }
 
-/// A `ComponentProfile` is used in the `DependencyInstruction` specifying children.
+/// A `ComponentProfile` is used in the `GraphQuery` specifying children.
 /// A component profile will match children that have a `ComponentProfileStateVariable` of the corresponding type,
 /// and the resulting dependency will give the value of that state variable.
 #[derive(Debug, Clone, PartialEq)]
@@ -273,11 +273,11 @@ pub enum ComponentProfile {
 /// by using the value of that specified state variable.
 ///
 /// The component profile state variables are used to match the component profiles
-/// specified in a dependency instruction requesting children.
+/// specified in a graph query requesting children.
 ///
 /// A component specifies a vector of ComponentProfileStateVariables in priority order,
 /// where the first ComponentProfileStateVariable matching a ComponentProfile
-/// of a dependency instruction will determine the dependency.
+/// of a graph query will determine the dependency.
 #[derive(Debug, Clone)]
 pub enum ComponentProfileStateVariable {
     Text(StateVarReadOnlyView<String>, StateVarIdx),
@@ -290,7 +290,7 @@ pub enum ComponentProfileStateVariable {
 // TODO: derive these with macro?
 impl ComponentProfileStateVariable {
     /// Return the ComponentProfile that matches this ComponentProfileStateVariable
-    /// so that it can be matched with the ComponentProfiles of a child dependency instruction.
+    /// so that it can be matched with the ComponentProfiles of a child graph query.
     pub fn get_matching_profile(&self) -> ComponentProfile {
         match self {
             ComponentProfileStateVariable::Text(..) => ComponentProfile::Text,
@@ -304,7 +304,7 @@ impl ComponentProfileStateVariable {
     /// Convert into a state variable view enum of the component profile state variable
     /// as well as the state variable's index.
     ///
-    /// Used to create the dependency matching ComponentProfile of a child dependency instruction.
+    /// Used to create the dependency matching ComponentProfile of a child graph query.
     ///
     /// In this way, the state variable depending on the children can calculate its value
     /// from the state variable value of the ComponentProfileStateVariable.

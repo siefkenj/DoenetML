@@ -2,7 +2,7 @@ use enum_dispatch::enum_dispatch;
 
 use crate::{components::prelude::*, dependency::DependencySource, ExtendSource};
 
-use super::util::{create_dependency_instruction_if_match_extend_source, string_to_boolean};
+use super::util::{create_graph_query_if_match_extend_source, string_to_boolean};
 
 /// A boolean state variable interface for calculating the value of a boolean variable from dependencies.
 ///
@@ -17,14 +17,14 @@ use super::util::{create_dependency_instruction_if_match_extend_source, string_t
 /// then propagate the `came_from_default` attribute of the essential state variable.
 #[derive(Debug, Default)]
 pub struct GeneralBooleanStateVarInterface {
-    /// The base dependency instruction that indicates how the dependencies of this state variable will be created.
-    base_dependency_instruction: DependencyInstruction,
+    /// The base graph query that indicates how the dependencies of this state variable will be created.
+    base_graph_query: GraphQuery,
 
-    /// The base dependency instruction, potentially augmented by a dependency instruction
+    /// The base graph query, potentially augmented by a graph query
     /// for shadowing another variable
-    dependency_instructions: GeneralBooleanStateVarDependencyInstructions,
+    graph_queries: GeneralBooleanStateVarGraphQueries,
 
-    /// The values of the dependencies created from the dependency instructions
+    /// The values of the dependencies created from the graph queries
     dependency_values: GeneralBooleanStateVarDependencies,
 
     /// If true, there is just a single dependency that is an essential state variable.
@@ -37,7 +37,7 @@ pub struct GeneralBooleanStateVarInterface {
     have_invalid_combination: bool,
 }
 
-/// The values of the dependencies created from the dependency instructions
+/// The values of the dependencies created from the graph queries
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies)]
 struct GeneralBooleanStateVarDependencies {
@@ -46,20 +46,20 @@ struct GeneralBooleanStateVarDependencies {
     booleans_or_strings: Vec<BooleanOrString>,
 }
 
-/// The dependency instructions that indicate how the dependencies of this state variable will be created.
-/// They consist of the base dependency instruction specified, potentially augmented by a dependency instruction
+/// The graph queries that indicate how the dependencies of this state variable will be created.
+/// They consist of the base graph query specified, potentially augmented by a graph query
 /// for shadowing another variable
-#[derive(Debug, Default, StateVariableDependencyInstructions)]
-struct GeneralBooleanStateVarDependencyInstructions {
+#[derive(Debug, Default, StateVariableGraphQueries)]
+struct GeneralBooleanStateVarGraphQueries {
     /// If present, `extending` contains an instruction requesting the value of another boolean variable.
     /// It was created from the extend source for this component.
-    extending: Option<DependencyInstruction>,
+    extending: Option<GraphQuery>,
 
-    /// The base dependency instruction specified for this variable.
+    /// The base graph query specified for this variable.
     ///
     /// (It is always present. It is an option only to satisfy the API for
-    /// the `StateVariableDependencyInstructions` derive macro.)
-    base: Option<DependencyInstruction>,
+    /// the `StateVariableGraphQueries` derive macro.)
+    base: Option<GraphQuery>,
 }
 
 /// Since the state variable is based on booleans or strings,
@@ -92,16 +92,16 @@ impl TryFrom<&StateVarReadOnlyViewEnum> for BooleanOrString {
 }
 
 impl GeneralBooleanStateVarInterface {
-    pub fn new(base_dependency_instruction: DependencyInstruction) -> Self {
+    pub fn new(base_graph_query: GraphQuery) -> Self {
         GeneralBooleanStateVarInterface {
-            base_dependency_instruction,
+            base_graph_query,
             ..Default::default()
         }
     }
 
     pub fn new_from_children() -> Self {
         GeneralBooleanStateVarInterface {
-            base_dependency_instruction: DependencyInstruction::Child {
+            base_graph_query: GraphQuery::Child {
                 match_profiles: vec![ComponentProfile::Text, ComponentProfile::Boolean],
                 exclude_if_prefer_profiles: vec![],
             },
@@ -111,7 +111,7 @@ impl GeneralBooleanStateVarInterface {
 
     pub fn new_from_attribute(attr_name: AttributeName) -> Self {
         GeneralBooleanStateVarInterface {
-            base_dependency_instruction: DependencyInstruction::AttributeChild {
+            base_graph_query: GraphQuery::AttributeChild {
                 attribute_name: attr_name,
                 match_profiles: vec![ComponentProfile::Text, ComponentProfile::Boolean],
             },
@@ -127,20 +127,20 @@ impl From<GeneralBooleanStateVarInterface> for StateVar<bool> {
 }
 
 impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
-    fn return_dependency_instructions(
+    fn return_graph_queries(
         &mut self,
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
-    ) -> Vec<DependencyInstruction> {
-        self.dependency_instructions = GeneralBooleanStateVarDependencyInstructions {
-            extending: create_dependency_instruction_if_match_extend_source(
+    ) -> Vec<GraphQuery> {
+        self.graph_queries = GeneralBooleanStateVarGraphQueries {
+            extending: create_graph_query_if_match_extend_source(
                 extending,
                 state_var_idx,
             ),
-            base: Some(self.base_dependency_instruction.clone()),
+            base: Some(self.base_graph_query.clone()),
         };
 
-        (&self.dependency_instructions).into()
+        (&self.graph_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
@@ -229,29 +229,29 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
 /// that is based on a single dependency.
 #[derive(Debug, Default)]
 pub struct SingleDependencyBooleanStateVarInterface {
-    // the dependency instruction that was specified as a parameter
-    dependency_instruction: DependencyInstruction,
+    // the graph query that was specified as a parameter
+    graph_query: GraphQuery,
 
-    /// The dependency instruction structure created by the
-    /// `StateVariableDependencyInstructions` macro
+    /// The graph query structure created by the
+    /// `StateVariableGraphQueries` macro
     /// based on `SingleDependencyBooleanDependencies`
-    dependency_instructions: SingleDependencyBooleanDependencyInstructions,
+    graph_queries: SingleDependencyBooleanRequiredDataGraphQueries,
 
-    /// The values of the dependencies created from the dependency instructions
-    dependency_values: SingleDependencyBooleanDependencies,
+    /// The values of the dependencies created from the graph queries
+    dependency_values: SingleDependencyBooleanRequiredData,
 }
 
-/// The values of the dependencies that were created from the dependency instructions.
+/// The values of the dependencies that were created from the graph queries.
 #[add_dependency_data]
-#[derive(Debug, Default, StateVariableDependencies, StateVariableDependencyInstructions)]
-struct SingleDependencyBooleanDependencies {
+#[derive(Debug, Default, StateVariableDependencies, StateVariableGraphQueries)]
+struct SingleDependencyBooleanRequiredData {
     boolean: StateVarReadOnlyView<bool>,
 }
 
 impl SingleDependencyBooleanStateVarInterface {
-    pub fn new(dependency_instruction: DependencyInstruction) -> Self {
+    pub fn new(graph_query: GraphQuery) -> Self {
         SingleDependencyBooleanStateVarInterface {
-            dependency_instruction,
+            graph_query,
             ..Default::default()
         }
     }
@@ -264,15 +264,15 @@ impl From<SingleDependencyBooleanStateVarInterface> for StateVar<bool> {
 }
 
 impl StateVarInterface<bool> for SingleDependencyBooleanStateVarInterface {
-    fn return_dependency_instructions(
+    fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
         _state_var_idx: StateVarIdx,
-    ) -> Vec<DependencyInstruction> {
-        self.dependency_instructions = SingleDependencyBooleanDependencyInstructions {
-            boolean: Some(self.dependency_instruction.clone()),
+    ) -> Vec<GraphQuery> {
+        self.graph_queries = SingleDependencyBooleanRequiredDataGraphQueries {
+            boolean: Some(self.graph_query.clone()),
         };
-        (&self.dependency_instructions).into()
+        (&self.graph_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {

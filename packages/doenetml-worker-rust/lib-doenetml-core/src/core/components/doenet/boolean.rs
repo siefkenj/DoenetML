@@ -60,7 +60,7 @@ impl BooleanState {
         BooleanState {
             value: GeneralBooleanStateVarInterface::new_from_children().into(),
             boolean: SingleDependencyBooleanStateVarInterface::new(
-                BooleanState::get_value_dependency_instructions(),
+                BooleanState::get_value_graph_queries(),
             )
             .into(),
         }

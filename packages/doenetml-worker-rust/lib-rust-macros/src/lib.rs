@@ -6,7 +6,7 @@ use component_node::{
 };
 use component_state_methods::{
     add_dependency_data_impl, component_state_derive, state_variable_dependencies_derive,
-    state_variable_dependency_instructions_derive,
+    state_variable_graph_queries_derive,
 };
 use proc_macro::TokenStream;
 use state_var_methods::{
@@ -92,7 +92,7 @@ pub fn into_state_var_enum_refs_derive_wrapper(input: TokenStream) -> TokenStrea
 ///   can be used to satisfy the component profile of type `ProfileType`, where `ProfileType`
 ///   can currently be one of `Text`, `Number`, `Integer`, `Boolean`.
 ///
-///   If a parent has a `Child` or `AttributeChild` dependency instruction, it will request
+///   If a parent has a `Child` or `AttributeChild` graph query, it will request
 ///   a particular profile type, and this state variable could be returned.
 ///
 ///   Currently, the `component_profile state_variables` does not have a mechanism for specifying
@@ -135,9 +135,9 @@ pub fn state_variable_dependencies_derive_wrapper(input: TokenStream) -> TokenSt
     state_variable_dependencies_derive(input)
 }
 
-#[proc_macro_derive(StateVariableDependencyInstructions)]
-pub fn state_variable_dependency_instructions_derive_wrapper(input: TokenStream) -> TokenStream {
-    state_variable_dependency_instructions_derive(input)
+#[proc_macro_derive(StateVariableGraphQueries)]
+pub fn state_variable_graph_queries_derive_wrapper(input: TokenStream) -> TokenStream {
+    state_variable_graph_queries_derive(input)
 }
 
 #[proc_macro_attribute]

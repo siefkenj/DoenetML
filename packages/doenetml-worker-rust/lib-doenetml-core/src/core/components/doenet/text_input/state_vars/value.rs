@@ -4,8 +4,8 @@ use super::TextInputState;
 
 /// The dependencies of the value state variable of the text input component
 #[add_dependency_data]
-#[derive(Debug, Default, StateVariableDependencies, StateVariableDependencyInstructions)]
-struct ValueDependencies {
+#[derive(Debug, Default, StateVariableDependencies, StateVariableGraphQueries)]
+struct RequiredData {
     essential: StateVarReadOnlyView<String>,
     immediate_value: StateVarReadOnlyView<String>,
     sync_immediate_value: StateVarReadOnlyView<bool>,
@@ -16,11 +16,11 @@ struct ValueDependencies {
 /// The interface for the value state variable of a text input
 #[derive(Debug, Default)]
 pub struct ValueStateVarInterface {
-    /// The dependency instructions that indicate how the dependencies of this state variable will be created.
-    dependency_instructions: ValueDependencyInstructions,
+    /// The graph queries that indicate how the dependencies of this state variable will be created.
+    graph_queries: RequiredDataGraphQueries,
 
-    /// The values of the dependencies created from the dependency instructions
-    dependency_values: ValueDependencies,
+    /// The values of the dependencies created from the graph queries
+    dependency_values: RequiredData,
 }
 
 impl ValueStateVarInterface {
@@ -38,22 +38,22 @@ impl From<ValueStateVarInterface> for StateVar<String> {
 }
 
 impl StateVarInterface<String> for ValueStateVarInterface {
-    fn return_dependency_instructions(
+    fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
         _state_var_idx: StateVarIdx,
-    ) -> Vec<DependencyInstruction> {
-        self.dependency_instructions = ValueDependencyInstructions {
-            essential: Some(DependencyInstruction::Essential),
-            immediate_value: Some(TextInputState::get_immediate_value_dependency_instructions()),
+    ) -> Vec<GraphQuery> {
+        self.graph_queries = RequiredDataGraphQueries {
+            essential: Some(GraphQuery::Essential),
+            immediate_value: Some(TextInputState::get_immediate_value_graph_queries()),
             sync_immediate_value: Some(
-                TextInputState::get_sync_immediate_value_dependency_instructions(),
+                TextInputState::get_sync_immediate_value_graph_queries(),
             ),
-            bind_value_to: Some(TextInputState::get_bind_value_to_dependency_instructions()),
-            prefill: Some(TextInputState::get_prefill_dependency_instructions()),
+            bind_value_to: Some(TextInputState::get_bind_value_to_graph_queries()),
+            prefill: Some(TextInputState::get_prefill_graph_queries()),
         };
 
-        (&self.dependency_instructions).into()
+        (&self.graph_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {

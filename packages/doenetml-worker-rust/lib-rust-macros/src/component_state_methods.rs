@@ -113,7 +113,7 @@ pub fn component_state_derive(input: TokenStream) -> TokenStream {
                     let mut rendered_state_variables_struct_statements = Vec::new();
 
                     let mut get_state_variable_index_functions = Vec::new();
-                    let mut get_value_dependency_instructions_functions = Vec::new();
+                    let mut get_value_graph_queries_functions = Vec::new();
                     let mut update_from_action_functions = Vec::new();
 
                     let renderer_state_variables_name = format!("Rendered{}", structure_identity);
@@ -200,15 +200,15 @@ pub fn component_state_derive(input: TokenStream) -> TokenStream {
                         });
 
                         let get_instructions_function_name =
-                            format!("get_{}_dependency_instructions", field_identity);
+                            format!("get_{}_graph_queries", field_identity);
                         let get_instructions_function_identity =
                             Ident::new(&get_instructions_function_name, Span::call_site());
 
-                        get_value_dependency_instructions_functions.push(quote! {
-                            /// Get a `DependencyInstruction` that requests the value
+                        get_value_graph_queries_functions.push(quote! {
+                            /// Get a `GraphQuery` that requests the value
                             /// of the specified state variable
-                            pub fn #get_instructions_function_identity() -> DependencyInstruction {
-                                DependencyInstruction::StateVar {
+                            pub fn #get_instructions_function_identity() -> GraphQuery {
+                                GraphQuery::StateVar {
                                     component_idx: None,
                                     state_var_idx: #sv_idx,
                                 }
@@ -328,7 +328,7 @@ pub fn component_state_derive(input: TokenStream) -> TokenStream {
 
                             #(#get_state_variable_index_functions)*
 
-                            #(#get_value_dependency_instructions_functions)*
+                            #(#get_value_graph_queries_functions)*
 
                             #(#update_from_action_functions)*
                         }
@@ -476,7 +476,7 @@ pub fn state_variable_dependencies_derive(input: TokenStream) -> TokenStream {
     output.into()
 }
 
-pub fn state_variable_dependency_instructions_derive(input: TokenStream) -> TokenStream {
+pub fn state_variable_graph_queries_derive(input: TokenStream) -> TokenStream {
     let ast: syn::DeriveInput = syn::parse(input).unwrap();
     let structure_identity = &ast.ident;
     let data = &ast.data;
@@ -494,12 +494,10 @@ pub fn state_variable_dependency_instructions_derive(input: TokenStream) -> Toke
                 let num_instructions = field_identities.len();
 
                 let structure_name = structure_identity.to_string();
-                let sn_len = structure_name.len();
 
-                let structure_is_dependency_instructions =
-                    sn_len > 22 && &structure_name[(sn_len - 22)..] == "DependencyInstructions";
+                let structure_is_graph_queries = structure_name.ends_with("GraphQueries");
 
-                if structure_is_dependency_instructions {
+                if structure_is_graph_queries {
                     let mut from_structure_to_vec_statements = Vec::new();
 
                     for field_identity in field_identities.iter() {
@@ -510,7 +508,7 @@ pub fn state_variable_dependency_instructions_derive(input: TokenStream) -> Toke
                         });
                     }
                     quote! {
-                        impl From<&#structure_identity> for Vec<DependencyInstruction> {
+                        impl From<&#structure_identity> for Vec<GraphQuery> {
                             fn from(structure: &#structure_identity) -> Self {
                                 let mut instruct_vec = Vec::with_capacity(#num_instructions);
                                 #(#from_structure_to_vec_statements)*
@@ -519,26 +517,21 @@ pub fn state_variable_dependency_instructions_derive(input: TokenStream) -> Toke
                         }
                     }
                 } else {
-                    let mut dependency_instruction_struct_statements = Vec::new();
+                    let mut graph_query_struct_statements = Vec::new();
 
                     let mut from_structure_to_vec_statements = Vec::new();
 
-                    let dependency_instruction_name = if &structure_name[(sn_len - 3)..] == "ies" {
-                        format!("{}yInstructions", &structure_name[..(sn_len - 3)])
-                    } else {
-                        format!("{}Instructions", structure_name)
-                    };
+                    let graph_query_name = format!("{}GraphQueries", structure_name);
 
-                    let dependency_instruction_identity =
-                        Ident::new(&dependency_instruction_name, Span::call_site());
+                    let graph_query_identity = Ident::new(&graph_query_name, Span::call_site());
 
                     for field_identity in field_identities.iter() {
                         if field_identity.to_string().starts_with('_') {
                             continue;
                         }
 
-                        dependency_instruction_struct_statements.push(quote! {
-                            pub #field_identity: Option<DependencyInstruction>,
+                        graph_query_struct_statements.push(quote! {
+                            pub #field_identity: Option<GraphQuery>,
                         });
 
                         from_structure_to_vec_statements.push(quote! {
@@ -550,12 +543,12 @@ pub fn state_variable_dependency_instructions_derive(input: TokenStream) -> Toke
 
                     quote! {
                         #[derive(Debug, Default)]
-                        pub struct #dependency_instruction_identity {
-                            #(#dependency_instruction_struct_statements)*
+                        struct #graph_query_identity {
+                            #(#graph_query_struct_statements)*
                         }
 
-                        impl From<&#dependency_instruction_identity> for Vec<DependencyInstruction> {
-                            fn from(structure: &#dependency_instruction_identity) -> Self {
+                        impl From<&#graph_query_identity> for Vec<GraphQuery> {
+                            fn from(structure: &#graph_query_identity) -> Self {
                                 let mut instruct_vec = Vec::with_capacity(#num_instructions);
                                 #(#from_structure_to_vec_statements)*
                                 instruct_vec
@@ -606,3 +599,6 @@ pub fn add_dependency_data_impl(_attr: TokenStream, item: TokenStream) -> TokenS
         _ => panic!("`add_standard_component_fields` has to be used with structs."),
     }
 }
+
+#[cfg(test)]
+mod test {}

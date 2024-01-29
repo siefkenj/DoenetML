@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::HashMap, rc::Rc};
 use crate::{
     components::{ComponentEnum, ComponentNode, RenderedChildren},
     dependency::{
-        create_dependencies_from_instruction_initialize_essential, DependencyInstruction,
+        create_dependencies_from_instruction_initialize_essential, GraphQuery,
         DependencySource,
     },
     state::essential_state::{EssentialDataOrigin, EssentialStateDescription, EssentialStateVar},
@@ -292,7 +292,7 @@ pub fn resolve_state_var(
         let component_idx = state_var_ptr.component_idx;
         let state_var_idx = state_var_ptr.state_var_idx;
 
-        let dependency_instructions: Vec<DependencyInstruction>;
+        let graph_queries: Vec<GraphQuery>;
 
         {
             let extending: Option<ExtendSource> =
@@ -308,13 +308,13 @@ pub fn resolve_state_var(
                 continue;
             }
 
-            dependency_instructions =
-                state_var.return_dependency_instructions(extending, state_var_idx);
+            graph_queries =
+                state_var.return_graph_queries(extending, state_var_idx);
         }
 
-        let mut dependencies_for_state_var = Vec::with_capacity(dependency_instructions.len());
+        let mut dependencies_for_state_var = Vec::with_capacity(graph_queries.len());
 
-        for dep_instruction in dependency_instructions.iter() {
+        for dep_instruction in graph_queries.iter() {
             let instruct_dependencies = create_dependencies_from_instruction_initialize_essential(
                 components,
                 component_idx,

@@ -22,7 +22,7 @@ use doenetml_derive::{
 use crate::{
     components::doenet::{boolean::Boolean, text::Text},
     dependency::{
-        DependenciesCreatedForInstruction, DependencyInstruction, DependencyValueUpdateRequest,
+        DependenciesCreatedForInstruction, GraphQuery, DependencyValueUpdateRequest,
     },
     ExtendSource,
 };
@@ -101,13 +101,13 @@ pub trait StateVarInterface<T: Default + Clone>: std::fmt::Debug {
     /// for this state variable based on the structure of the document,
     /// e.g., the children, attributes, or other state variables
     /// of the component of this state variable
-    fn return_dependency_instructions(
+    fn return_graph_queries(
         &mut self,
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
-    ) -> Vec<DependencyInstruction>;
+    ) -> Vec<GraphQuery>;
 
-    /// Given the structure of the document and the dependency instructions,
+    /// Given the structure of the document and the graph queries,
     /// the actual dependencies will be determined and passed to `save_dependencies`.
     /// The function `save_dependencies` should store
     /// the dependencies directly on the the structure (`self`)
@@ -728,14 +728,14 @@ impl<T: Default + Clone> StateVar<T> {
         self.value.get_requested_value()
     }
 
-    /// Convenience function to call `return_dependency_instructions` on interface
-    pub fn return_dependency_instructions(
+    /// Convenience function to call `return_graph_queries` on interface
+    pub fn return_graph_queries(
         &mut self,
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
-    ) -> Vec<DependencyInstruction> {
+    ) -> Vec<GraphQuery> {
         self.interface
-            .return_dependency_instructions(extending, state_var_idx)
+            .return_graph_queries(extending, state_var_idx)
     }
 
     /// Call `save_dependencies` on interface

@@ -254,7 +254,7 @@ pub fn state_var_methods_mut_derive(input: TokenStream) -> TokenStream {
             let enum_ident = name;
 
             let mut state_var_record_all_dependencies_viewed_arms = Vec::new();
-            let mut state_var_return_dependency_instructions_arms = Vec::new();
+            let mut state_var_return_graph_queries_arms = Vec::new();
             let mut state_var_save_dependencies_arms = Vec::new();
             let mut state_var_request_dependency_updates_arms = Vec::new();
 
@@ -267,9 +267,9 @@ pub fn state_var_methods_mut_derive(input: TokenStream) -> TokenStream {
                     },
                 });
 
-                state_var_return_dependency_instructions_arms.push(quote! {
+                state_var_return_graph_queries_arms.push(quote! {
                     #enum_ident::#variant_ident(sv) => {
-                        sv.return_dependency_instructions(extending, state_var_idx)
+                        sv.return_graph_queries(extending, state_var_idx)
                     },
                 });
 
@@ -298,19 +298,19 @@ pub fn state_var_methods_mut_derive(input: TokenStream) -> TokenStream {
                         }
                     }
 
-                    /// Return a vector dependency instructions, which will be used to
+                    /// Return a vector graph queries, which will be used to
                     /// calculate dependencies from the document structure.
-                    pub fn return_dependency_instructions(&mut self, extending: Option<ExtendSource>, state_var_idx: StateVarIdx) -> Vec<DependencyInstruction> {
+                    pub fn return_graph_queries(&mut self, extending: Option<ExtendSource>, state_var_idx: StateVarIdx) -> Vec<GraphQuery> {
                         match self {
-                            #(#state_var_return_dependency_instructions_arms)*
+                            #(#state_var_return_graph_queries_arms)*
                         }
                     }
 
                     /// Set the dependencies for the state variable based on the `dependencies` argument.
                     ///
                     /// The dependencies passed into this function should be calculated from
-                    /// the dependency instructions returned by a previous call to
-                    /// `return_dependency_instructions()` as well as the document structure.
+                    /// the graph queries returned by a previous call to
+                    /// `return_graph_queries()` as well as the document structure.
                     ///
                     /// The dependencies are saved to the state variable and will be used
                     /// in calls to `calculate_state_var_from_dependencies_and_mark_fresh()`

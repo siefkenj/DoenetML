@@ -2,19 +2,19 @@ use crate::components::prelude::*;
 
 /// The dependencies of the sync_immediate_value state variable of the text input component
 #[add_dependency_data]
-#[derive(Debug, Default, StateVariableDependencies, StateVariableDependencyInstructions)]
-struct SyncImmediateValueDependencies {
+#[derive(Debug, Default, StateVariableDependencies, StateVariableGraphQueries)]
+struct RequiredData {
     essential: StateVarReadOnlyView<bool>,
 }
 
 /// The interface for the sync_immediate_value state variable of a text input
 #[derive(Debug, Default)]
 pub struct SyncImmediateValueStateVarInterface {
-    /// The dependency instructions that indicate how the dependencies of this state variable will be created.
-    dependency_instructions: SyncImmediateValueDependencyInstructions,
+    /// The graph queries that indicate how the dependencies of this state variable will be created.
+    graph_queries: RequiredDataGraphQueries,
 
-    /// The values of the dependencies created from the dependency instructions
-    dependency_values: SyncImmediateValueDependencies,
+    /// The values of the dependencies created from the graph queries
+    dependency_values: RequiredData,
 }
 
 impl SyncImmediateValueStateVarInterface {
@@ -32,16 +32,16 @@ impl From<SyncImmediateValueStateVarInterface> for StateVar<bool> {
 }
 
 impl StateVarInterface<bool> for SyncImmediateValueStateVarInterface {
-    fn return_dependency_instructions(
+    fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
         _state_var_idx: StateVarIdx,
-    ) -> Vec<DependencyInstruction> {
-        self.dependency_instructions = SyncImmediateValueDependencyInstructions {
-            essential: Some(DependencyInstruction::Essential),
+    ) -> Vec<GraphQuery> {
+        self.graph_queries = RequiredDataGraphQueries {
+            essential: Some(GraphQuery::Essential),
         };
 
-        (&self.dependency_instructions).into()
+        (&self.graph_queries).into()
     }
 
     fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
