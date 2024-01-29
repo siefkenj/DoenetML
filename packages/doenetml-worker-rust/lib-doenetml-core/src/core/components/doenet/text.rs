@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::components::prelude::*;
-use crate::generic_state_var::StringStateVar;
+use crate::state_var_interfaces::text_state_var_interfaces::StringStateVar;
 
 /// Definition of the `<text>` DoenetML component
 #[derive(Debug, Default, ComponentNode, ComponentState, ComponentActions, ComponentAttributes)]

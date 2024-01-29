@@ -8,7 +8,9 @@ pub use value::*;
 
 use crate::{
     components::prelude::*,
-    generic_state_var::{BooleanStateVar, StringStateVar},
+    state_var_interfaces::{
+        boolean_state_var_interfaces::BooleanStateVar, text_state_var_interfaces::StringStateVar,
+    },
 };
 
 /// The state variables that underlie the `<textInput>` component.
