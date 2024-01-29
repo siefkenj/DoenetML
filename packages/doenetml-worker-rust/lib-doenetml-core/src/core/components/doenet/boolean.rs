@@ -1,5 +1,5 @@
 use crate::components::prelude::*;
-use crate::state_var_interfaces::boolean_state_var_interfaces::BooleanStateVar;
+use crate::generic_state_var::BooleanStateVar;
 
 /// Definition of the `<boolean>` DoenetML component
 #[derive(Debug, Default, ComponentNode, ComponentState, ComponentActions, ComponentAttributes)]
