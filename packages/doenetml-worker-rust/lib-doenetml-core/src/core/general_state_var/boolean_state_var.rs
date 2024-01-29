@@ -129,7 +129,7 @@ impl From<BooleanStateVar> for StateVar<bool> {
     }
 }
 
-impl StateVarInterface<bool> for BooleanStateVar {
+impl StateVarUpdaters<bool> for BooleanStateVar {
     fn return_graph_queries(
         &mut self,
         extending: Option<ExtendSource>,

@@ -31,7 +31,7 @@ impl From<SyncImmediateValueStateVar> for StateVar<bool> {
     }
 }
 
-impl StateVarInterface<bool> for SyncImmediateValueStateVar {
+impl StateVarUpdaters<bool> for SyncImmediateValueStateVar {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
@@ -59,9 +59,7 @@ impl StateVarInterface<bool> for SyncImmediateValueStateVar {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        self.query_results
-            .essential
-            .queue_update(*requested_value);
+        self.query_results.essential.queue_update(*requested_value);
 
         Ok(self.query_results.return_queued_updates())
     }

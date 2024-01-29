@@ -36,7 +36,7 @@ impl From<ImmediateValueStateVar> for StateVar<String> {
     }
 }
 
-impl StateVarInterface<String> for ImmediateValueStateVar {
+impl StateVarUpdaters<String> for ImmediateValueStateVar {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
@@ -44,9 +44,7 @@ impl StateVarInterface<String> for ImmediateValueStateVar {
     ) -> Vec<GraphQuery> {
         self.graph_queries = RequiredDataGraphQueries {
             essential: Some(GraphQuery::Essential),
-            sync_immediate_value: Some(
-                TextInputState::get_sync_immediate_value_graph_queries(),
-            ),
+            sync_immediate_value: Some(TextInputState::get_sync_immediate_value_graph_queries()),
             bind_value_to: Some(TextInputState::get_bind_value_to_graph_queries()),
             prefill: Some(TextInputState::get_prefill_graph_queries()),
         };
@@ -78,8 +76,7 @@ impl StateVarInterface<String> for ImmediateValueStateVar {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        let bind_value_to_came_from_default =
-            self.query_results.bind_value_to.came_from_default();
+        let bind_value_to_came_from_default = self.query_results.bind_value_to.came_from_default();
 
         self.query_results
             .essential
