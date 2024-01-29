@@ -125,9 +125,7 @@ impl StateVarInterface<String> for StringStateVar {
                     self.query_results.strings[0].get().clone(),
                 );
             } else {
-                return StateVarCalcResult::Calculated(
-                    self.query_results.strings[0].get().clone(),
-                );
+                return StateVarCalcResult::Calculated(self.query_results.strings[0].get().clone());
             }
         } else {
             // TODO: can we implement this without cloning the inner value?

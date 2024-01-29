@@ -59,9 +59,7 @@ impl StateVarInterface<bool> for SyncImmediateValueStateVar {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        self.query_results
-            .essential
-            .queue_update(*requested_value);
+        self.query_results.essential.queue_update(*requested_value);
 
         Ok(self.query_results.return_queued_updates())
     }

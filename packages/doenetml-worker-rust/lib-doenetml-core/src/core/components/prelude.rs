@@ -28,7 +28,7 @@ pub use crate::components::{ActionsEnum, ComponentEnum, ComponentProfile, Render
 pub use crate::dast::{
     DastAttribute, ElementData, FlatDastElement, FlatDastElementContent, FlatDastElementUpdate,
 };
-pub use crate::dependency::{Dependency, GraphQuery, DependencyValueUpdateRequest};
+pub use crate::dependency::{Dependency, DependencyValueUpdateRequest, GraphQuery};
 pub use crate::state::{
     RequestDependencyUpdateError, StateVar, StateVarCalcResult, StateVarEnumRef,
     StateVarEnumRefMut, StateVarIdx, StateVarInterface, StateVarMutableView, StateVarReadOnlyView,

@@ -46,9 +46,7 @@ impl StateVarInterface<String> for ValueStateVar {
         self.graph_queries = RequiredDataGraphQueries {
             essential: Some(GraphQuery::Essential),
             immediate_value: Some(TextInputState::get_immediate_value_graph_queries()),
-            sync_immediate_value: Some(
-                TextInputState::get_sync_immediate_value_graph_queries(),
-            ),
+            sync_immediate_value: Some(TextInputState::get_sync_immediate_value_graph_queries()),
             bind_value_to: Some(TextInputState::get_bind_value_to_graph_queries()),
             prefill: Some(TextInputState::get_prefill_graph_queries()),
         };
