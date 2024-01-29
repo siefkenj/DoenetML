@@ -10,7 +10,7 @@ use super::util::create_graph_query_if_match_extend_source;
 /// If the state variable has a single dependency that is an essential state variable,
 /// then propagate the `came_from_default` attribute of the essential state variable.
 #[derive(Debug, Default)]
-pub struct GeneralStringStateVarInterface {
+pub struct StringStateVar {
     /// The base graph query that indicates how the dependencies of this state variable will be created.
     base_graph_query: GraphQuery,
 
@@ -51,10 +51,10 @@ struct GeneralStringStateVarGraphQueries {
     other: Option<GraphQuery>,
 }
 
-impl GeneralStringStateVarInterface {
+impl StringStateVar {
     /// Creates a state var that queries its value from the given graph query.
     pub fn new(base_graph_query: GraphQuery) -> Self {
-        GeneralStringStateVarInterface {
+        StringStateVar {
             base_graph_query,
             ..Default::default()
         }
@@ -62,7 +62,7 @@ impl GeneralStringStateVarInterface {
 
     /// Creates a state var that queries its value from children matching the `Text` profile.
     pub fn new_from_children() -> Self {
-        GeneralStringStateVarInterface {
+        StringStateVar {
             base_graph_query: GraphQuery::Child {
                 match_profiles: vec![ComponentProfile::Text],
                 exclude_if_prefer_profiles: vec![],
@@ -73,7 +73,7 @@ impl GeneralStringStateVarInterface {
 
     /// Creates a state var that queries its value from attributes matching the `Text` profile.
     pub fn new_from_attribute(attr_name: AttributeName) -> Self {
-        GeneralStringStateVarInterface {
+        StringStateVar {
             base_graph_query: GraphQuery::AttributeChild {
                 attribute_name: attr_name,
                 match_profiles: vec![ComponentProfile::Text],
@@ -83,13 +83,13 @@ impl GeneralStringStateVarInterface {
     }
 }
 
-impl From<GeneralStringStateVarInterface> for StateVar<String> {
-    fn from(interface: GeneralStringStateVarInterface) -> Self {
+impl From<StringStateVar> for StateVar<String> {
+    fn from(interface: StringStateVar) -> Self {
         StateVar::new(Box::new(interface), Default::default())
     }
 }
 
-impl StateVarInterface<String> for GeneralStringStateVarInterface {
+impl StateVarInterface<String> for StringStateVar {
     fn return_graph_queries(
         &mut self,
         extending: Option<ExtendSource>,
