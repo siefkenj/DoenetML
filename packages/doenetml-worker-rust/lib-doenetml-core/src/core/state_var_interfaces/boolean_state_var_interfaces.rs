@@ -92,6 +92,7 @@ impl TryFrom<&StateVarReadOnlyViewEnum> for BooleanOrString {
 }
 
 impl GeneralBooleanStateVarInterface {
+    /// Creates a state var that queries its value from the given graph query.
     pub fn new(base_graph_query: GraphQuery) -> Self {
         GeneralBooleanStateVarInterface {
             base_graph_query,
@@ -99,6 +100,7 @@ impl GeneralBooleanStateVarInterface {
         }
     }
 
+    /// Creates a state var that queries its value from children matching the `Text` or `Boolean` profile.
     pub fn new_from_children() -> Self {
         GeneralBooleanStateVarInterface {
             base_graph_query: GraphQuery::Child {
@@ -109,6 +111,7 @@ impl GeneralBooleanStateVarInterface {
         }
     }
 
+    /// Creates a state var that queries its value from attributes matching the `Text` or `Boolean` profile.
     pub fn new_from_attribute(attr_name: AttributeName) -> Self {
         GeneralBooleanStateVarInterface {
             base_graph_query: GraphQuery::AttributeChild {
@@ -133,10 +136,7 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
         state_var_idx: StateVarIdx,
     ) -> Vec<GraphQuery> {
         self.graph_queries = GeneralBooleanStateVarGraphQueries {
-            extending: create_graph_query_if_match_extend_source(
-                extending,
-                state_var_idx,
-            ),
+            extending: create_graph_query_if_match_extend_source(extending, state_var_idx),
             base: Some(self.base_graph_query.clone()),
         };
 
@@ -222,76 +222,5 @@ impl StateVarInterface<bool> for GeneralBooleanStateVarInterface {
         } else {
             Err(RequestDependencyUpdateError::CouldNotUpdate)
         }
-    }
-}
-
-/// A simplified version of GeneralBooleanStateVarInterface
-/// that is based on a single dependency.
-#[derive(Debug, Default)]
-pub struct SingleDependencyBooleanStateVarInterface {
-    // the graph query that was specified as a parameter
-    graph_query: GraphQuery,
-
-    /// The graph query structure created by the
-    /// `StateVariableGraphQueries` macro
-    /// based on `SingleDependencyBooleanDependencies`
-    graph_queries: SingleDependencyBooleanRequiredDataGraphQueries,
-
-    /// The values of the dependencies created from the graph queries
-    dependency_values: SingleDependencyBooleanRequiredData,
-}
-
-/// The values of the dependencies that were created from the graph queries.
-#[add_dependency_data]
-#[derive(Debug, Default, StateVariableDependencies, StateVariableGraphQueries)]
-struct SingleDependencyBooleanRequiredData {
-    boolean: StateVarReadOnlyView<bool>,
-}
-
-impl SingleDependencyBooleanStateVarInterface {
-    pub fn new(graph_query: GraphQuery) -> Self {
-        SingleDependencyBooleanStateVarInterface {
-            graph_query,
-            ..Default::default()
-        }
-    }
-}
-
-impl From<SingleDependencyBooleanStateVarInterface> for StateVar<bool> {
-    fn from(interface: SingleDependencyBooleanStateVarInterface) -> Self {
-        StateVar::new(Box::new(interface), Default::default())
-    }
-}
-
-impl StateVarInterface<bool> for SingleDependencyBooleanStateVarInterface {
-    fn return_graph_queries(
-        &mut self,
-        _extending: Option<ExtendSource>,
-        _state_var_idx: StateVarIdx,
-    ) -> Vec<GraphQuery> {
-        self.graph_queries = SingleDependencyBooleanRequiredDataGraphQueries {
-            boolean: Some(self.graph_query.clone()),
-        };
-        (&self.graph_queries).into()
-    }
-
-    fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
-        self.dependency_values = dependencies.try_into().unwrap();
-    }
-
-    fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<bool> {
-        StateVarCalcResult::Calculated(*self.dependency_values.boolean.get())
-    }
-
-    fn request_dependency_updates(
-        &mut self,
-        state_var: &StateVarReadOnlyView<bool>,
-        _is_direct_change_from_renderer: bool,
-    ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
-        self.dependency_values
-            .boolean
-            .queue_update(*state_var.get_requested_value());
-
-        Ok(self.dependency_values.return_queued_updates())
     }
 }

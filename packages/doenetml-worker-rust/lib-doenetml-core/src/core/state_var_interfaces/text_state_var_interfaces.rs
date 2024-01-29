@@ -52,6 +52,7 @@ struct GeneralStringStateVarGraphQueries {
 }
 
 impl GeneralStringStateVarInterface {
+    /// Creates a state var that queries its value from the given graph query.
     pub fn new(base_graph_query: GraphQuery) -> Self {
         GeneralStringStateVarInterface {
             base_graph_query,
@@ -59,6 +60,7 @@ impl GeneralStringStateVarInterface {
         }
     }
 
+    /// Creates a state var that queries its value from children matching the `Text` profile.
     pub fn new_from_children() -> Self {
         GeneralStringStateVarInterface {
             base_graph_query: GraphQuery::Child {
@@ -69,6 +71,7 @@ impl GeneralStringStateVarInterface {
         }
     }
 
+    /// Creates a state var that queries its value from attributes matching the `Text` profile.
     pub fn new_from_attribute(attr_name: AttributeName) -> Self {
         GeneralStringStateVarInterface {
             base_graph_query: GraphQuery::AttributeChild {
@@ -93,10 +96,7 @@ impl StateVarInterface<String> for GeneralStringStateVarInterface {
         state_var_idx: StateVarIdx,
     ) -> Vec<GraphQuery> {
         self.graph_queries = GeneralStringStateVarGraphQueries {
-            extending: create_graph_query_if_match_extend_source(
-                extending,
-                state_var_idx,
-            ),
+            extending: create_graph_query_if_match_extend_source(extending, state_var_idx),
             other: Some(self.base_graph_query.clone()),
         };
 
@@ -157,78 +157,5 @@ impl StateVarInterface<String> for GeneralStringStateVarInterface {
 
             Ok(self.dependency_values.return_queued_updates())
         }
-    }
-}
-
-/// A simplified version of GeneralStringStateVarInterface
-/// that is based on a single dependency.
-#[derive(Debug, Default)]
-pub struct SingleDependencyStringStateVarInterface {
-    // the graph query that was specified as a parameter
-    graph_query: GraphQuery,
-
-    /// The graph query structure created by the
-    /// `StateVariableGraphQueries` macro
-    /// based on `SingleDependencyStringDependencies`
-    graph_queries: SingleDependencyStringRequiredDataGraphQueries,
-
-    /// The values of the dependencies created from the graph queries
-    dependency_values: SingleDependencyStringRequiredData,
-}
-
-/// The values of the dependencies that were created from the graph queries.
-#[add_dependency_data]
-#[derive(Debug, Default, StateVariableDependencies, StateVariableGraphQueries)]
-struct SingleDependencyStringRequiredData {
-    string: StateVarReadOnlyView<String>,
-}
-
-impl SingleDependencyStringStateVarInterface {
-    pub fn new(graph_query: GraphQuery) -> Self {
-        SingleDependencyStringStateVarInterface {
-            graph_query,
-            ..Default::default()
-        }
-    }
-}
-
-impl From<SingleDependencyStringStateVarInterface> for StateVar<String> {
-    fn from(interface: SingleDependencyStringStateVarInterface) -> Self {
-        StateVar::new(Box::new(interface), Default::default())
-    }
-}
-
-impl StateVarInterface<String> for SingleDependencyStringStateVarInterface {
-    fn return_graph_queries(
-        &mut self,
-        _extending: Option<ExtendSource>,
-        _state_var_idx: StateVarIdx,
-    ) -> Vec<GraphQuery> {
-        self.graph_queries = SingleDependencyStringRequiredDataGraphQueries {
-            string: Some(self.graph_query.clone()),
-        };
-        (&self.graph_queries).into()
-    }
-
-    fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
-        self.dependency_values = dependencies.try_into().unwrap();
-    }
-
-    fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<String> {
-        StateVarCalcResult::Calculated(self.dependency_values.string.get().clone())
-    }
-
-    fn request_dependency_updates(
-        &mut self,
-        state_var: &StateVarReadOnlyView<String>,
-        _is_direct_change_from_renderer: bool,
-    ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
-        let requested_value = state_var.get_requested_value();
-
-        self.dependency_values
-            .string
-            .queue_update(requested_value.clone());
-
-        Ok(self.dependency_values.return_queued_updates())
     }
 }

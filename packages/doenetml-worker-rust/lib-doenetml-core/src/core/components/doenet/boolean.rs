@@ -1,7 +1,5 @@
 use crate::components::prelude::*;
-use crate::state_var_interfaces::boolean_state_var_interfaces::{
-    GeneralBooleanStateVarInterface, SingleDependencyBooleanStateVarInterface,
-};
+use crate::state_var_interfaces::boolean_state_var_interfaces::GeneralBooleanStateVarInterface;
 
 /// Definition of the `<boolean>` DoenetML component
 #[derive(Debug, Default, ComponentNode, ComponentState, ComponentActions, ComponentAttributes)]
@@ -59,10 +57,8 @@ impl BooleanState {
     fn new() -> Self {
         BooleanState {
             value: GeneralBooleanStateVarInterface::new_from_children().into(),
-            boolean: SingleDependencyBooleanStateVarInterface::new(
-                BooleanState::get_value_graph_queries(),
-            )
-            .into(),
+            boolean: GeneralBooleanStateVarInterface::new(BooleanState::get_value_graph_queries())
+                .into(),
         }
     }
 }
