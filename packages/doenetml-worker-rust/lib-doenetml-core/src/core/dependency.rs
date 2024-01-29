@@ -12,7 +12,7 @@ use crate::{
         },
         StateVarPointer,
     },
-    state::{StateVarName, StateVarReadOnlyViewEnum, StateVarValue},
+    state::{StateVarName, StateVarValue, StateVarViewEnum},
     ComponentIdx, ComponentPointerTextOrMacro, ExtendSource,
 };
 
@@ -87,7 +87,7 @@ impl TryFrom<&DependencySource> for StateVarPointer {
 #[derive(Debug)]
 pub struct Dependency {
     pub source: DependencySource,
-    pub value: StateVarReadOnlyViewEnum,
+    pub value: StateVarViewEnum,
 }
 
 /// The vector of dependencies that were created for a `DataQuery`
@@ -632,7 +632,7 @@ pub trait TryIntoStateVar<'a, T> {
 
 impl<'a, T> TryIntoStateVar<'a, T> for &'a DependenciesCreatedForInstruction
 where
-    T: TryFrom<&'a StateVarReadOnlyViewEnum>,
+    T: TryFrom<&'a StateVarViewEnum>,
 {
     type Error = T::Error;
 
@@ -647,7 +647,7 @@ where
 
 impl<'a, T> TryIntoStateVar<'a, Vec<T>> for &'a DependenciesCreatedForInstruction
 where
-    T: TryFrom<&'a StateVarReadOnlyViewEnum>,
+    T: TryFrom<&'a StateVarViewEnum>,
 {
     type Error = T::Error;
 

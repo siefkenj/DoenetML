@@ -68,22 +68,22 @@ struct BooleanStateVarDataQueries {
 #[derive(Debug)]
 #[enum_dispatch(QueryUpdateRequests)]
 enum BooleanOrString {
-    Boolean(StateVarReadOnlyView<bool>),
-    String(StateVarReadOnlyView<String>),
+    Boolean(StateVarView<bool>),
+    String(StateVarView<String>),
 }
 
-// We implement TryFrom `StateVarReadOnlyViewEnum`
+// We implement TryFrom `StateVarViewEnum`
 // so that we can `try_into` `GeneralBooleanStateVarDependencies`
 // from the vector of dependencies.
-impl TryFrom<&StateVarReadOnlyViewEnum> for BooleanOrString {
+impl TryFrom<&StateVarViewEnum> for BooleanOrString {
     type Error = &'static str;
 
-    fn try_from(value: &StateVarReadOnlyViewEnum) -> Result<Self, Self::Error> {
+    fn try_from(value: &StateVarViewEnum) -> Result<Self, Self::Error> {
         match value {
-            StateVarReadOnlyViewEnum::Boolean(boolean_sv) => Ok(BooleanOrString::Boolean(
+            StateVarViewEnum::Boolean(boolean_sv) => Ok(BooleanOrString::Boolean(
                 boolean_sv.create_new_read_only_view(),
             )),
-            StateVarReadOnlyViewEnum::String(string_sv) => Ok(BooleanOrString::String(
+            StateVarViewEnum::String(string_sv) => Ok(BooleanOrString::String(
                 string_sv.create_new_read_only_view(),
             )),
             _ => Err("BooleanOrString can only be a boolean or string state variable"),
@@ -204,7 +204,7 @@ impl StateVarUpdaters<bool> for BooleanStateVar {
 
     fn invert(
         &mut self,
-        state_var: &StateVarReadOnlyView<bool>,
+        state_var: &StateVarView<bool>,
         _is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         if self.query_results.booleans_or_strings.len() == 1 {

@@ -6,11 +6,11 @@ use super::TextInputState;
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies, StateVariableDataQueries)]
 struct RequiredData {
-    essential: StateVarReadOnlyView<String>,
-    immediate_value: StateVarReadOnlyView<String>,
-    sync_immediate_value: StateVarReadOnlyView<bool>,
-    bind_value_to: StateVarReadOnlyView<String>,
-    prefill: StateVarReadOnlyView<String>,
+    essential: StateVarView<String>,
+    immediate_value: StateVarView<String>,
+    sync_immediate_value: StateVarView<bool>,
+    bind_value_to: StateVarView<String>,
+    prefill: StateVarView<String>,
 }
 
 /// The interface for the value state variable of a text input
@@ -76,7 +76,7 @@ impl StateVarUpdaters<String> for ValueStateVar {
 
     fn invert(
         &mut self,
-        state_var: &StateVarReadOnlyView<String>,
+        state_var: &StateVarView<String>,
         _is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();

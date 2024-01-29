@@ -32,7 +32,7 @@ pub struct StringStateVar {
 struct GeneralStringStateVarDependencies {
     /// A vector of the string values of the dependencies
     #[consume_remaining_instructions]
-    strings: Vec<StateVarReadOnlyView<String>>,
+    strings: Vec<StateVarView<String>>,
 }
 
 /// The graph queries that indicate how the dependencies of this state variable will be created.
@@ -142,7 +142,7 @@ impl StateVarUpdaters<String> for StringStateVar {
 
     fn invert(
         &mut self,
-        state_var: &StateVarReadOnlyView<String>,
+        state_var: &StateVarView<String>,
         _is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         if self.query_results.strings.len() != 1 {

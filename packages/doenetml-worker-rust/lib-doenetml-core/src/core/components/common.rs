@@ -7,9 +7,7 @@ use crate::attribute::{AttributeName, AttributeType};
 use serde::{Deserialize, Serialize};
 
 use crate::dast::{DastAttribute, Position as DastPosition};
-use crate::state::{
-    ComponentState, StateVarIdx, StateVarReadOnlyView, StateVarReadOnlyViewEnum, StateVarValue,
-};
+use crate::state::{ComponentState, StateVarIdx, StateVarValue, StateVarView, StateVarViewEnum};
 use crate::{ComponentIdx, ComponentPointerTextOrMacro, ExtendSource};
 
 use doenetml_derive::RenderedState;
@@ -280,11 +278,11 @@ pub enum ComponentProfile {
 /// of a graph query will determine the dependency.
 #[derive(Debug, Clone)]
 pub enum ComponentProfileStateVariable {
-    Text(StateVarReadOnlyView<String>, StateVarIdx),
-    String(StateVarReadOnlyView<String>, StateVarIdx),
-    Number(StateVarReadOnlyView<f64>, StateVarIdx),
-    Integer(StateVarReadOnlyView<i64>, StateVarIdx),
-    Boolean(StateVarReadOnlyView<bool>, StateVarIdx),
+    Text(StateVarView<String>, StateVarIdx),
+    String(StateVarView<String>, StateVarIdx),
+    Number(StateVarView<f64>, StateVarIdx),
+    Integer(StateVarView<i64>, StateVarIdx),
+    Boolean(StateVarView<bool>, StateVarIdx),
 }
 
 // TODO: derive these with macro?
@@ -308,22 +306,22 @@ impl ComponentProfileStateVariable {
     ///
     /// In this way, the state variable depending on the children can calculate its value
     /// from the state variable value of the ComponentProfileStateVariable.
-    pub fn into_state_variable_view_enum_and_idx(self) -> (StateVarReadOnlyViewEnum, StateVarIdx) {
+    pub fn into_state_variable_view_enum_and_idx(self) -> (StateVarViewEnum, StateVarIdx) {
         match self {
             ComponentProfileStateVariable::Text(sv, state_var_idx) => {
-                (StateVarReadOnlyViewEnum::String(sv), state_var_idx)
+                (StateVarViewEnum::String(sv), state_var_idx)
             }
             ComponentProfileStateVariable::String(sv, state_var_idx) => {
-                (StateVarReadOnlyViewEnum::String(sv), state_var_idx)
+                (StateVarViewEnum::String(sv), state_var_idx)
             }
             ComponentProfileStateVariable::Number(sv, state_var_idx) => {
-                (StateVarReadOnlyViewEnum::Number(sv), state_var_idx)
+                (StateVarViewEnum::Number(sv), state_var_idx)
             }
             ComponentProfileStateVariable::Integer(sv, state_var_idx) => {
-                (StateVarReadOnlyViewEnum::Integer(sv), state_var_idx)
+                (StateVarViewEnum::Integer(sv), state_var_idx)
             }
             ComponentProfileStateVariable::Boolean(sv, state_var_idx) => {
-                (StateVarReadOnlyViewEnum::Boolean(sv), state_var_idx)
+                (StateVarViewEnum::Boolean(sv), state_var_idx)
             }
         }
     }

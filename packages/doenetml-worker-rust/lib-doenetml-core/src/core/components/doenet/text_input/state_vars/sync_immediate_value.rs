@@ -4,7 +4,7 @@ use crate::components::prelude::*;
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies, StateVariableDataQueries)]
 struct RequiredData {
-    essential: StateVarReadOnlyView<bool>,
+    essential: StateVarView<bool>,
 }
 
 /// The interface for the sync_immediate_value state variable of a text input
@@ -54,7 +54,7 @@ impl StateVarUpdaters<bool> for SyncImmediateValueStateVar {
 
     fn invert(
         &mut self,
-        state_var: &StateVarReadOnlyView<bool>,
+        state_var: &StateVarView<bool>,
         _is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();

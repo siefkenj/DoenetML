@@ -54,7 +54,7 @@ pub fn state_var_mutable_view_methods_derive_wrapper(input: TokenStream) -> Toke
     state_var_mutable_view_methods_derive(input)
 }
 
-#[proc_macro_derive(StateVarReadOnlyViewMethods)]
+#[proc_macro_derive(StateVarViewMethods)]
 pub fn state_var_read_only_view_methods_derive_wrapper(input: TokenStream) -> TokenStream {
     state_var_read_only_view_methods_derive(input)
 }

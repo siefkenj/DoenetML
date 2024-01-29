@@ -66,7 +66,7 @@ pub fn state_var_methods_derive(input: TokenStream) -> TokenStream {
 
                 state_var_create_read_only_view_arms.push(quote! {
                     #enum_ident::#variant_ident(sv) => {
-                        StateVarReadOnlyViewEnum::#variant_ident(sv.create_new_read_only_view())
+                        StateVarViewEnum::#variant_ident(sv.create_new_read_only_view())
                     },
                 });
 
@@ -164,7 +164,7 @@ pub fn state_var_methods_derive(input: TokenStream) -> TokenStream {
                     /// Each view will access the same value (and freshness)
                     /// but each view separately tracks whether or not it has changed
                     /// since it was last viewed.
-                    pub fn create_new_read_only_view(&self) -> StateVarReadOnlyViewEnum {
+                    pub fn create_new_read_only_view(&self) -> StateVarViewEnum {
                         match self {
                             #(#state_var_create_read_only_view_arms)*
                         }
@@ -412,7 +412,7 @@ pub fn state_var_mutable_view_methods_derive(input: TokenStream) -> TokenStream 
 
                 state_var_mutable_view_create_read_only_view_arms.push(quote! {
                     StateVarMutableViewEnum::#variant_ident(sv) => {
-                        StateVarReadOnlyViewEnum::#variant_ident(sv.create_new_read_only_view())
+                        StateVarViewEnum::#variant_ident(sv.create_new_read_only_view())
                     },
                 });
 
@@ -493,7 +493,7 @@ pub fn state_var_mutable_view_methods_derive(input: TokenStream) -> TokenStream 
                     /// Each view will access the same value (and freshness)
                     /// but each view separately tracks whether or not it has changed
                     /// since it was last viewed.
-                    pub fn create_new_read_only_view(&self) -> StateVarReadOnlyViewEnum {
+                    pub fn create_new_read_only_view(&self) -> StateVarViewEnum {
                         match self {
                             #(#state_var_mutable_view_create_read_only_view_arms)*
                         }
@@ -528,14 +528,14 @@ pub fn state_var_mutable_view_methods_derive(input: TokenStream) -> TokenStream 
     output.into()
 }
 
-/// Implement methods on the StateVarReadOnlyViewEnum enum
+/// Implement methods on the StateVarViewEnum enum
 pub fn state_var_read_only_view_methods_derive(input: TokenStream) -> TokenStream {
     let ast: syn::DeriveInput = syn::parse(input).unwrap();
     let data = &ast.data;
 
-    // Note: explicitly use StateVarReadOnlyViewEnum rather than #enum_ident
+    // Note: explicitly use StateVarViewEnum rather than #enum_ident
     // in hopes that can merge this with state_var_methods_derive
-    // (if can create StateVarReadOnlyViewEnum itself with the macro)
+    // (if can create StateVarViewEnum itself with the macro)
 
     let output = match data {
         syn::Data::Enum(v) => {
@@ -552,38 +552,38 @@ pub fn state_var_read_only_view_methods_derive(input: TokenStream) -> TokenStrea
                 let variant_ident = &variant.ident;
 
                 state_var_read_only_view_get_freshness_arms.push(quote! {
-                    StateVarReadOnlyViewEnum::#variant_ident(sv) => {
+                    StateVarViewEnum::#variant_ident(sv) => {
                         sv.get_freshness()
                     },
                 });
 
                 state_var_read_only_view_came_from_default_arms.push(quote! {
-                    StateVarReadOnlyViewEnum::#variant_ident(sv) => {
+                    StateVarViewEnum::#variant_ident(sv) => {
                         sv.came_from_default()
                     },
                 });
 
                 state_var_read_only_view_get_arms.push(quote! {
-                    StateVarReadOnlyViewEnum::#variant_ident(sv) => {
+                    StateVarViewEnum::#variant_ident(sv) => {
                         // TODO: need .clone()?
                         StateVarValue::#variant_ident(sv.get().clone())
                     },
                 });
 
                 state_var_read_only_view_create_new_read_only_view_arms.push(quote! {
-                    StateVarReadOnlyViewEnum::#variant_ident(sv) => {
-                        StateVarReadOnlyViewEnum::#variant_ident(sv.create_new_read_only_view())
+                    StateVarViewEnum::#variant_ident(sv) => {
+                        StateVarViewEnum::#variant_ident(sv.create_new_read_only_view())
                     },
                 });
 
                 state_var_read_only_view_check_if_changed_since_last_viewed_arms.push(quote! {
-                    StateVarReadOnlyViewEnum::#variant_ident(sv) => {
+                    StateVarViewEnum::#variant_ident(sv) => {
                         sv.check_if_changed_since_last_viewed()
                     },
                 });
 
                 state_var_read_only_view_record_viewed_arms.push(quote! {
-                    StateVarReadOnlyViewEnum::#variant_ident(sv) => {
+                    StateVarViewEnum::#variant_ident(sv) => {
                         sv.record_viewed()
                     },
                 });
@@ -591,7 +591,7 @@ pub fn state_var_read_only_view_methods_derive(input: TokenStream) -> TokenStrea
 
             quote! {
 
-                impl StateVarReadOnlyViewEnum {
+                impl StateVarViewEnum {
 
                     /// Return the current freshness of the variable
                     ///
@@ -628,7 +628,7 @@ pub fn state_var_read_only_view_methods_derive(input: TokenStream) -> TokenStrea
                     /// Each view will access the same value (and freshness)
                     /// but each view separately tracks whether or not it has changed
                     /// since it was last viewed.
-                    pub fn create_new_read_only_view(&self) -> StateVarReadOnlyViewEnum {
+                    pub fn create_new_read_only_view(&self) -> StateVarViewEnum {
                         match self {
                             #(#state_var_read_only_view_create_new_read_only_view_arms)*
                         }
@@ -701,15 +701,15 @@ pub fn into_state_var_enum_refs_derive(input: TokenStream) -> TokenStream {
 
                         impl_try_from_read_only_enum_to_ready_only_view_variants.push(quote! {
 
-                            impl TryFrom<&StateVarReadOnlyViewEnum> for StateVarReadOnlyView<#state_var_type> {
+                            impl TryFrom<&StateVarViewEnum> for StateVarView<#state_var_type> {
                                 type Error = &'static str;
-                                fn try_from(value: &StateVarReadOnlyViewEnum) -> Result<Self, Self::Error> {
+                                fn try_from(value: &StateVarViewEnum) -> Result<Self, Self::Error> {
                                     match value {
-                                        StateVarReadOnlyViewEnum::#variant_ident(ref sv_ref) => {
+                                        StateVarViewEnum::#variant_ident(ref sv_ref) => {
                                             Result::Ok(sv_ref.create_new_read_only_view())
                                         }
                                         _ => Result::Err(
-                                            "Only #variant_ident can be converted to StateVarReadOnlyView<#state_var_type>",
+                                            "Only #variant_ident can be converted to StateVarView<#state_var_type>",
                                         ),
                                     }
                                 }
