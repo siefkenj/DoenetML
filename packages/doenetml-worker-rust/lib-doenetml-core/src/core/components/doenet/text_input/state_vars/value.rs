@@ -15,7 +15,7 @@ struct RequiredData {
 
 /// The interface for the value state variable of a text input
 #[derive(Debug, Default)]
-pub struct ValueStateVarInterface {
+pub struct ValueStateVar {
     /// The graph queries that indicate how the dependencies of this state variable will be created.
     graph_queries: RequiredDataGraphQueries,
 
@@ -23,21 +23,21 @@ pub struct ValueStateVarInterface {
     query_results: RequiredData,
 }
 
-impl ValueStateVarInterface {
+impl ValueStateVar {
     pub fn new() -> Self {
-        ValueStateVarInterface {
+        ValueStateVar {
             ..Default::default()
         }
     }
 }
 
-impl From<ValueStateVarInterface> for StateVar<String> {
-    fn from(interface: ValueStateVarInterface) -> Self {
+impl From<ValueStateVar> for StateVar<String> {
+    fn from(interface: ValueStateVar) -> Self {
         StateVar::new(Box::new(interface), Default::default())
     }
 }
 
-impl StateVarInterface<String> for ValueStateVarInterface {
+impl StateVarInterface<String> for ValueStateVar {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,

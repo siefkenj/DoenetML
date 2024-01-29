@@ -14,7 +14,7 @@ struct RequiredData {
 
 /// The interface for the immediate_value state variable of a text input
 #[derive(Debug, Default)]
-pub struct ImmediateValueStateVarInterface {
+pub struct ImmediateValueStateVar {
     /// The graph queries that indicate how the dependencies of this state variable will be created.
     graph_queries: RequiredDataGraphQueries,
 
@@ -22,21 +22,21 @@ pub struct ImmediateValueStateVarInterface {
     query_results: RequiredData,
 }
 
-impl ImmediateValueStateVarInterface {
+impl ImmediateValueStateVar {
     pub fn new() -> Self {
-        ImmediateValueStateVarInterface {
+        ImmediateValueStateVar {
             ..Default::default()
         }
     }
 }
 
-impl From<ImmediateValueStateVarInterface> for StateVar<String> {
-    fn from(interface: ImmediateValueStateVarInterface) -> Self {
+impl From<ImmediateValueStateVar> for StateVar<String> {
+    fn from(interface: ImmediateValueStateVar) -> Self {
         StateVar::new(Box::new(interface), Default::default())
     }
 }
 
-impl StateVarInterface<String> for ImmediateValueStateVarInterface {
+impl StateVarInterface<String> for ImmediateValueStateVar {
     fn return_graph_queries(
         &mut self,
         _extending: Option<ExtendSource>,
