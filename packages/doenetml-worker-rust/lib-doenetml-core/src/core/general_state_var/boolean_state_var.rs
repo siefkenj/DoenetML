@@ -143,7 +143,7 @@ impl StateVarUpdaters<bool> for BooleanStateVar {
         (&self.data_queries).into()
     }
 
-    fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
+    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
         self.query_results = dependencies.try_into().unwrap();
 
         if self.query_results.booleans_or_strings.len() == 1 {
@@ -164,7 +164,7 @@ impl StateVarUpdaters<bool> for BooleanStateVar {
         }
     }
 
-    fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<bool> {
+    fn calculate(&self) -> StateVarCalcResult<bool> {
         if self.have_invalid_combination {
             StateVarCalcResult::Calculated(false)
         } else if self.query_results.booleans_or_strings.len() == 1 {
@@ -202,7 +202,7 @@ impl StateVarUpdaters<bool> for BooleanStateVar {
         }
     }
 
-    fn request_dependency_updates(
+    fn invert(
         &mut self,
         state_var: &StateVarReadOnlyView<bool>,
         _is_direct_change_from_renderer: bool,

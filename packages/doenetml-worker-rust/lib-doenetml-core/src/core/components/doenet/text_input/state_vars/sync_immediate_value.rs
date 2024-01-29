@@ -44,15 +44,15 @@ impl StateVarUpdaters<bool> for SyncImmediateValueStateVar {
         (&self.data_queries).into()
     }
 
-    fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
+    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
         self.query_results = dependencies.try_into().unwrap();
     }
 
-    fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<bool> {
+    fn calculate(&self) -> StateVarCalcResult<bool> {
         StateVarCalcResult::Calculated(*self.query_results.essential.get())
     }
 
-    fn request_dependency_updates(
+    fn invert(
         &mut self,
         state_var: &StateVarReadOnlyView<bool>,
         _is_direct_change_from_renderer: bool,

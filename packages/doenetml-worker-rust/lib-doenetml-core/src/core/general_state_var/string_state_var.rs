@@ -103,7 +103,7 @@ impl StateVarUpdaters<String> for StringStateVar {
         (&self.data_queries).into()
     }
 
-    fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
+    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
         self.query_results = dependencies.try_into().unwrap();
 
         if self.query_results.strings.len() == 1 {
@@ -116,7 +116,7 @@ impl StateVarUpdaters<String> for StringStateVar {
         }
     }
 
-    fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<String> {
+    fn calculate(&self) -> StateVarCalcResult<String> {
         if self.from_single_essential {
             if self.query_results.strings[0].came_from_default() {
                 // if we are basing it on a single essential variable that came from default,
@@ -140,7 +140,7 @@ impl StateVarUpdaters<String> for StringStateVar {
         }
     }
 
-    fn request_dependency_updates(
+    fn invert(
         &mut self,
         state_var: &StateVarReadOnlyView<String>,
         _is_direct_change_from_renderer: bool,

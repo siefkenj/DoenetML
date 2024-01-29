@@ -52,11 +52,11 @@ impl StateVarUpdaters<String> for ImmediateValueStateVar {
         (&self.data_queries).into()
     }
 
-    fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
+    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
         self.query_results = dependencies.try_into().unwrap();
     }
 
-    fn calculate_state_var_from_dependencies(&self) -> StateVarCalcResult<String> {
+    fn calculate(&self) -> StateVarCalcResult<String> {
         let immediate_value = if !self.query_results.bind_value_to.came_from_default()
             && *self.query_results.sync_immediate_value.get()
         {
@@ -69,7 +69,7 @@ impl StateVarUpdaters<String> for ImmediateValueStateVar {
         StateVarCalcResult::Calculated(immediate_value)
     }
 
-    fn request_dependency_updates(
+    fn invert(
         &mut self,
         state_var: &StateVarReadOnlyView<String>,
         is_direct_change_from_renderer: bool,
