@@ -73,7 +73,7 @@ enum BooleanOrString {
 }
 
 // We implement TryFrom `StateVarViewEnum`
-// so that we can `try_into` `GeneralBooleanStateVarDependencies`
+// so that we can `try_into` `RequiredData`
 // from the vector of dependencies.
 impl TryFrom<&StateVarViewEnum> for BooleanOrString {
     type Error = &'static str;

@@ -16,20 +16,20 @@ pub struct StringStateVar {
 
     /// The base data query, potentially augmented by a data query
     /// for shadowing another variable
-    data_queries: GeneralStringStateVarDataQueries,
+    data_queries: StringStateVarDataQueries,
 
     /// The values of the dependencies created from the data queries
-    data: GeneralStringStateVarDependencies,
+    data: RequiredData,
 
     /// If true, there is just a single dependency that is an essential state variable.
     /// In this case, we'll propagate the `came_from_default` attribute of the essential state variable.
     from_single_essential: bool,
 }
 
-/// The values of the dependencies that were created from the data queries
+/// The data required to compute the value of this state variable.
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies)]
-struct GeneralStringStateVarDependencies {
+struct RequiredData {
     /// A vector of the string values of the dependencies
     #[consume_remaining_instructions]
     strings: Vec<StateVarView<String>>,
@@ -39,7 +39,7 @@ struct GeneralStringStateVarDependencies {
 /// They consist of the base data query specified, potentially augmented by a data query
 /// for shadowing another variable
 #[derive(Debug, Default, StateVariableDataQueries)]
-struct GeneralStringStateVarDataQueries {
+struct StringStateVarDataQueries {
     /// If present, `extending` contains a data query requesting the value of another text variable.
     /// It was created from the extend source for this component.
     extending: Option<DataQuery>,
@@ -95,7 +95,7 @@ impl StateVarUpdater<String> for StringStateVar {
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
     ) -> Vec<DataQuery> {
-        self.data_queries = GeneralStringStateVarDataQueries {
+        self.data_queries = StringStateVarDataQueries {
             extending: create_data_query_if_match_extend_source(extending, state_var_idx),
             other: Some(self.base_data_query.clone()),
         };
