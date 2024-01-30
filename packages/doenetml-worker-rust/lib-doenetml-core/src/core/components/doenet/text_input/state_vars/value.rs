@@ -31,8 +31,8 @@ impl ValueStateVar {
 }
 
 impl From<ValueStateVar> for StateVar<String> {
-    fn from(interface: ValueStateVar) -> Self {
-        StateVar::new(Box::new(interface), Default::default())
+    fn from(updater: ValueStateVar) -> Self {
+        StateVar::new(Box::new(updater), Default::default())
     }
 }
 

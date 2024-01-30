@@ -67,10 +67,10 @@ pub struct StateVar<T: Default + Clone> {
     /// Sent to functions to give them read only access to the variable.
     immutable_view_of_value: StateVarView<T>,
 
-    /// Trait object that exposes the interface to used to specify
-    /// how the state variable is calculated from its dependencies
-    /// or how to modify its dependencies to give it a new requested value
-    interface: Box<dyn StateVarUpdater<T>>,
+    /// Trait object that exposes the interface used "update" a state var.
+    /// That is, it specifies how the state variable is calculated from its dependencies
+    /// or how to modify its dependencies to give it a new requested value.
+    updater: Box<dyn StateVarUpdater<T>>,
 
     /// Value if don't have dependencies that determine the value
     default_value: T,
@@ -626,12 +626,12 @@ impl<T: Default + Clone> Clone for StateVarView<T> {
 
 impl<T: Default + Clone> StateVar<T> {
     /// Create a new state variable with the supplied interface
-    pub fn new(interface: Box<dyn StateVarUpdater<T>>, default_value: T) -> Self {
+    pub fn new(updater: Box<dyn StateVarUpdater<T>>, default_value: T) -> Self {
         let value = StateVarMutableView::new();
         StateVar {
             immutable_view_of_value: value.create_new_read_only_view(),
             value,
-            interface,
+            updater,
             default_value,
             all_data: vec![],
         }
@@ -729,13 +729,13 @@ impl<T: Default + Clone> StateVar<T> {
         extending: Option<ExtendSource>,
         state_var_idx: StateVarIdx,
     ) -> Vec<DataQuery> {
-        self.interface.return_data_queries(extending, state_var_idx)
+        self.updater.return_data_queries(extending, state_var_idx)
     }
 
     /// Call `save_dependencies` on interface
     /// and save dependencies to `all_data` field
     pub fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
-        self.interface.save_data(dependencies);
+        self.updater.save_data(dependencies);
         self.all_data = dependencies
             .iter()
             .flat_map(|vec| vec.iter().map(|elt| elt.value.create_new_read_only_view()))
@@ -745,7 +745,7 @@ impl<T: Default + Clone> StateVar<T> {
     /// Convenience function to call `calculate` on interface
     /// and then call mark_fresh
     pub fn calculate_and_mark_fresh(&self) {
-        match self.interface.calculate() {
+        match self.updater.calculate() {
             StateVarCalcResult::Calculated(val) => self.value.set_value(val),
             StateVarCalcResult::FromDefault(val) => {
                 self.value.set_value_and_set_came_from_default(val, true)
@@ -759,7 +759,7 @@ impl<T: Default + Clone> StateVar<T> {
         &mut self,
         is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
-        self.interface.invert(
+        self.updater.invert(
             &self.immutable_view_of_value,
             is_direct_change_from_renderer,
         )

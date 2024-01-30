@@ -84,8 +84,8 @@ impl StringStateVar {
 }
 
 impl From<StringStateVar> for StateVar<String> {
-    fn from(interface: StringStateVar) -> Self {
-        StateVar::new(Box::new(interface), Default::default())
+    fn from(updater: StringStateVar) -> Self {
+        StateVar::new(Box::new(updater), Default::default())
     }
 }
 

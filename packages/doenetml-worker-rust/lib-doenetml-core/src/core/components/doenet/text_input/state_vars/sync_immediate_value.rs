@@ -25,8 +25,8 @@ impl SyncImmediateValueStateVar {
 }
 
 impl From<SyncImmediateValueStateVar> for StateVar<bool> {
-    fn from(interface: SyncImmediateValueStateVar) -> Self {
-        StateVar::new(Box::new(interface), true)
+    fn from(updater: SyncImmediateValueStateVar) -> Self {
+        StateVar::new(Box::new(updater), true)
     }
 }
 

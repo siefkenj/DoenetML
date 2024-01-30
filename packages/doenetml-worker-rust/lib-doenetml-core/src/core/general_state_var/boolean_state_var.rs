@@ -124,8 +124,8 @@ impl BooleanStateVar {
 }
 
 impl From<BooleanStateVar> for StateVar<bool> {
-    fn from(interface: BooleanStateVar) -> Self {
-        StateVar::new(Box::new(interface), Default::default())
+    fn from(updater: BooleanStateVar) -> Self {
+        StateVar::new(Box::new(updater), Default::default())
     }
 }
 

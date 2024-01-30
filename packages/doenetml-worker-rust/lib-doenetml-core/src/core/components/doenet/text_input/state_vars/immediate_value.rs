@@ -30,8 +30,8 @@ impl ImmediateValueStateVar {
 }
 
 impl From<ImmediateValueStateVar> for StateVar<String> {
-    fn from(interface: ImmediateValueStateVar) -> Self {
-        StateVar::new(Box::new(interface), Default::default())
+    fn from(updater: ImmediateValueStateVar) -> Self {
+        StateVar::new(Box::new(updater), Default::default())
     }
 }
 
