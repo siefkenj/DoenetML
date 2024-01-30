@@ -27,8 +27,7 @@ pub fn state_var_methods_derive(input: TokenStream) -> TokenStream {
             let mut state_var_get_arms = Vec::new();
             let mut state_var_request_change_value_to_arms = Vec::new();
             let mut state_var_check_if_any_dependency_changed_since_last_viewed_arms = Vec::new();
-            let mut state_var_calculate_state_var_from_dependencies_and_mark_fresh_arms =
-                Vec::new();
+            let mut state_var_calculate_and_mark_fresh_arms = Vec::new();
             let mut state_var_return_default_value_arms = Vec::new();
 
             for variant in variants {
@@ -89,9 +88,9 @@ pub fn state_var_methods_derive(input: TokenStream) -> TokenStream {
                     },
                 });
 
-                state_var_calculate_state_var_from_dependencies_and_mark_fresh_arms.push(quote! {
+                state_var_calculate_and_mark_fresh_arms.push(quote! {
                     #enum_ident::#variant_ident(sv) => {
-                        sv.calculate_state_var_from_dependencies_and_mark_fresh()
+                        sv.calculate_and_mark_fresh()
                     },
                 });
 
@@ -212,9 +211,9 @@ pub fn state_var_methods_derive(input: TokenStream) -> TokenStream {
                     ///
                     /// The value is stored in the state variable and can be retrieved by calling
                     /// `get()`.
-                    pub fn calculate_state_var_from_dependencies_and_mark_fresh(&self) {
+                    pub fn calculate_and_mark_fresh(&self) {
                         match self {
-                            #(#state_var_calculate_state_var_from_dependencies_and_mark_fresh_arms)*
+                            #(#state_var_calculate_and_mark_fresh_arms)*
                         }
                     }
 
@@ -313,7 +312,7 @@ pub fn state_var_methods_mut_derive(input: TokenStream) -> TokenStream {
                     /// `return_data_queries()` as well as the document structure.
                     ///
                     /// The dependencies are saved to the state variable and will be used
-                    /// in calls to `calculate_state_var_from_dependencies_and_mark_fresh()`
+                    /// in calls to `calculate_and_mark_fresh()`
                     /// and `request_dependency_updates()`.
                     pub fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
                         match self {

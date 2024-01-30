@@ -44,7 +44,7 @@ pub enum Freshness {
     Resolved,
 }
 
-/// The possible results of a call to `calculate_state_var_from_dependencies`:
+/// The possible results of a call to `calculate`:
 /// - Calculated(T): the value was calculated to be T
 /// - FromDefault(T): the value T was determined from the default value
 pub enum StateVarCalcResult<T> {
@@ -742,9 +742,9 @@ impl<T: Default + Clone> StateVar<T> {
             .collect();
     }
 
-    /// Convenience function to call `calculate_state_var_from_dependencies` on interface
+    /// Convenience function to call `calculate` on interface
     /// and then call mark_fresh
-    pub fn calculate_state_var_from_dependencies_and_mark_fresh(&self) {
+    pub fn calculate_and_mark_fresh(&self) {
         match self.interface.calculate() {
             StateVarCalcResult::Calculated(val) => self.value.set_value(val),
             StateVarCalcResult::FromDefault(val) => {

@@ -266,7 +266,7 @@ pub fn freshen_state_var(
 
             // Check if any dependency has changed since we last called record_all_dependencies_viewed.
             if state_var.check_if_any_dependency_changed_since_last_viewed() {
-                state_var.calculate_state_var_from_dependencies_and_mark_fresh();
+                state_var.calculate_and_mark_fresh();
                 state_var.record_all_dependencies_viewed();
             } else {
                 state_var.mark_fresh();
