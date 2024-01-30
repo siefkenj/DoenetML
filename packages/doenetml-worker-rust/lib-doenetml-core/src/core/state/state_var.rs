@@ -31,10 +31,10 @@ use super::StateVarIdx;
 pub type StateVarName = &'static str;
 
 /// The possible values of the freshness of a state variable.
-/// - Fresh: the state variable value has been calculated from given base variable values
-/// - Stale: a base variable influencing this state variable has changed so it must be recalculated
-/// - Unresolved: the dependencies for this state variable have not yet been created
-/// - Resolved: the dependencies for this state variable have been created,
+/// - `Fresh`: the state variable value has been calculated from given base variable values
+/// - `Stale`: a base variable influencing this state variable has changed so it must be recalculated
+/// - `Unresolved`: the dependencies for this state variable have not yet been created
+/// - `Resolved`: the dependencies for this state variable have been created,
 ///   but the value has not yet been calculated
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Freshness {
