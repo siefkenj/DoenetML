@@ -106,7 +106,7 @@ pub trait StateVarUpdater<T: Default + Clone>: std::fmt::Debug {
     ) -> Vec<DataQuery>;
 
     /// Called when data queries for the state variable have been completed.
-    /// State variables are expected to cache the results of their queries
+    /// State variables cache the results of their queries
     /// for efficient future computations.
     #[allow(clippy::ptr_arg)]
     fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>);
