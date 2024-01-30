@@ -31,7 +31,7 @@ impl From<SyncImmediateValueStateVar> for StateVar<bool> {
     }
 }
 
-impl StateVarUpdaters<bool> for SyncImmediateValueStateVar {
+impl StateVarUpdater<bool> for SyncImmediateValueStateVar {
     fn return_data_queries(
         &mut self,
         _extending: Option<ExtendSource>,

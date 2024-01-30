@@ -68,7 +68,7 @@ pub struct DoenetMLCore {
     /// - The hash map value *EssentialStateVariable* is a *StateVarMutableViewEnum*
     ///   that stores the value.
     ///   (Note, unlike for state variables, *EssentialStateVariable* is not attached to any *StateVar*,
-    ///   as it doesn't need *StateVarUpdaters*.)
+    ///   as it doesn't need *StateVarUpdater*.)
     pub essential_data: Vec<HashMap<EssentialDataOrigin, EssentialStateVar>>,
 
     pub processing_state: CoreProcessingState,

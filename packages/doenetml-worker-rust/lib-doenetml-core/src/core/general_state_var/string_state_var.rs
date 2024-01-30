@@ -89,7 +89,7 @@ impl From<StringStateVar> for StateVar<String> {
     }
 }
 
-impl StateVarUpdaters<String> for StringStateVar {
+impl StateVarUpdater<String> for StringStateVar {
     fn return_data_queries(
         &mut self,
         extending: Option<ExtendSource>,

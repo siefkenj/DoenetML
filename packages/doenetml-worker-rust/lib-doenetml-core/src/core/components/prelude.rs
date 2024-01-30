@@ -31,6 +31,6 @@ pub use crate::dast::{
 pub use crate::dependency::{DataQuery, Dependency, DependencyValueUpdateRequest};
 pub use crate::state::{
     RequestDependencyUpdateError, StateVar, StateVarCalcResult, StateVarEnumRef,
-    StateVarEnumRefMut, StateVarIdx, StateVarMutableView, StateVarUpdaters, StateVarValue,
+    StateVarEnumRefMut, StateVarIdx, StateVarMutableView, StateVarUpdater, StateVarValue,
     StateVarView, StateVarViewEnum,
 };

@@ -129,7 +129,7 @@ impl From<BooleanStateVar> for StateVar<bool> {
     }
 }
 
-impl StateVarUpdaters<bool> for BooleanStateVar {
+impl StateVarUpdater<bool> for BooleanStateVar {
     fn return_data_queries(
         &mut self,
         extending: Option<ExtendSource>,

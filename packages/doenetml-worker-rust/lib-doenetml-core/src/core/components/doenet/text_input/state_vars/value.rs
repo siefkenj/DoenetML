@@ -37,7 +37,7 @@ impl From<ValueStateVar> for StateVar<String> {
     }
 }
 
-impl StateVarUpdaters<String> for ValueStateVar {
+impl StateVarUpdater<String> for ValueStateVar {
     fn return_data_queries(
         &mut self,
         _extending: Option<ExtendSource>,
