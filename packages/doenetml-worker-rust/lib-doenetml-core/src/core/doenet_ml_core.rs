@@ -22,7 +22,7 @@ use super::state::state_var_updates::process_state_variable_update_request;
 use super::state::Freshness;
 
 use crate::components::actions::{Action, UpdateFromAction};
-use crate::components::prelude::{ComponentState, DependenciesCreatedForInstruction, StateVarIdx};
+use crate::components::prelude::{ComponentState, DependenciesCreatedForDataQuery, StateVarIdx};
 use crate::dast::{get_flat_dast_update, to_flat_dast};
 use crate::state::StateVarPointer;
 #[allow(unused)]
@@ -98,9 +98,9 @@ pub struct DependencyGraph {
     /// - The second index is the *StateVarIdx*,
     /// defined by the order in which state variables are defined for the component.
     /// - The third index is the index of the *DataQuery* for the state variable.
-    /// - The inner DependenciesCreatedForInstruction is the vector of dependencies
+    /// - The inner DependenciesCreatedForDataQuery is the vector of dependencies
     ///   that matched that DataQuery.
-    pub dependencies: Vec<Vec<Vec<DependenciesCreatedForInstruction>>>,
+    pub dependencies: Vec<Vec<Vec<DependenciesCreatedForDataQuery>>>,
 
     /// The inverse of the dependency graph *dependencies* (along with *dependent_on_essential*).
     /// It specifies the state variables that are dependent on each state variable.

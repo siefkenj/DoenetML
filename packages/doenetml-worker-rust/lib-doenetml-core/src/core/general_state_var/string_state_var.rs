@@ -103,7 +103,7 @@ impl StateVarUpdaters<String> for StringStateVar {
         (&self.data_queries).into()
     }
 
-    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
+    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
         self.query_results = dependencies.try_into().unwrap();
 
         if self.query_results.strings.len() == 1 {

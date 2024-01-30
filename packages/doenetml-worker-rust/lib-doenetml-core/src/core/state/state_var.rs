@@ -21,7 +21,7 @@ use doenetml_derive::{
 
 use crate::{
     components::doenet::{boolean::Boolean, text::Text},
-    dependency::{DataQuery, DependenciesCreatedForInstruction, DependencyValueUpdateRequest},
+    dependency::{DataQuery, DependenciesCreatedForDataQuery, DependencyValueUpdateRequest},
     ExtendSource,
 };
 
@@ -109,7 +109,7 @@ pub trait StateVarUpdaters<T: Default + Clone>: std::fmt::Debug {
     /// State variables are expected to cache the results of their queries
     /// for efficient future computations.
     #[allow(clippy::ptr_arg)]
-    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>);
+    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>);
 
     /// Calculate the value of the state variable from the currently cached query results.
     /// Results of this function will be cached, so local caching is not needed.
@@ -734,7 +734,7 @@ impl<T: Default + Clone> StateVar<T> {
 
     /// Call `save_dependencies` on interface
     /// and save dependencies to `all_query_results` field
-    pub fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
+    pub fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
         self.interface.save_query_results(dependencies);
         self.all_query_results = dependencies
             .iter()

@@ -314,7 +314,7 @@ pub fn state_var_methods_mut_derive(input: TokenStream) -> TokenStream {
                     /// The dependencies are saved to the state variable and will be used
                     /// in calls to `calculate_and_mark_fresh()`
                     /// and `request_dependency_updates()`.
-                    pub fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForInstruction>) {
+                    pub fn save_dependencies(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
                         match self {
                             #(#state_var_save_dependencies_arms)*
                         }

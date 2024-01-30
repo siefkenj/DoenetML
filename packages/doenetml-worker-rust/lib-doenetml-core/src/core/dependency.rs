@@ -31,10 +31,10 @@ pub enum DataQuery {
         exclude_if_prefer_profiles: Vec<ComponentProfile>,
     },
     StateVar {
-        /// If None, state variable is from the component giving the instruction.
+        /// If None, state variable is from the component making the query.
         component_idx: Option<ComponentIdx>,
 
-        /// The state variable from component_idx or component given the instruction
+        /// The state variable from component_idx or component making the query.
         state_var_idx: StateVarIdx,
     },
     Parent {
@@ -92,9 +92,9 @@ pub struct Dependency {
 
 /// The vector of dependencies that were created for a `DataQuery`
 #[derive(Debug)]
-pub struct DependenciesCreatedForInstruction(pub Vec<Dependency>);
+pub struct DependenciesCreatedForDataQuery(pub Vec<Dependency>);
 
-impl Deref for DependenciesCreatedForInstruction {
+impl Deref for DependenciesCreatedForDataQuery {
     type Target = Vec<Dependency>;
     fn deref(&self) -> &Self::Target {
         &self.0
@@ -117,16 +117,14 @@ pub struct DependencyValueUpdateRequest {
 /// by finding elements in the document that match the instruction.
 ///
 /// If an instruction asks for essential data, create it and add it to *essential_data*.
-pub fn create_dependencies_from_instruction_initialize_essential(
+pub fn create_dependencies_from_data_query_initialize_essential(
     components: &Vec<Rc<RefCell<ComponentEnum>>>,
     component_idx: ComponentIdx,
     state_var_idx: StateVarIdx,
-    instruction: &DataQuery,
+    query: &DataQuery,
     essential_data: &mut Vec<HashMap<EssentialDataOrigin, EssentialStateVar>>,
-) -> DependenciesCreatedForInstruction {
-    // log!("Creating dependency {}:{} from instruction {:?}", component_name, state_var_idx, instruction);
-
-    match instruction {
+) -> DependenciesCreatedForDataQuery {
+    match query {
         DataQuery::Essential => {
             // We recurse to extend source components so that this essential data
             // is shared with the extend source any any other components that extend from it.
@@ -160,7 +158,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
                     new_view.create_new_read_only_view()
                 };
 
-            DependenciesCreatedForInstruction(vec![Dependency {
+            DependenciesCreatedForDataQuery(vec![Dependency {
                 source: DependencySource::Essential {
                     component_idx: source_idx,
                     origin: essential_origin,
@@ -179,7 +177,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
 
             let comp = components[comp_idx].borrow();
 
-            DependenciesCreatedForInstruction(vec![Dependency {
+            DependenciesCreatedForDataQuery(vec![Dependency {
                 source: DependencySource::StateVar {
                     component_idx: comp_idx,
                     state_var_idx: *sv_idx,
@@ -206,7 +204,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
                 .get_state_variable_index_from_name(state_var_name)
                 .unwrap_or_else(|| panic!("Invalid state variable 2: {}", state_var_name));
 
-            DependenciesCreatedForInstruction(vec![Dependency {
+            DependenciesCreatedForDataQuery(vec![Dependency {
                 source: DependencySource::StateVar {
                     component_idx: parent_idx,
                     state_var_idx: sv_idx,
@@ -403,7 +401,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
                 });
             }
 
-            DependenciesCreatedForInstruction(dependencies)
+            DependenciesCreatedForDataQuery(dependencies)
         }
 
         DataQuery::AttributeChild {
@@ -548,7 +546,7 @@ pub fn create_dependencies_from_instruction_initialize_essential(
                 });
             }
 
-            DependenciesCreatedForInstruction(dependencies)
+            DependenciesCreatedForDataQuery(dependencies)
         }
     }
 }
@@ -630,7 +628,7 @@ pub trait TryIntoStateVar<'a, T> {
     fn try_into_state_var(&self) -> Result<T, Self::Error>;
 }
 
-impl<'a, T> TryIntoStateVar<'a, T> for &'a DependenciesCreatedForInstruction
+impl<'a, T> TryIntoStateVar<'a, T> for &'a DependenciesCreatedForDataQuery
 where
     T: TryFrom<&'a StateVarViewEnum>,
 {
@@ -645,7 +643,7 @@ where
     }
 }
 
-impl<'a, T> TryIntoStateVar<'a, Vec<T>> for &'a DependenciesCreatedForInstruction
+impl<'a, T> TryIntoStateVar<'a, Vec<T>> for &'a DependenciesCreatedForDataQuery
 where
     T: TryFrom<&'a StateVarViewEnum>,
 {

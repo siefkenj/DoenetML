@@ -432,9 +432,9 @@ pub fn state_variable_dependencies_derive(input: TokenStream) -> TokenStream {
                 }
 
                 quote! {
-                    impl TryFrom<&Vec<DependenciesCreatedForInstruction>> for #structure_identity {
+                    impl TryFrom<&Vec<DependenciesCreatedForDataQuery>> for #structure_identity {
                         type Error = &'static str;
-                        fn try_from(dependencies: &Vec<DependenciesCreatedForInstruction>) -> Result<Self, Self::Error> {
+                        fn try_from(dependencies: &Vec<DependenciesCreatedForDataQuery>) -> Result<Self, Self::Error> {
                             let mut mapping_data = #data_identity::default();
 
                             #(#initialize_data_struct_statements)*

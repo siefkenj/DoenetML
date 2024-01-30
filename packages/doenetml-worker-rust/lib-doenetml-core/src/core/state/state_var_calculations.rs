@@ -3,7 +3,7 @@ use std::{cell::RefCell, collections::HashMap, rc::Rc};
 use crate::{
     components::{ComponentEnum, ComponentNode, RenderedChildren},
     dependency::{
-        create_dependencies_from_instruction_initialize_essential, DataQuery, DependencySource,
+        create_dependencies_from_data_query_initialize_essential, DataQuery, DependencySource,
     },
     state::essential_state::{EssentialDataOrigin, EssentialStateDescription, EssentialStateVar},
     state::{Freshness, StateVarValue},
@@ -312,12 +312,12 @@ pub fn resolve_state_var(
 
         let mut dependencies_for_state_var = Vec::with_capacity(data_queries.len());
 
-        for dep_instruction in data_queries.iter() {
-            let instruct_dependencies = create_dependencies_from_instruction_initialize_essential(
+        for query in data_queries.iter() {
+            let instruct_dependencies = create_dependencies_from_data_query_initialize_essential(
                 components,
                 component_idx,
                 state_var_idx,
-                dep_instruction,
+                query,
                 essential_data,
             );
 

@@ -9,7 +9,7 @@ pub use doenetml_derive::{
 pub use std::collections::HashMap;
 
 pub use crate::dast::Position as DastPosition;
-pub use crate::dependency::{DependenciesCreatedForInstruction, TryIntoStateVar};
+pub use crate::dependency::{DependenciesCreatedForDataQuery, TryIntoStateVar};
 pub use crate::state::{ComponentState, QueryUpdateRequests};
 
 pub use crate::utils::KeyValueIgnoreCase;
