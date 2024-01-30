@@ -20,7 +20,7 @@ pub struct ValueStateVar {
     data_queries: RequiredDataDataQueries,
 
     /// The values of the dependencies created from the graph queries
-    query_results: RequiredData,
+    data: RequiredData,
 }
 
 impl ValueStateVar {
@@ -54,21 +54,21 @@ impl StateVarUpdater<String> for ValueStateVar {
         (&self.data_queries).into()
     }
 
-    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
-        self.query_results = dependencies.try_into().unwrap();
+    fn save_data(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
+        self.data = dependencies.try_into().unwrap();
     }
 
     fn calculate(&self) -> StateVarCalcResult<String> {
-        let value = if *self.query_results.sync_immediate_value.get() {
-            self.query_results.immediate_value.get().clone()
-        } else if self.query_results.bind_value_to.came_from_default() {
-            if self.query_results.essential.came_from_default() {
-                self.query_results.prefill.get().clone()
+        let value = if *self.data.sync_immediate_value.get() {
+            self.data.immediate_value.get().clone()
+        } else if self.data.bind_value_to.came_from_default() {
+            if self.data.essential.came_from_default() {
+                self.data.prefill.get().clone()
             } else {
-                self.query_results.essential.get().clone()
+                self.data.essential.get().clone()
             }
         } else {
-            self.query_results.bind_value_to.get().clone()
+            self.data.bind_value_to.get().clone()
         };
 
         StateVarCalcResult::Calculated(value)
@@ -81,25 +81,19 @@ impl StateVarUpdater<String> for ValueStateVar {
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
         let requested_value = state_var.get_requested_value();
 
-        let query_results = &mut self.query_results;
+        let data = &mut self.data;
 
-        let bind_value_to_came_from_default = query_results.bind_value_to.came_from_default();
+        let bind_value_to_came_from_default = data.bind_value_to.came_from_default();
 
         if bind_value_to_came_from_default {
-            query_results
-                .essential
-                .queue_update(requested_value.clone());
-            query_results
-                .immediate_value
-                .queue_update(requested_value.clone());
-            query_results.sync_immediate_value.queue_update(true);
+            data.essential.queue_update(requested_value.clone());
+            data.immediate_value.queue_update(requested_value.clone());
+            data.sync_immediate_value.queue_update(true);
         } else {
-            query_results
-                .bind_value_to
-                .queue_update(requested_value.clone());
-            query_results.sync_immediate_value.queue_update(true);
+            data.bind_value_to.queue_update(requested_value.clone());
+            data.sync_immediate_value.queue_update(true);
         }
 
-        Ok(query_results.return_queued_updates())
+        Ok(data.return_queued_updates())
     }
 }

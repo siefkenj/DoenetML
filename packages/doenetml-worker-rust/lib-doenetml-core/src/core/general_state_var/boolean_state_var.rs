@@ -25,7 +25,7 @@ pub struct BooleanStateVar {
     data_queries: BooleanStateVarDataQueries,
 
     /// The values of the dependencies created from the graph queries
-    query_results: RequiredData,
+    data: RequiredData,
 
     /// If true, there is just a single dependency that is an essential state variable.
     /// In this case, we'll propagate the `came_from_default` attribute of the essential state variable.
@@ -143,10 +143,10 @@ impl StateVarUpdater<bool> for BooleanStateVar {
         (&self.data_queries).into()
     }
 
-    fn save_query_results(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
-        self.query_results = dependencies.try_into().unwrap();
+    fn save_data(&mut self, dependencies: &Vec<DependenciesCreatedForDataQuery>) {
+        self.data = dependencies.try_into().unwrap();
 
-        if self.query_results.booleans_or_strings.len() == 1 {
+        if self.data.booleans_or_strings.len() == 1 {
             match dependencies[0][0].source {
                 DependencySource::Essential { .. } => {
                     self.from_single_essential = true;
@@ -154,7 +154,7 @@ impl StateVarUpdater<bool> for BooleanStateVar {
                 _ => {}
             }
         } else if self
-            .query_results
+            .data
             .booleans_or_strings
             .iter()
             .any(|dep_value| matches!(dep_value, BooleanOrString::Boolean(_)))
@@ -167,8 +167,8 @@ impl StateVarUpdater<bool> for BooleanStateVar {
     fn calculate(&self) -> StateVarCalcResult<bool> {
         if self.have_invalid_combination {
             StateVarCalcResult::Calculated(false)
-        } else if self.query_results.booleans_or_strings.len() == 1 {
-            match &self.query_results.booleans_or_strings[0] {
+        } else if self.data.booleans_or_strings.len() == 1 {
+            match &self.data.booleans_or_strings[0] {
                 BooleanOrString::Boolean(boolean_value) => {
                     if self.from_single_essential {
                         if boolean_value.came_from_default() {
@@ -190,7 +190,7 @@ impl StateVarUpdater<bool> for BooleanStateVar {
             // concatenate the string values into a single string
             // TODO: can we do this without cloning?
             let value: String = self
-                .query_results
+                .data
                 .booleans_or_strings
                 .iter()
                 .map(|v| match v {
@@ -207,8 +207,8 @@ impl StateVarUpdater<bool> for BooleanStateVar {
         state_var: &StateVarView<bool>,
         _is_direct_change_from_renderer: bool,
     ) -> Result<Vec<DependencyValueUpdateRequest>, RequestDependencyUpdateError> {
-        if self.query_results.booleans_or_strings.len() == 1 {
-            match &mut self.query_results.booleans_or_strings[0] {
+        if self.data.booleans_or_strings.len() == 1 {
+            match &mut self.data.booleans_or_strings[0] {
                 BooleanOrString::Boolean(boolean_value) => {
                     boolean_value.queue_update(*state_var.get_requested_value());
                 }
@@ -218,7 +218,7 @@ impl StateVarUpdater<bool> for BooleanStateVar {
                     string_value.queue_update(requested_value.to_string());
                 }
             }
-            Ok(self.query_results.return_queued_updates())
+            Ok(self.data.return_queued_updates())
         } else {
             Err(RequestDependencyUpdateError::CouldNotUpdate)
         }
