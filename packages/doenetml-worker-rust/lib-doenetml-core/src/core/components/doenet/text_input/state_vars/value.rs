@@ -2,7 +2,7 @@ use crate::components::prelude::*;
 
 use super::TextInputState;
 
-/// The dependencies of the value state variable of the text input component
+/// A struct of all data required to compute the value of this state variable.
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies, StateVariableDataQueries)]
 struct RequiredData {
@@ -13,13 +13,12 @@ struct RequiredData {
     prefill: StateVarView<String>,
 }
 
-/// The interface for the value state variable of a text input
 #[derive(Debug, Default)]
 pub struct ValueStateVar {
-    /// The graph queries that indicate how the dependencies of this state variable will be created.
+    /// The data queries that indicate how the dependencies of this state variable will be created.
     data_queries: RequiredDataDataQueries,
 
-    /// The values of the dependencies created from the graph queries
+    /// The values of the dependencies created from the data queries
     data: RequiredData,
 }
 

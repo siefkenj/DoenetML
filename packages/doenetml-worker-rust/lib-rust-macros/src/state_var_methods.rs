@@ -297,7 +297,7 @@ pub fn state_var_methods_mut_derive(input: TokenStream) -> TokenStream {
                         }
                     }
 
-                    /// Return a vector graph queries, which will be used to
+                    /// Return a vector data queries, which will be used to
                     /// calculate dependencies from the document structure.
                     pub fn return_data_queries(&mut self, extending: Option<ExtendSource>, state_var_idx: StateVarIdx) -> Vec<DataQuery> {
                         match self {
@@ -308,7 +308,7 @@ pub fn state_var_methods_mut_derive(input: TokenStream) -> TokenStream {
                     /// Set the dependencies for the state variable based on the `dependencies` argument.
                     ///
                     /// The dependencies passed into this function should be calculated from
-                    /// the graph queries returned by a previous call to
+                    /// the data queries returned by a previous call to
                     /// `return_data_queries()` as well as the document structure.
                     ///
                     /// The dependencies are saved to the state variable and will be used

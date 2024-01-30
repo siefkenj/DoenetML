@@ -18,7 +18,7 @@ pub struct StringStateVar {
     /// for shadowing another variable
     data_queries: GeneralStringStateVarDataQueries,
 
-    /// The values of the dependencies created from the graph queries
+    /// The values of the dependencies created from the data queries
     data: GeneralStringStateVarDependencies,
 
     /// If true, there is just a single dependency that is an essential state variable.
@@ -26,7 +26,7 @@ pub struct StringStateVar {
     from_single_essential: bool,
 }
 
-/// The values of the dependencies that were created from the graph queries
+/// The values of the dependencies that were created from the data queries
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies)]
 struct GeneralStringStateVarDependencies {
@@ -35,7 +35,7 @@ struct GeneralStringStateVarDependencies {
     strings: Vec<StateVarView<String>>,
 }
 
-/// The graph queries that indicate how the dependencies of this state variable will be created.
+/// The data queries that indicate how the dependencies of this state variable will be created.
 /// They consist of the base data query specified, potentially augmented by a data query
 /// for shadowing another variable
 #[derive(Debug, Default, StateVariableDataQueries)]

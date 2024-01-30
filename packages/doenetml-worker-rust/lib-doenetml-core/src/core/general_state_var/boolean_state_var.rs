@@ -24,7 +24,7 @@ pub struct BooleanStateVar {
     /// for shadowing another variable
     data_queries: BooleanStateVarDataQueries,
 
-    /// The values of the dependencies created from the graph queries
+    /// The values of the dependencies created from the data queries
     data: RequiredData,
 
     /// If true, there is just a single dependency that is an essential state variable.
@@ -37,7 +37,7 @@ pub struct BooleanStateVar {
     have_invalid_combination: bool,
 }
 
-/// The values of the dependencies created from the graph queries
+/// The values of the dependencies created from the data queries
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies)]
 struct RequiredData {
@@ -46,7 +46,7 @@ struct RequiredData {
     booleans_or_strings: Vec<BooleanOrString>,
 }
 
-/// The graph queries that indicate how the dependencies of this state variable will be created.
+/// The data queries that indicate how the dependencies of this state variable will be created.
 /// They consist of the base data query specified, potentially augmented by a data query
 /// for shadowing another variable
 #[derive(Debug, Default, StateVariableDataQueries)]

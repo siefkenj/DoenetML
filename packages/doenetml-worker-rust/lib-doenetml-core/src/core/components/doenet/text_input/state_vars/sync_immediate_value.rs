@@ -1,19 +1,18 @@
 use crate::components::prelude::*;
 
-/// The dependencies of the sync_immediate_value state variable of the text input component
+/// A struct of all data required to compute the value of this state variable.
 #[add_dependency_data]
 #[derive(Debug, Default, StateVariableDependencies, StateVariableDataQueries)]
 struct RequiredData {
     essential: StateVarView<bool>,
 }
 
-/// The interface for the sync_immediate_value state variable of a text input
 #[derive(Debug, Default)]
 pub struct SyncImmediateValueStateVar {
-    /// The graph queries that indicate how the dependencies of this state variable will be created.
+    /// The data queries that indicate how the dependencies of this state variable will be created.
     data_queries: RequiredDataDataQueries,
 
-    /// The values of the dependencies created from the graph queries
+    /// The values of the dependencies created from the data queries
     data: RequiredData,
 }
 
