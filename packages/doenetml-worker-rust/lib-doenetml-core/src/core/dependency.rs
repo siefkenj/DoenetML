@@ -109,14 +109,14 @@ impl Deref for DependenciesCreatedForDataQuery {
 /// in the *requested_value* field of their state variables.
 #[derive(Debug)]
 pub struct DependencyValueUpdateRequest {
-    pub instruction_idx: usize,
+    pub data_query_idx: usize,
     pub dependency_idx: usize,
 }
 
-/// Create the dependencies specified by the query
-/// by finding elements in the document that match the instruction.
+/// Create the dependencies specified by the data query
+/// by finding elements in the document that match.
 ///
-/// If an instruction asks for essential data, create it and add it to *essential_data*.
+/// If an data query asks for essential data, create it and add it to *essential_data*.
 pub fn create_dependencies_from_data_query_initialize_essential(
     components: &Vec<Rc<RefCell<ComponentEnum>>>,
     component_idx: ComponentIdx,

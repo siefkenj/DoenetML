@@ -218,13 +218,13 @@ fn convert_dependency_updates_requested_to_state_variable_update_requests(
     let mut update_requests = Vec::new();
 
     for DependencyValueUpdateRequest {
-        instruction_idx,
+        data_query_idx,
         dependency_idx,
     } in requests
     {
-        let instruct_dependencies = my_dependencies.get(instruction_idx).unwrap_or_else(|| {
+        let instruct_dependencies = my_dependencies.get(data_query_idx).unwrap_or_else(|| {
             panic!(
-                "{}:{} has too few instructions to determine dependencies",
+                "{}:{} has too few data queries to determine dependencies",
                 components[component_idx].borrow().get_component_type(),
                 state_var_idx
             )

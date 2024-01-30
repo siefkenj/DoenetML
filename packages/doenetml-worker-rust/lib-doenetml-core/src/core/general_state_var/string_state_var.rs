@@ -40,7 +40,7 @@ struct GeneralStringStateVarDependencies {
 /// for shadowing another variable
 #[derive(Debug, Default, StateVariableDataQueries)]
 struct GeneralStringStateVarDataQueries {
-    /// If present, `extending` contains an instruction requesting the value of another text variable.
+    /// If present, `extending` contains a data query requesting the value of another text variable.
     /// It was created from the extend source for this component.
     extending: Option<DataQuery>,
 
