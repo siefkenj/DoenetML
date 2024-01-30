@@ -271,11 +271,11 @@ pub enum ComponentProfile {
 /// by using the value of that specified state variable.
 ///
 /// The component profile state variables are used to match the component profiles
-/// specified in a graph query requesting children.
+/// specified in a data query requesting children.
 ///
 /// A component specifies a vector of ComponentProfileStateVariables in priority order,
 /// where the first ComponentProfileStateVariable matching a ComponentProfile
-/// of a graph query will determine the dependency.
+/// of a data query will determine the dependency.
 #[derive(Debug, Clone)]
 pub enum ComponentProfileStateVariable {
     Text(StateVarView<String>, StateVarIdx),
@@ -288,7 +288,7 @@ pub enum ComponentProfileStateVariable {
 // TODO: derive these with macro?
 impl ComponentProfileStateVariable {
     /// Return the ComponentProfile that matches this ComponentProfileStateVariable
-    /// so that it can be matched with the ComponentProfiles of a child graph query.
+    /// so that it can be matched with the ComponentProfiles of a child data query.
     pub fn get_matching_profile(&self) -> ComponentProfile {
         match self {
             ComponentProfileStateVariable::Text(..) => ComponentProfile::Text,
@@ -302,7 +302,7 @@ impl ComponentProfileStateVariable {
     /// Convert into a state variable view enum of the component profile state variable
     /// as well as the state variable's index.
     ///
-    /// Used to create the dependency matching ComponentProfile of a child graph query.
+    /// Used to create the dependency matching ComponentProfile of a child data query.
     ///
     /// In this way, the state variable depending on the children can calculate its value
     /// from the state variable value of the ComponentProfileStateVariable.

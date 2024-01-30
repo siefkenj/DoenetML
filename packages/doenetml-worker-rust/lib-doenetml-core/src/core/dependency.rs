@@ -113,7 +113,7 @@ pub struct DependencyValueUpdateRequest {
     pub dependency_idx: usize,
 }
 
-/// Create the dependencies specified in the graph query
+/// Create the dependencies specified by the query
 /// by finding elements in the document that match the instruction.
 ///
 /// If an instruction asks for essential data, create it and add it to *essential_data*.

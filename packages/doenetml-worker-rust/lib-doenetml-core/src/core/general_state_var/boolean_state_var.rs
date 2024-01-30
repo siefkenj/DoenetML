@@ -17,10 +17,10 @@ use super::util::{create_data_query_if_match_extend_source, string_to_boolean};
 /// then propagate the `came_from_default` attribute of the essential state variable.
 #[derive(Debug, Default)]
 pub struct BooleanStateVar {
-    /// The base graph query that indicates how the dependencies of this state variable will be created.
+    /// The base data query that indicates how the dependencies of this state variable will be created.
     base_data_query: DataQuery,
 
-    /// The base graph query, potentially augmented by a graph query
+    /// The base data query, potentially augmented by a data query
     /// for shadowing another variable
     data_queries: BooleanStateVarDataQueries,
 
@@ -47,7 +47,7 @@ struct RequiredData {
 }
 
 /// The graph queries that indicate how the dependencies of this state variable will be created.
-/// They consist of the base graph query specified, potentially augmented by a graph query
+/// They consist of the base data query specified, potentially augmented by a data query
 /// for shadowing another variable
 #[derive(Debug, Default, StateVariableDataQueries)]
 struct BooleanStateVarDataQueries {
@@ -55,7 +55,7 @@ struct BooleanStateVarDataQueries {
     /// It was created from the extend source for this component.
     extending: Option<DataQuery>,
 
-    /// The base graph query specified for this variable.
+    /// The base data query specified for this variable.
     ///
     /// (It is always present. It is an option only to satisfy the API for
     /// the `StateVariableDataQueries` derive macro.)
@@ -92,7 +92,7 @@ impl TryFrom<&StateVarViewEnum> for BooleanOrString {
 }
 
 impl BooleanStateVar {
-    /// Creates a state var that queries its value from the given graph query.
+    /// Creates a state var that queries its value from the given data query.
     pub fn new(base_data_query: DataQuery) -> Self {
         BooleanStateVar {
             base_data_query,

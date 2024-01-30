@@ -92,7 +92,7 @@ pub fn into_state_var_enum_refs_derive_wrapper(input: TokenStream) -> TokenStrea
 ///   can be used to satisfy the component profile of type `ProfileType`, where `ProfileType`
 ///   can currently be one of `Text`, `Number`, `Integer`, `Boolean`.
 ///
-///   If a parent has a `Child` or `AttributeChild` graph query, it will request
+///   If a parent has a `Child` or `AttributeChild` data query, it will request
 ///   a particular profile type, and this state variable could be returned.
 ///
 ///   Currently, the `component_profile state_variables` does not have a mechanism for specifying
