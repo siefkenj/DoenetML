@@ -31,7 +31,7 @@ pub struct StringStateVar {
 #[derive(Debug, Default, StateVariableDependencies)]
 struct RequiredData {
     /// A vector of the string values of the dependencies
-    #[consume_remaining_instructions]
+    #[consume_remaining_data_queries]
     strings: Vec<StateVarView<String>>,
 }
 

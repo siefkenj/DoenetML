@@ -42,7 +42,7 @@ pub struct BooleanStateVar {
 #[derive(Debug, Default, StateVariableDependencies)]
 struct RequiredData {
     /// A vector of the boolean or string values of the dependencies
-    #[consume_remaining_instructions]
+    #[consume_remaining_data_queries]
     booleans_or_strings: Vec<BooleanOrString>,
 }
 

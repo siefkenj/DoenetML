@@ -398,7 +398,7 @@ pub fn state_variable_dependencies_derive(input: TokenStream) -> TokenStream {
 
                     if check_if_field_has_attribute(
                         &named[data_query_idx],
-                        "consume_remaining_instructions",
+                        "consume_remaining_data_queries",
                     ) {
                         try_from_dependencies_vec_statements.push(quote! {
                             // Note: This algorithm adds an extra layer that needs to be flattened twice.

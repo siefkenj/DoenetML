@@ -130,7 +130,7 @@ pub fn rendered_state_derive_wrapper(input: TokenStream) -> TokenStream {
     rendered_state_derive(input)
 }
 
-#[proc_macro_derive(StateVariableDependencies, attributes(consume_remaining_instructions))]
+#[proc_macro_derive(StateVariableDependencies, attributes(consume_remaining_data_queries))]
 pub fn state_variable_dependencies_derive_wrapper(input: TokenStream) -> TokenStream {
     state_variable_dependencies_derive(input)
 }
