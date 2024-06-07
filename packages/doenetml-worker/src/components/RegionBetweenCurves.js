@@ -1,7 +1,7 @@
 import GraphicalComponent from "./abstract/GraphicalComponent";
 
-export default class RegionBetweenCurveXAxis extends GraphicalComponent {
-    static componentType = "regionBetweenCurveXAxis";
+export default class RegionBetweenCurves extends GraphicalComponent {
+    static componentType = "regionBetweenCurves";
 
     static createAttributesObject() {
         let attributes = super.createAttributesObject();
@@ -14,11 +14,25 @@ export default class RegionBetweenCurveXAxis extends GraphicalComponent {
             public: true,
         };
 
-        attributes.function = {
-            createComponentOfType: "function",
+        attributes.flipFunctions = {
+            createComponentOfType: "boolean",
+            createStateVariable: "flipFunctions",
+            defaultValue: false,
+            public: true,
+            forRenderer: true,
         };
 
         return attributes;
+    }
+
+    static returnChildGroups() {
+        let groups = super.returnChildGroups();
+        groups.push({
+            group: "functions",
+            componentTypes: ["function"],
+        });
+
+        return groups;
     }
 
     static returnStateVariableDefinitions() {
@@ -73,21 +87,21 @@ export default class RegionBetweenCurveXAxis extends GraphicalComponent {
             },
         };
 
-        stateVariableDefinitions.function = {
+        stateVariableDefinitions.functions = {
             additionalStateVariablesDefined: [
                 {
-                    variableName: "haveFunction",
+                    variableName: "haveFunctions",
                     forRenderer: true,
                 },
                 {
-                    variableName: "fDefinition",
+                    variableName: "fDefinitions",
                     forRenderer: true,
                 },
             ],
             returnDependencies: () => ({
-                functionAttr: {
-                    dependencyType: "attributeComponent",
-                    attributeName: "function",
+                functions: {
+                    dependencyType: "child",
+                    childGroups: ["functions"],
                     variableNames: [
                         "numericalfs",
                         "numInputs",
@@ -98,28 +112,37 @@ export default class RegionBetweenCurveXAxis extends GraphicalComponent {
             }),
             definition({ dependencyValues }) {
                 if (
-                    dependencyValues.functionAttr === null ||
-                    dependencyValues.functionAttr.stateValues.numInputs !== 1 ||
-                    dependencyValues.functionAttr.stateValues.numOutputs !== 1
+                    dependencyValues.functions.length < 2 ||
+                    dependencyValues.functions[0].stateValues.numInputs !== 1 ||
+                    dependencyValues.functions[0].stateValues.numOutputs !==
+                        1 ||
+                    dependencyValues.functions[1].stateValues.numInputs !== 1 ||
+                    dependencyValues.functions[1].stateValues.numOutputs !== 1
                 ) {
                     return {
-                        setValue: {
-                            function: () => NaN,
-                            haveFunction: false,
-                            fDefinition: {},
+                        setValues: {
+                            function: [() => NaN, () => NaN],
+                            haveFunctions: false,
+                            fDefinitions: [{}, {}],
                         },
                     };
                 }
 
                 return {
                     setValue: {
-                        function:
-                            dependencyValues.functionAttr.stateValues
+                        functions: [
+                            dependencyValues.functions[0].stateValues
                                 .numericalfs[0],
-                        haveFunction: true,
-                        fDefinition:
-                            dependencyValues.functionAttr.stateValues
+                            dependencyValues.functions[1].stateValues
+                                .numericalfs[0],
+                        ],
+                        haveFunctions: true,
+                        fDefinitions: [
+                            dependencyValues.functions[0].stateValues
                                 .fDefinition,
+                            dependencyValues.functions[1].stateValues
+                                .fDefinition,
+                        ],
                     },
                 };
             },
@@ -127,22 +150,26 @@ export default class RegionBetweenCurveXAxis extends GraphicalComponent {
 
         stateVariableDefinitions.nearestPoint = {
             returnDependencies: () => ({
-                function: {
+                functions: {
                     dependencyType: "stateVariable",
-                    variableName: "function",
+                    variableName: "functions",
                 },
                 boundaryValues: {
                     dependencyType: "stateVariable",
                     variableName: "boundaryValues",
                 },
-                haveFunction: {
+                flipFunctions: {
                     dependencyType: "stateVariable",
-                    variableName: "haveFunction",
+                    variableName: "flipFunctions",
+                },
+                haveFunctions: {
+                    dependencyType: "stateVariable",
+                    variableName: "haveFunctions",
                 },
             }),
             definition({ dependencyValues }) {
-                // if don't have function, then don't return nearest point
-                if (!dependencyValues.haveFunction) {
+                // if don't have functions, then don't return nearest point
+                if (!dependencyValues.haveFunctions) {
                     return { setValue: { nearestPoint: () => ({}) } };
                 }
                 const minx = Math.min(
@@ -154,17 +181,26 @@ export default class RegionBetweenCurveXAxis extends GraphicalComponent {
                     dependencyValues.boundaryValues[1],
                 );
 
-                const f = dependencyValues.function;
+                const f1 = dependencyValues.functions[0];
+                const f2 = dependencyValues.functions[1];
 
                 let nearestPoint = function ({ variables }) {
                     let x1 = variables.x1.evaluate_to_constant();
                     let x2 = variables.x2.evaluate_to_constant();
 
+                    if (dependencyValues.flipFunctions) {
+                        [x1, x2] = [x2, x1];
+                    }
+
                     x1 = Math.max(minx, Math.min(maxx, x1));
 
-                    let [val1, val2] = [0, f(x1)].sort((a, b) => a - b);
+                    let [val1, val2] = [f1(x1), f2(x1)].sort((a, b) => a - b);
 
                     x2 = Math.max(val1, Math.min(val2, x2));
+
+                    if (dependencyValues.flipFunctions) {
+                        [x1, x2] = [x2, x1];
+                    }
 
                     return { x1, x2 };
                 };

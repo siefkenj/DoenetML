@@ -1119,6 +1119,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -1248,6 +1249,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -1262,7 +1264,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -2154,6 +2157,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -2283,6 +2287,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -2297,7 +2302,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -2488,6 +2494,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -2617,6 +2624,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -2631,7 +2639,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -2822,6 +2831,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -2951,6 +2961,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -2965,7 +2976,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -3357,6 +3369,11 @@
                 {
                     "name": "value",
                     "type": "topic",
+                    "isArray": false
+                },
+                {
+                    "name": "numCharacters",
+                    "type": "integer",
                     "isArray": false
                 },
                 {
@@ -20379,6 +20396,11 @@
                     "isArray": false
                 },
                 {
+                    "name": "numCharacters",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
                     "name": "text",
                     "type": "text",
                     "isArray": false
@@ -24053,6 +24075,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -24180,6 +24203,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -24194,7 +24218,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -24555,6 +24580,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -24682,6 +24708,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -24696,7 +24723,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -25057,6 +25085,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -25184,6 +25213,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -25198,7 +25228,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -25559,6 +25590,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -25686,6 +25718,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -25700,7 +25733,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -26061,6 +26095,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -26188,6 +26223,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -26202,7 +26238,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -26582,6 +26619,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -26709,6 +26747,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -26723,7 +26762,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -27084,6 +27124,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -27211,6 +27252,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -27225,7 +27267,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -27586,6 +27629,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -27713,6 +27757,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -27727,7 +27772,513 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
+            ],
+            "attributes": [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "copySource"
+                },
+                {
+                    "name": "hide",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "disabled",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixed",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixLocation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "styleNumber"
+                },
+                {
+                    "name": "isResponse",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "newNamespace",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "aggregateScores",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "weight"
+                },
+                {
+                    "name": "sectionWideCheckWork",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "submitLabel"
+                },
+                {
+                    "name": "submitLabelNoCorrectness"
+                },
+                {
+                    "name": "displayDigitsForCreditAchieved"
+                },
+                {
+                    "name": "boxed",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "includeAutoName",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "includeAutoNumber",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "includeAutoNameIfNoTitle",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "includeAutoNumberIfNoTitle",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "asList",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "level"
+                },
+                {
+                    "name": "includeParentNumber",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                }
+            ],
+            "properties": [
+                {
+                    "name": "hide",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "modifyIndirectly",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "styleNumber",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
+                    "name": "isResponse",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "newNamespace",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "permid",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "aggregateScores",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "weight",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "sectionWideCheckWork",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "submitLabel",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "submitLabelNoCorrectness",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "displayDigitsForCreditAchieved",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
+                    "name": "boxed",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "includeAutoName",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "includeAutoNumber",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "includeAutoNameIfNoTitle",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "includeAutoNumberIfNoTitle",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "asList",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "includeParentNumber",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "hidden",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "disabled",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixed",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixLocation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "doenetML",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "sectionNumber",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "title",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "creditAchieved",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "percentCreditAchieved",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "open",
+                    "type": "boolean",
+                    "isArray": false
+                }
+            ],
+            "top": true,
+            "acceptsStringChildren": true
+        },
+        {
+            "name": "question",
+            "children": [
+                "variantControl",
+                "title",
+                "setup",
+                "rightHandSide",
+                "description",
+                "xlabel",
+                "ylabel",
+                "statement",
+                "introduction",
+                "conclusion",
+                "topic",
+                "m",
+                "me",
+                "men",
+                "md",
+                "mdn",
+                "mrow",
+                "not",
+                "and",
+                "or",
+                "xor",
+                "isInteger",
+                "isNumber",
+                "isBetween",
+                "sum",
+                "product",
+                "clampNumber",
+                "wrapNumberPeriodic",
+                "round",
+                "setSmallToZero",
+                "convertSetToList",
+                "ceil",
+                "floor",
+                "abs",
+                "sign",
+                "mean",
+                "median",
+                "variance",
+                "standardDeviation",
+                "count",
+                "min",
+                "max",
+                "mod",
+                "gcd",
+                "extractMath",
+                "clampFunction",
+                "wrapFunctionPeriodic",
+                "derivative",
+                "extractMathOperator",
+                "em",
+                "alert",
+                "q",
+                "sq",
+                "term",
+                "c",
+                "tag",
+                "tage",
+                "tagc",
+                "attr",
+                "ndash",
+                "mdash",
+                "nbsp",
+                "ellipsis",
+                "lq",
+                "rq",
+                "lsq",
+                "rsq",
+                "section",
+                "subsection",
+                "subsubsection",
+                "paragraphs",
+                "aside",
+                "objectives",
+                "problem",
+                "exercise",
+                "question",
+                "activity",
+                "example",
+                "definition",
+                "note",
+                "theorem",
+                "proof",
+                "problems",
+                "exercises",
+                "ol",
+                "ul",
+                "odesystem",
+                "cobwebPolyline",
+                "equilibriumPoint",
+                "equilibriumLine",
+                "equilibriumCurve",
+                "atom",
+                "ion",
+                "ionicCompound",
+                "electronConfiguration",
+                "orbitalDiagram",
+                "orbitalDiagramInput",
+                "sideBySide",
+                "sbsGroup",
+                "stack",
+                "h",
+                "idx",
+                "div",
+                "span",
+                "pre",
+                "displayDoenetML",
+                "paginator",
+                "paginatorControls",
+                "matrixInput",
+                "solution",
+                "document",
+                "text",
+                "textList",
+                "p",
+                "boolean",
+                "booleanList",
+                "math",
+                "mathList",
+                "tupleList",
+                "numberList",
+                "collect",
+                "ref",
+                "point",
+                "coords",
+                "line",
+                "lineSegment",
+                "ray",
+                "polyline",
+                "polygon",
+                "triangle",
+                "rectangle",
+                "regularPolygon",
+                "circle",
+                "parabola",
+                "curve",
+                "bezierControls",
+                "controlVectors",
+                "vector",
+                "angle",
+                "answer",
+                "award",
+                "when",
+                "mathInput",
+                "textInput",
+                "booleanInput",
+                "choiceInput",
+                "choice",
+                "number",
+                "integer",
+                "graph",
+                "function",
+                "piecewiseFunction",
+                "interval",
+                "sequence",
+                "slider",
+                "spreadsheet",
+                "cell",
+                "row",
+                "column",
+                "cellBlock",
+                "tabular",
+                "table",
+                "figure",
+                "markers",
+                "map",
+                "pegboard",
+                "intersection",
+                "conditionalContent",
+                "asList",
+                "selectFromSequence",
+                "select",
+                "group",
+                "animateFromSequence",
+                "evaluate",
+                "selectRandomNumbers",
+                "sampleRandomNumbers",
+                "selectPrimeNumbers",
+                "samplePrimeNumbers",
+                "substitute",
+                "periodicSet",
+                "image",
+                "video",
+                "hint",
+                "intcomma",
+                "pluralize",
+                "feedback",
+                "lorem",
+                "updateValue",
+                "callAction",
+                "triggerSet",
+                "functionIterates",
+                "module",
+                "footnote",
+                "caption",
+                "endpoint",
+                "sort",
+                "shuffle",
+                "solveEquations",
+                "subsetOfRealsInput",
+                "subsetOfReals",
+                "split",
+                "bestFitLine",
+                "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
+                "regionHalfPlane",
+                "codeEditor",
+                "codeViewer",
+                "hasSameFactoring",
+                "dataFrame",
+                "summaryStatistics",
+                "chart",
+                "legend",
+                "label",
+                "matchesPattern",
+                "matrix",
+                "eigenDecomposition",
+                "latex",
+                "blockQuote",
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -28088,6 +28639,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -28215,6 +28767,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -28229,7 +28782,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -28590,6 +29144,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -28717,6 +29272,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -28731,7 +29287,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -29092,6 +29649,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -29219,6 +29777,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -29233,7 +29792,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -29594,6 +30154,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -29721,6 +30282,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -29735,7 +30297,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -30096,6 +30659,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -30223,6 +30787,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -30237,7 +30802,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -30598,6 +31164,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -30725,6 +31292,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -30739,7 +31307,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -31110,6 +31679,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -31237,6 +31807,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -31251,7 +31822,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -31603,6 +32175,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -31730,6 +32303,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -31744,7 +32318,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -32364,6 +32939,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -32493,6 +33069,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -32507,7 +33084,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -33065,6 +33643,61 @@
                     ]
                 },
                 {
+                    "name": "rigid",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "rotationHandleVertices"
+                },
+                {
+                    "name": "rotateAround",
+                    "values": [
+                        "centroid",
+                        "vertex",
+                        "point"
+                    ]
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "rotationVertex"
+                },
+                {
+                    "name": "allowRotation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowTranslation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowDilation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "minShrink"
+                },
+                {
                     "name": "displayDigits"
                 },
                 {
@@ -33166,6 +33799,21 @@
                     "isArray": false
                 },
                 {
+                    "name": "rigid",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowRotation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowTranslation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "attractThreshold",
                     "type": "number",
                     "isArray": false
@@ -33243,6 +33891,16 @@
                 {
                     "name": "styleDescriptionWithNoun",
                     "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowDilation",
+                    "type": "boolean",
                     "isArray": false
                 },
                 {
@@ -36901,6 +37559,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -37387,6 +38046,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -37516,6 +38176,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -37530,7 +38191,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -37928,6 +38590,11 @@
                     "isArray": false
                 },
                 {
+                    "name": "numCharacters",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
                     "name": "text",
                     "type": "text",
                     "isArray": false
@@ -38208,6 +38875,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -38337,6 +39005,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -38351,7 +39020,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -38542,6 +39212,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -38671,6 +39342,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -38685,7 +39357,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -38876,6 +39549,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -39005,6 +39679,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -39019,7 +39694,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -39210,6 +39886,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -39339,6 +40016,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -39353,7 +40031,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -39564,6 +40243,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -39693,6 +40373,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -39707,7 +40388,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -40432,6 +41114,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -40672,6 +41355,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -40799,6 +41483,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -40813,7 +41498,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -41216,6 +41902,11 @@
                 {
                     "name": "value",
                     "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "numCharacters",
+                    "type": "integer",
                     "isArray": false
                 },
                 {
@@ -44048,6 +44739,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -44177,6 +44869,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -44191,7 +44884,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -46326,6 +47020,61 @@
                     ]
                 },
                 {
+                    "name": "rigid",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "rotationHandleVertices"
+                },
+                {
+                    "name": "rotateAround",
+                    "values": [
+                        "centroid",
+                        "vertex",
+                        "point"
+                    ]
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "rotationVertex"
+                },
+                {
+                    "name": "allowRotation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowTranslation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowDilation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "minShrink"
+                },
+                {
                     "name": "displayDigits"
                 },
                 {
@@ -46399,6 +47148,21 @@
                     "isArray": false
                 },
                 {
+                    "name": "rigid",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowRotation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowTranslation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "hidden",
                     "type": "boolean",
                     "isArray": false
@@ -46456,6 +47220,16 @@
                 {
                     "name": "styleDescriptionWithNoun",
                     "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowDilation",
+                    "type": "boolean",
                     "isArray": false
                 },
                 {
@@ -46600,6 +47374,61 @@
                     ]
                 },
                 {
+                    "name": "rigid",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "rotationHandleVertices"
+                },
+                {
+                    "name": "rotateAround",
+                    "values": [
+                        "centroid",
+                        "vertex",
+                        "point"
+                    ]
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "rotationVertex"
+                },
+                {
+                    "name": "allowRotation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowTranslation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowDilation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "minShrink"
+                },
+                {
                     "name": "displayDigits"
                 },
                 {
@@ -46680,6 +47509,21 @@
                     "isArray": false
                 },
                 {
+                    "name": "rigid",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowRotation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowTranslation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "filled",
                     "type": "boolean",
                     "isArray": false
@@ -46745,6 +47589,16 @@
                     "isArray": false
                 },
                 {
+                    "name": "preserveSimilarity",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowDilation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "verticesDraggable",
                     "type": "boolean",
                     "isArray": false
@@ -46793,6 +47647,11 @@
                 },
                 {
                     "name": "area",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "numSides",
                     "type": "number",
                     "isArray": false
                 }
@@ -46901,6 +47760,61 @@
                     ]
                 },
                 {
+                    "name": "rigid",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "rotationHandleVertices"
+                },
+                {
+                    "name": "rotateAround",
+                    "values": [
+                        "centroid",
+                        "vertex",
+                        "point"
+                    ]
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "rotationVertex"
+                },
+                {
+                    "name": "allowRotation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowTranslation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowDilation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "minShrink"
+                },
+                {
                     "name": "displayDigits"
                 },
                 {
@@ -46981,6 +47895,21 @@
                     "isArray": false
                 },
                 {
+                    "name": "rigid",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowRotation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowTranslation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "filled",
                     "type": "boolean",
                     "isArray": false
@@ -47046,6 +47975,16 @@
                     "isArray": false
                 },
                 {
+                    "name": "preserveSimilarity",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowDilation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "verticesDraggable",
                     "type": "boolean",
                     "isArray": false
@@ -47094,6 +48033,11 @@
                 },
                 {
                     "name": "area",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "numSides",
                     "type": "number",
                     "isArray": false
                 }
@@ -47202,6 +48146,61 @@
                     ]
                 },
                 {
+                    "name": "rigid",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "rotationHandleVertices"
+                },
+                {
+                    "name": "rotateAround",
+                    "values": [
+                        "centroid",
+                        "vertex",
+                        "point"
+                    ]
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "rotationVertex"
+                },
+                {
+                    "name": "allowRotation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowTranslation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowDilation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "minShrink"
+                },
+                {
                     "name": "displayDigits"
                 },
                 {
@@ -47291,6 +48290,21 @@
                     "isArray": false
                 },
                 {
+                    "name": "rigid",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowRotation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowTranslation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "filled",
                     "type": "boolean",
                     "isArray": false
@@ -47353,6 +48367,16 @@
                 {
                     "name": "styleDescriptionWithNoun",
                     "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowDilation",
+                    "type": "boolean",
                     "isArray": false
                 },
                 {
@@ -47426,6 +48450,11 @@
                 },
                 {
                     "name": "height",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "numSides",
                     "type": "number",
                     "isArray": false
                 }
@@ -47532,6 +48561,54 @@
                         "true",
                         "false"
                     ]
+                },
+                {
+                    "name": "rigid",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "rotationHandleVertices"
+                },
+                {
+                    "name": "rotateAround",
+                    "values": [
+                        "centroid",
+                        "vertex",
+                        "point"
+                    ]
+                },
+                {
+                    "name": "rotationCenter"
+                },
+                {
+                    "name": "rotationVertex"
+                },
+                {
+                    "name": "allowRotation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowTranslation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "allowDilation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "minShrink"
                 },
                 {
                     "name": "displayDigits"
@@ -47644,6 +48721,21 @@
                     "isArray": false
                 },
                 {
+                    "name": "rigid",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowRotation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowTranslation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
                     "name": "filled",
                     "type": "boolean",
                     "isArray": false
@@ -47706,6 +48798,16 @@
                 {
                     "name": "styleDescriptionWithNoun",
                     "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "preserveSimilarity",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "allowDilation",
+                    "type": "boolean",
                     "isArray": false
                 },
                 {
@@ -53411,6 +54513,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -53540,6 +54643,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -53554,7 +54658,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -54491,9 +55596,11 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "legend",
                 "matrix",
+                "stickyGroup",
                 "image",
                 "topic",
                 "not",
@@ -56617,6 +57724,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -56746,6 +57854,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -56760,7 +57869,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -56970,6 +58080,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -57099,6 +58210,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -57113,7 +58225,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -58151,6 +59264,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -58239,6 +59353,7 @@
                 "subsetOfRealsInput",
                 "split",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -58251,7 +59366,8 @@
                 "matchesPattern",
                 "eigenDecomposition",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -59285,6 +60401,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -59620,6 +60737,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -60209,6 +61327,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -60338,6 +61457,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -60352,7 +61472,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -60671,7 +61792,8 @@
                 "constrainTo",
                 "attractTo",
                 "constraintUnion",
-                "attractToConstraint"
+                "attractToConstraint",
+                "constrainToInterior"
             ],
             "attributes": [
                 {
@@ -61357,9 +62479,11 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "legend",
-                "matrix"
+                "matrix",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -61559,9 +62683,11 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "legend",
-                "matrix"
+                "matrix",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -61705,7 +62831,8 @@
                 "constrainTo",
                 "attractTo",
                 "constraintUnion",
-                "attractToConstraint"
+                "attractToConstraint",
+                "constrainToInterior"
             ],
             "attributes": [
                 {
@@ -61829,7 +62956,8 @@
                 "constrainTo",
                 "attractTo",
                 "constraintUnion",
-                "attractToConstraint"
+                "attractToConstraint",
+                "constrainToInterior"
             ],
             "attributes": [
                 {
@@ -61921,6 +63049,210 @@
                 {
                     "name": "threshold",
                     "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "hidden",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "disabled",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixed",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixLocation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "doenetML",
+                    "type": "text",
+                    "isArray": false
+                }
+            ],
+            "top": false,
+            "acceptsStringChildren": false
+        },
+        {
+            "name": "constrainToInterior",
+            "children": [
+                "rightHandSide",
+                "sum",
+                "product",
+                "clampNumber",
+                "wrapNumberPeriodic",
+                "round",
+                "setSmallToZero",
+                "convertSetToList",
+                "ceil",
+                "floor",
+                "abs",
+                "sign",
+                "mean",
+                "median",
+                "variance",
+                "standardDeviation",
+                "count",
+                "min",
+                "max",
+                "mod",
+                "gcd",
+                "extractMath",
+                "clampFunction",
+                "wrapFunctionPeriodic",
+                "derivative",
+                "cobwebPolyline",
+                "equilibriumPoint",
+                "equilibriumLine",
+                "equilibriumCurve",
+                "electronConfiguration",
+                "idx",
+                "math",
+                "collect",
+                "point",
+                "coords",
+                "line",
+                "lineSegment",
+                "ray",
+                "polyline",
+                "polygon",
+                "triangle",
+                "rectangle",
+                "regularPolygon",
+                "circle",
+                "parabola",
+                "curve",
+                "vector",
+                "angle",
+                "function",
+                "piecewiseFunction",
+                "interval",
+                "sequence",
+                "map",
+                "pegboard",
+                "intersection",
+                "conditionalContent",
+                "selectFromSequence",
+                "select",
+                "group",
+                "evaluate",
+                "substitute",
+                "periodicSet",
+                "module",
+                "endpoint",
+                "sort",
+                "shuffle",
+                "subsetOfReals",
+                "split",
+                "bestFitLine",
+                "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
+                "regionHalfPlane",
+                "legend",
+                "matrix",
+                "stickyGroup"
+            ],
+            "attributes": [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "copySource"
+                },
+                {
+                    "name": "hide",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "disabled",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixed",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixLocation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "styleNumber"
+                },
+                {
+                    "name": "isResponse",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "newNamespace",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "relativeToGraphScales",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                }
+            ],
+            "properties": [
+                {
+                    "name": "hide",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "modifyIndirectly",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "styleNumber",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
+                    "name": "isResponse",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "newNamespace",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "permid",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "relativeToGraphScales",
+                    "type": "boolean",
                     "isArray": false
                 },
                 {
@@ -62166,6 +63498,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -62295,6 +63628,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -62309,7 +63643,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -63273,6 +64608,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -63402,6 +64738,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -63416,7 +64753,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -65131,6 +66469,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -65260,6 +66599,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -65274,7 +66614,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -66541,6 +67882,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -66670,6 +68012,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -66684,7 +68027,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -67084,6 +68428,11 @@
                     "isArray": false
                 },
                 {
+                    "name": "numCharacters",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
                     "name": "text",
                     "type": "text",
                     "isArray": false
@@ -67403,6 +68752,11 @@
                     "isArray": false
                 },
                 {
+                    "name": "numCharacters",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
                     "name": "text",
                     "type": "text",
                     "isArray": false
@@ -67507,6 +68861,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -67636,6 +68991,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -67650,7 +69006,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -67839,6 +69196,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -67968,6 +69326,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -67982,7 +69341,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -68173,6 +69533,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -68302,6 +69663,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -68316,7 +69678,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -69565,6 +70928,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -69694,6 +71058,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -69708,7 +71073,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -70040,6 +71406,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -70169,6 +71536,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -70184,6 +71552,7 @@
                 "latex",
                 "blockQuote",
                 "contentPicker",
+                "stickyGroup",
                 "customAttribute"
             ],
             "attributes": [
@@ -70718,6 +72087,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -71391,6 +72761,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -71520,6 +72891,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -71534,7 +72906,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -71764,6 +73137,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -71893,6 +73267,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -71907,7 +73282,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -73080,6 +74456,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -73209,6 +74586,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -73223,7 +74601,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -73878,6 +75257,198 @@
             "acceptsStringChildren": false
         },
         {
+            "name": "regionBetweenCurves",
+            "children": [
+                "xlabel",
+                "ylabel",
+                "label",
+                "clampFunction",
+                "wrapFunctionPeriodic",
+                "derivative",
+                "function",
+                "piecewiseFunction"
+            ],
+            "attributes": [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "copySource"
+                },
+                {
+                    "name": "hide",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "disabled",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixed",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixLocation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "styleNumber"
+                },
+                {
+                    "name": "isResponse",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "newNamespace",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "labelIsName",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "applyStyleToLabel",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "layer"
+                },
+                {
+                    "name": "boundaryValues"
+                },
+                {
+                    "name": "flipFunctions",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                }
+            ],
+            "properties": [
+                {
+                    "name": "hide",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "modifyIndirectly",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "styleNumber",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
+                    "name": "isResponse",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "newNamespace",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "permid",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "labelIsName",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "applyStyleToLabel",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "layer",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
+                    "name": "boundaryValues",
+                    "type": "numberList",
+                    "isArray": false
+                },
+                {
+                    "name": "flipFunctions",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "hidden",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "disabled",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixed",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixLocation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "doenetML",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "label",
+                    "type": "label",
+                    "isArray": false
+                },
+                {
+                    "name": "styleDescription",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "styleDescriptionWithNoun",
+                    "type": "text",
+                    "isArray": false
+                }
+            ],
+            "top": true,
+            "acceptsStringChildren": false
+        },
+        {
             "name": "regionHalfPlane",
             "children": [
                 "xlabel",
@@ -74142,6 +75713,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -74271,6 +75843,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -74285,7 +75858,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -77714,6 +79288,11 @@
                     "isArray": false
                 },
                 {
+                    "name": "numCharacters",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
                     "name": "text",
                     "type": "text",
                     "isArray": false
@@ -77813,6 +79392,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -77942,6 +79522,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -77956,7 +79537,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -78147,6 +79729,7 @@
                 "objectives",
                 "problem",
                 "exercise",
+                "question",
                 "activity",
                 "example",
                 "definition",
@@ -78276,6 +79859,7 @@
                 "split",
                 "bestFitLine",
                 "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
                 "regionHalfPlane",
                 "codeEditor",
                 "codeViewer",
@@ -78290,7 +79874,8 @@
                 "eigenDecomposition",
                 "latex",
                 "blockQuote",
-                "contentPicker"
+                "contentPicker",
+                "stickyGroup"
             ],
             "attributes": [
                 {
@@ -78422,6 +80007,271 @@
             ],
             "top": true,
             "acceptsStringChildren": true
+        },
+        {
+            "name": "stickyGroup",
+            "children": [
+                "xlabel",
+                "ylabel",
+                "label",
+                "rightHandSide",
+                "sum",
+                "product",
+                "clampNumber",
+                "wrapNumberPeriodic",
+                "round",
+                "setSmallToZero",
+                "convertSetToList",
+                "ceil",
+                "floor",
+                "abs",
+                "sign",
+                "mean",
+                "median",
+                "variance",
+                "standardDeviation",
+                "count",
+                "min",
+                "max",
+                "mod",
+                "gcd",
+                "extractMath",
+                "clampFunction",
+                "wrapFunctionPeriodic",
+                "derivative",
+                "cobwebPolyline",
+                "equilibriumPoint",
+                "equilibriumLine",
+                "equilibriumCurve",
+                "electronConfiguration",
+                "idx",
+                "math",
+                "collect",
+                "point",
+                "coords",
+                "line",
+                "lineSegment",
+                "ray",
+                "polyline",
+                "polygon",
+                "triangle",
+                "rectangle",
+                "regularPolygon",
+                "circle",
+                "parabola",
+                "curve",
+                "vector",
+                "angle",
+                "function",
+                "piecewiseFunction",
+                "interval",
+                "sequence",
+                "map",
+                "pegboard",
+                "intersection",
+                "conditionalContent",
+                "selectFromSequence",
+                "select",
+                "group",
+                "evaluate",
+                "substitute",
+                "periodicSet",
+                "module",
+                "endpoint",
+                "sort",
+                "shuffle",
+                "subsetOfReals",
+                "split",
+                "bestFitLine",
+                "regionBetweenCurveXAxis",
+                "regionBetweenCurves",
+                "regionHalfPlane",
+                "legend",
+                "matrix",
+                "stickyGroup"
+            ],
+            "attributes": [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "copySource"
+                },
+                {
+                    "name": "hide",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "disabled",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixed",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "fixLocation",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "styleNumber"
+                },
+                {
+                    "name": "isResponse",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "newNamespace",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "labelIsName",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "applyStyleToLabel",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "layer"
+                },
+                {
+                    "name": "relativeToGraphScales",
+                    "values": [
+                        "true",
+                        "false"
+                    ]
+                },
+                {
+                    "name": "threshold"
+                },
+                {
+                    "name": "angleThreshold"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "hide",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "modifyIndirectly",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "styleNumber",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
+                    "name": "isResponse",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "newNamespace",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "permid",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "labelIsName",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "applyStyleToLabel",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "layer",
+                    "type": "integer",
+                    "isArray": false
+                },
+                {
+                    "name": "relativeToGraphScales",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "angleThreshold",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "hidden",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "disabled",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixed",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "fixLocation",
+                    "type": "boolean",
+                    "isArray": false
+                },
+                {
+                    "name": "doenetML",
+                    "type": "text",
+                    "isArray": false
+                },
+                {
+                    "name": "label",
+                    "type": "label",
+                    "isArray": false
+                },
+                {
+                    "name": "scales",
+                    "type": "number",
+                    "isArray": false
+                },
+                {
+                    "name": "threshold",
+                    "type": "number",
+                    "isArray": false
+                }
+            ],
+            "top": true,
+            "acceptsStringChildren": false
         }
     ]
 }
